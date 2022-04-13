@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
-
     private ActionBarDrawerToggle drawerToggle;
 
     @Override
