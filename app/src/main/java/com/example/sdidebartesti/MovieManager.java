@@ -50,7 +50,8 @@ public class MovieManager {
                     int id = Integer.parseInt(element.getElementsByTagName("ID").item(0).getTextContent());
                     String title = element.getElementsByTagName("Title").item(0).getTextContent();
                     String originalTitle = element.getElementsByTagName("OriginalTitle").item(0).getTextContent();
-                    int year = Integer.parseInt(element.getElementsByTagName("ProductionYear").item(0).getTextContent());
+                    String yearString = ((element.getElementsByTagName("dtLocalRelease").item(0).getTextContent()).toString()).substring(0,4);
+                    int yearInt = Integer.parseInt(yearString);
                     int counter = 0;
                     for (i = 0 ; i < MOVIES.size() ; i++){
                         if (id == MOVIES.get(i).getId()) {
@@ -61,9 +62,9 @@ public class MovieManager {
                         }
                     }
                     if (counter == MOVIES.size()) {
-                        float rating = searchRating(originalTitle,year);
-                        Movie m1 = new Movie(id, title, rating,year);
-                        System.out.println(title + " " + id + " " + rating+ " year: "+ year);
+                        float rating = searchRating(originalTitle,yearInt);
+                        Movie m1 = new Movie(id, title, rating,yearInt);
+                        System.out.println(title + " " + id + " " + rating+ " year: "+ yearInt);
                         MOVIES.add(m1);
                     }
 
@@ -77,11 +78,11 @@ public class MovieManager {
             e.printStackTrace();
         }
     }
-    private float searchRating(String name, int year){
+    private float searchRating(String name, int yearInt){
         float rating = 0;
         String response = null;
         String id_IMDB = null;
-        String url_IMDB_searchID = "https://imdb-api.com/en/API/SearchMovie/k_3hvxrslh/"+name;
+        String url_IMDB_searchID = "https://imdb-api.com/en/API/SearchMovie/k_lcn8k0fb/"+name+" "+yearInt;
         try{
             URL url = new URL(url_IMDB_searchID);
             HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
@@ -108,7 +109,7 @@ public class MovieManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String url_IMDB_searchRating = "https://imdb-api.com/en/API/Ratings/k_3hvxrslh/"+id_IMDB;
+        String url_IMDB_searchRating = "https://imdb-api.com/en/API/Ratings/k_lcn8k0fb/"+id_IMDB;
         try{
             URL url = new URL(url_IMDB_searchRating);
             HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
