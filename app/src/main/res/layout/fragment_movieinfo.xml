@@ -14,12 +14,13 @@
             android:layout_width="248dp"
             android:layout_height="62dp"
             android:layout_gravity="center|top"
-            android:text="Tämä on MovieInfo fragmentti "
+            android:text="Tämä on MovieInfo fragmentti"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
