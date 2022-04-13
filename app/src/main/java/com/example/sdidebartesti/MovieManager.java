@@ -1,5 +1,6 @@
 package com.example.sdidebartesti;
 
+import android.content.SyncStatusObserver;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 
@@ -8,8 +9,19 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+
+import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -37,6 +49,8 @@ public class MovieManager {
                     Element element = (Element) node;
                     int id = Integer.parseInt(element.getElementsByTagName("ID").item(0).getTextContent());
                     String title = element.getElementsByTagName("Title").item(0).getTextContent();
+                    String originalTitle = element.getElementsByTagName("OriginalTitle").item(0).getTextContent();
+                    int year = Integer.parseInt(element.getElementsByTagName("ProductionYear").item(0).getTextContent());
                     int counter = 0;
                     for (i = 0 ; i < MOVIES.size() ; i++){
                         if (id == MOVIES.get(i).getId()) {
@@ -47,9 +61,9 @@ public class MovieManager {
                         }
                     }
                     if (counter == MOVIES.size()) {
-                        int rating = searchRating(title);
-                        Movie m1 = new Movie(id, title, rating);
-                        System.out.println(title + " " + id);
+                        float rating = searchRating(originalTitle,year);
+                        Movie m1 = new Movie(id, title, rating,year);
+                        System.out.println(title + " " + id + " " + rating+ " year: "+ year);
                         MOVIES.add(m1);
                     }
 
@@ -63,10 +77,66 @@ public class MovieManager {
             e.printStackTrace();
         }
     }
-    private int searchRating(String name){
-        String url_IMDB = "https://imdb-api.com/en/API/Search/k_y3x6e641/"+name;
-        int rating = 0;
+    private float searchRating(String name, int year){
+        float rating = 0;
+        String response = null;
+        String id_IMDB = null;
+        String url_IMDB_searchID = "https://imdb-api.com/en/API/SearchMovie/k_3hvxrslh/"+name;
+        try{
+            URL url = new URL(url_IMDB_searchID);
+            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            InputStream in =new BufferedInputStream(conn.getInputStream());
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while((line = br.readLine())!= null){
+                sb.append(line).append("\n");
+            }
+            response = sb.toString();
+            if (response.substring(response.indexOf("[")+17,response.indexOf("[")+18).equals("'")){
+                id_IMDB = response.substring(response.indexOf("[")+8,response.indexOf("[")+17);
+            }
+            else{
+                id_IMDB = response.substring(response.indexOf("[")+8,response.indexOf("[")+18);
+            }
+            in.close();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String url_IMDB_searchRating = "https://imdb-api.com/en/API/Ratings/k_3hvxrslh/"+id_IMDB;
+        try{
+            URL url = new URL(url_IMDB_searchRating);
+            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            InputStream in =new BufferedInputStream(conn.getInputStream());
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while((line = br.readLine())!= null){
+                sb.append(line).append("\n");
+            }
+            response = sb.toString();
+            in.close();
+            String character = response.substring(response.indexOf("metacritic")-6,response.indexOf("metacritic")-5);
+            if (character.equals("0") || character.equals("1") || character.equals("2") || character.equals("3") || character.equals("4") || character.equals("5") || character.equals("6") || character.equals("7") || character.equals("8") || character.equals("9")){
+                rating = Float.valueOf(response.substring(response.indexOf("metacritic")-6,response.indexOf("metacritic")-3));
 
+            }
+            else{
+                rating = 0;
+            }
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return rating;
     }
     public static MovieManager getInstance(){
