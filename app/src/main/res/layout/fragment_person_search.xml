@@ -12,8 +12,8 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="248dp"
-            android:layout_height="62dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center|top"
             android:text="Tämä on personSearch fragment."
             android:textAlignment="center"
@@ -26,8 +26,9 @@
         <ListView
             android:id="@+id/movieListView"
             android:layout_width="0dp"
-            android:layout_height="483dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
