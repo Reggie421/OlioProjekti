@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+//This method runs the wanted fragments from the selection of the side bar.
     public void selectDrawerItem(MenuItem item){
         Fragment fragment = null;
         Class fragmentClass;
@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.personsearch:
                 fragmentClass = PersonSearchFragment.class;
+                break;
+            case R.id.favorites:
+                fragmentClass = FavoriteFragment.class;
                 break;
             default:
                 fragmentClass = HomeFragment.class;
