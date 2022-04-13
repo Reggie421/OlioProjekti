@@ -3,25 +3,23 @@
         <item
             android:id="@+id/home"
             android:icon="@drawable/ic_baseline_home_24"
-            android:title="Koti"/>
+            android:title="Koti" />
+        <item
+            android:id="@+id/search"
+            android:icon="@drawable/ic_baseline_search_24"
+            android:title="Elokuvahaku"/>
+        <item
+            android:id="@+id/personsearch"
+            android:icon="@drawable/ic_baseline_person_search_24"
+            android:title="Henkilöhaku"/>
+        <item
+            android:id="@+id/favorites"
+            android:icon="@drawable/ic_baseline_star_24"
+            android:title="Suosikit"/>
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_baseline_settings_24"
             android:title="Asetukset"/>
-        <item
-            android:title="Sub-shit">
-            <menu>
-                <group android:checkableBehavior="single">
-                    <item
-                        android:id="@+id/search"
-                        android:icon="@drawable/ic_baseline_search_24"
-                        android:title="Elokuvahaku"/>
-                    <item
-                        android:id="@+id/personsearch"
-                        android:icon="@drawable/ic_baseline_person_search_24"
-                        android:title="Henkilöhaku"/>
-                </group>
-            </menu>
-        </item>
+
     </group>
 </menu>
