@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         HomeFragment homeFragment = new HomeFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, homeFragment).commit();
-        MovieManager mm = MovieManager.getInstance();
+        //MovieManager mm = MovieManager.getInstance();
     }
 
 

@@ -25,7 +25,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
+/*
 public class MovieManager {
     private static MovieManager mm = new MovieManager();
     ArrayList<Movie> MOVIES;
@@ -144,4 +144,4 @@ public class MovieManager {
     public static MovieManager getInstance(){
         return mm;
     }
-}
+}*/
