@@ -53,6 +53,7 @@ public class MovieManager {
                     String yearString = ((element.getElementsByTagName("dtLocalRelease").item(0).getTextContent()).toString()).substring(0,4);
                     int yearInt = Integer.parseInt(yearString);
                     int counter = 0;
+                    System.out.println(title+" "+originalTitle+" "+yearString);
                     for (i = 0 ; i < MOVIES.size() ; i++){
                         if (id == MOVIES.get(i).getId()) {
                             break;
@@ -62,9 +63,8 @@ public class MovieManager {
                         }
                     }
                     if (counter == MOVIES.size()) {
-                        float rating = searchRating(originalTitle,yearInt);
-                        Movie m1 = new Movie(id, title, rating,yearInt);
-                        System.out.println(title + " " + id + " " + rating+ " year: "+ yearInt);
+                        /*float rating = searchRating(originalTitle,yearInt);*/ //<-elokuva info fragmentissa
+                        Movie m1 = new Movie(id, title, yearInt);
                         MOVIES.add(m1);
                     }
 
@@ -78,6 +78,7 @@ public class MovieManager {
             e.printStackTrace();
         }
     }
+
     private float searchRating(String name, int yearInt){
         float rating = 0;
         String response = null;
