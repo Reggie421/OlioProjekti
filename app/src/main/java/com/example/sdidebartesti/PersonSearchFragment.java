@@ -11,6 +11,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,12 @@ public class PersonSearchFragment extends Fragment {
                 String itemName = (String) personSearchList.getItemAtPosition(i);
                 System.out.println("******** HOMMA TOIMII *******");
                 System.out.println(itemName);
+                MovieInfoFragment movieInfoFragment = new MovieInfoFragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, movieInfoFragment).addToBackStack(null).commit();
+                Bundle bundle = new Bundle();
+                bundle.putString("key", itemName);
+                movieInfoFragment.setArguments(bundle);
             }
         });
     }
