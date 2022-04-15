@@ -12,7 +12,6 @@ public class MovieInfoFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_movieinfo, container, false);
-        //PUSHKOMMENTTI
     }
 
     /*
