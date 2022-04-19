@@ -44,9 +44,9 @@ public class SearchFragment extends Fragment {
             }
         });
         /// TÄHÄN VÄLIIN HAETAAN "movieSearchName"lla MOVIEMANAGERISTA LISTAT ELOKUVISTA
-        ArrayList<String> MoviesArrayList = new ArrayList<String>();
+        ArrayList<String> MoviesArrayList = new ArrayList<String>(); // Tää lista korvataan listalla elokuvia, joiden nimestä löytyy HAKUSANA
         MoviesArrayList.add("Elokuva 1");
-        MoviesArrayList.add("Elokuva 2");                               // Tää lista korvataan listalla elokuvia, joiden nimestä löytyy HAKUSANA
+        MoviesArrayList.add("Elokuva 2");
         MoviesArrayList.add("Elokuva 3");
         MoviesArrayList.add("Elokuva 4");
         MoviesArrayList.add("Elokuva 5");
