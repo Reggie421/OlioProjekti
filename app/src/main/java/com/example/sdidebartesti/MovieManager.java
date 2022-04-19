@@ -17,7 +17,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.DocumentBuilder;
@@ -50,17 +49,9 @@ public class MovieManager {
                     String originalTitle = element.getElementsByTagName("OriginalTitle").item(0).getTextContent();
                     String yearString = ((element.getElementsByTagName("dtLocalRelease").item(0).getTextContent()).toString()).substring(0,4);
                     int yearInt = Integer.parseInt(yearString);
-                    System.out.println("-----");
                     System.out.println("Elokuva alla "+title);
-                    System.out.println("---");
                     String cast = element.getElementsByTagName("Cast").item(0).getTextContent();
-
-                    String[] linesArr = cast.split("\n");
-                    for (int j = 2 ; j < linesArr.length ; j++ ){
-                        System.out.println(linesArr[j].substring(8)+" "+linesArr[j+1].substring(8));
-                        j += 3;
-                    }
-                    //System.out.println(Arrays.toString(linesArr));
+                    System.out.println(cast);
 
                     int counter = 0;
                     for (i = 0 ; i < MOVIES.size() ; i++){
