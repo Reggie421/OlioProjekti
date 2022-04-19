@@ -40,34 +40,32 @@ public class MovieManager {
             System.out.println("Root element: "+doc.getDocumentElement().getNodeName());
             NodeList nList1 = doc.getElementsByTagName("Event");
             int x = 0;
-            for (int i = 0; i < nList1.getLength(); i++ ){
+            for (int i = 0; i < nList1.getLength(); i++ ) {
                 Node node = nList1.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE){
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
                     int id = Integer.parseInt(element.getElementsByTagName("ID").item(0).getTextContent());
                     String title = element.getElementsByTagName("Title").item(0).getTextContent();
                     String originalTitle = element.getElementsByTagName("OriginalTitle").item(0).getTextContent();
-                    String yearString = ((element.getElementsByTagName("dtLocalRelease").item(0).getTextContent()).toString()).substring(0,4);
+                    String yearString = ((element.getElementsByTagName("dtLocalRelease").item(0).getTextContent()).toString()).substring(0, 4);
                     int yearInt = Integer.parseInt(yearString);
-                    System.out.println("Elokuva alla "+title);
+                    System.out.println("Elokuva alla " + title);
                     String cast = element.getElementsByTagName("Cast").item(0).getTextContent();
                     System.out.println(cast);
 
                     int counter = 0;
-                    for (i = 0 ; i < MOVIES.size() ; i++){
+                    for (i = 0; i < MOVIES.size(); i++) {
                         if (id == MOVIES.get(i).getId()) {
                             break;
-                        }
-                        else{
+                        } else {
                             counter++;
                         }
                     }
                     if (counter == MOVIES.size()) {
                         /*float rating = searchRating(originalTitle,yearInt);*/ //<-elokuva info fragmentissa
-                        Movie m1 = new Movie(id, title, yearInt,cast);
+                        Movie m1 = new Movie(id, title, yearInt, cast);
                         MOVIES.add(m1);
                     }
-
                 }
             }
         } catch (ParserConfigurationException e) {

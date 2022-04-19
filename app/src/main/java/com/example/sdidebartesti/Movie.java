@@ -7,7 +7,7 @@ public class Movie {
     int year;
     String title;
     String cast;
-    ArrayList Cast;
+    ArrayList<CastMember> CastList;
 
     public Movie(int idValue, String movieName, int yearValue, String castString){
         id = idValue;
