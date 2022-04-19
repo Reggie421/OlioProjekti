@@ -39,18 +39,17 @@ public class SearchFragment extends Fragment {
         movieSearch = view.findViewById(R.id.movieSearchBar);
         showAll = view.findViewById(R.id.buttonShowAll);
         ArrayList<String> MoviesArrayList = new ArrayList<String>();
+        String[] stringMovies = new String[MoviesArrayList.size()];
+        ArrayAdapter<String> moviesAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, MoviesArrayList);
+
         for (int i = 0; i < mm.MOVIES.size(); i++) {
             MoviesArrayList.add(mm.MOVIES.get(i).getTitle());
-            String[] stringMoviesByPersonsArray = new String[MoviesArrayList.size()];
-            MoviesArrayList.toArray(stringMoviesByPersonsArray);
-            ArrayAdapter<String> moviesByPersonsAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, MoviesArrayList);
-            movieSearchListView.setAdapter(moviesByPersonsAdapter);
+            MoviesArrayList.toArray(stringMovies);
+            movieSearchListView.setAdapter(moviesAdapter);
+            moviesAdapter.notifyDataSetChanged();
             movieSearch.setText(null);
         }
-        String[] MoviesList = new String[MoviesArrayList.size()];
-        MoviesArrayList.toArray(MoviesList);
-        ArrayAdapter<String> moviesByPersonsAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, MoviesList);
-        movieSearchListView.setAdapter(moviesByPersonsAdapter);
+        movieSearchListView.setAdapter(moviesAdapter);
         movieSearchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -72,10 +71,10 @@ public class SearchFragment extends Fragment {
                     for (int i = 0; i < mm.MOVIES.size(); i++) {
                         if (mm.MOVIES.get(i).getTitle().contains(searchBarText)) {
                             MoviesArrayList.add(mm.MOVIES.get(i).getTitle());
-                            String[] stringMoviesByPersonsArray = new String[MoviesArrayList.size()];
-                            MoviesArrayList.toArray(stringMoviesByPersonsArray);
-                            ArrayAdapter<String> moviesByPersonsAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, MoviesArrayList);
-                            movieSearchListView.setAdapter(moviesByPersonsAdapter);
+                            MoviesArrayList.toArray(stringMovies);
+                            movieSearchListView.setAdapter(moviesAdapter);
+                            moviesAdapter.notifyDataSetChanged();
+
                         }
                         movieSearch.setText(null);
                     }
@@ -91,10 +90,9 @@ public class SearchFragment extends Fragment {
                 MoviesArrayList.clear();
                 for (int i = 0; i < mm.MOVIES.size(); i++) {
                     MoviesArrayList.add(mm.MOVIES.get(i).getTitle());
-                    String[] stringMoviesByPersonsArray = new String[MoviesArrayList.size()];
-                    MoviesArrayList.toArray(stringMoviesByPersonsArray);
-                    ArrayAdapter<String> moviesByPersonsAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, MoviesArrayList);
-                    movieSearchListView.setAdapter(moviesByPersonsAdapter);
+                    MoviesArrayList.toArray(stringMovies);
+                    movieSearchListView.setAdapter(moviesAdapter);
+                    moviesAdapter.notifyDataSetChanged();
                     movieSearch.setText(null);
                 }
             }
