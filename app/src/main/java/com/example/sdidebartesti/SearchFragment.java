@@ -84,7 +84,7 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
-        /*
+
         showAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +99,5 @@ public class SearchFragment extends Fragment {
                 }
             }
         });
-         */
     }
 }
