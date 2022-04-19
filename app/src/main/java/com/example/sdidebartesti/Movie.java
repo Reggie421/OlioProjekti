@@ -1,17 +1,23 @@
 package com.example.sdidebartesti;
 
+import java.util.ArrayList;
+
 public class Movie {
     int id;
     int year;
     String title;
+    String cast;
+    ArrayList Cast;
 
-    public Movie(int idValue, String movieName, int yearValue){
+    public Movie(int idValue, String movieName, int yearValue, String castString){
         id = idValue;
-        title = movieName;
         year = yearValue;
+        title = movieName;
+        cast = castString;
 
     }
     public int getId(){return id;}
-    public String getTitle(){return title;}
     public int getYear(){return year;}
+    public String getTitle(){return title;}
+    public String getCast(){return cast;}
 }

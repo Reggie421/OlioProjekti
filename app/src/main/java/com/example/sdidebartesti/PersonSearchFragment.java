@@ -1,6 +1,7 @@
 package com.example.sdidebartesti;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.ArrayList;
 
 public class PersonSearchFragment extends Fragment {
     ListView personSearchList;
+    TextInputEditText searchBar;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,15 +32,12 @@ public class PersonSearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        MovieManager mm = MovieManager.getInstance();
         ArrayList<String> MoviesByPersonsArrayList = new ArrayList<String>();
         MoviesByPersonsArrayList.add("Elokuva 1");
         MoviesByPersonsArrayList.add("Elokuva 2");
-        MoviesByPersonsArrayList.add("Elokuva 3");
-        MoviesByPersonsArrayList.add("Elokuva 4");
-        MoviesByPersonsArrayList.add("Elokuva 5");
-        MoviesByPersonsArrayList.add("Elokuva 6");
-        MoviesByPersonsArrayList.add("Elokuva 7");
         personSearchList = view.findViewById(R.id.movieListView);
+        searchBar = view.findViewById(R.id.moviePersonSearchBar);
         String[] stringMoviesByPersonsArray = new String[MoviesByPersonsArrayList.size()];
         MoviesByPersonsArrayList.toArray(stringMoviesByPersonsArray);
         ArrayAdapter<String> moviesByPersonsAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, stringMoviesByPersonsArray);
@@ -47,6 +48,29 @@ public class PersonSearchFragment extends Fragment {
                 String itemName = (String) personSearchList.getItemAtPosition(i);
                 System.out.println("******** HOMMA TOIMII *******");
                 System.out.println(itemName);
+            }
+        });
+        searchBar.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    String searchBarText = searchBar.getText().toString();
+                    MoviesByPersonsArrayList.clear();
+                    for (int i = 0 ; i < mm.MOVIES.size(); i++){
+                        if (mm.MOVIES.get(i).getCast().contains(searchBarText)){
+                            MoviesByPersonsArrayList.add(mm.MOVIES.get(i).getTitle());
+                            String[] stringMoviesByPersonsArray = new String[MoviesByPersonsArrayList.size()];
+                            MoviesByPersonsArrayList.toArray(stringMoviesByPersonsArray);
+                            ArrayAdapter<String> moviesByPersonsAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, stringMoviesByPersonsArray);
+                            personSearchList.setAdapter(moviesByPersonsAdapter);
+                        }
+                        searchBar.setText(null);
+                    }
+
+                    return true;
+                }
+                return false;
             }
         });
     }

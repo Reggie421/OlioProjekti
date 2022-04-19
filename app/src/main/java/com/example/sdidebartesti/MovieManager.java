@@ -1,7 +1,5 @@
 package com.example.sdidebartesti;
 
-import android.content.SyncStatusObserver;
-import android.os.AsyncTask;
 import android.os.StrictMode;
 
 import org.w3c.dom.Document;
@@ -18,7 +16,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -52,8 +49,11 @@ public class MovieManager {
                     String originalTitle = element.getElementsByTagName("OriginalTitle").item(0).getTextContent();
                     String yearString = ((element.getElementsByTagName("dtLocalRelease").item(0).getTextContent()).toString()).substring(0,4);
                     int yearInt = Integer.parseInt(yearString);
+                    System.out.println("Elokuva alla "+title);
+                    String cast = element.getElementsByTagName("Cast").item(0).getTextContent();
+                    System.out.println(cast);
+
                     int counter = 0;
-                    System.out.println(title+" "+originalTitle+" "+yearString);
                     for (i = 0 ; i < MOVIES.size() ; i++){
                         if (id == MOVIES.get(i).getId()) {
                             break;
@@ -64,7 +64,7 @@ public class MovieManager {
                     }
                     if (counter == MOVIES.size()) {
                         /*float rating = searchRating(originalTitle,yearInt);*/ //<-elokuva info fragmentissa
-                        Movie m1 = new Movie(id, title, yearInt);
+                        Movie m1 = new Movie(id, title, yearInt,cast);
                         MOVIES.add(m1);
                     }
 
