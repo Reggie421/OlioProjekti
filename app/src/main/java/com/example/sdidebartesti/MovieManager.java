@@ -46,21 +46,41 @@ public class MovieManager {
                     Element element = (Element) node;
                     int id = Integer.parseInt(element.getElementsByTagName("ID").item(0).getTextContent());
                     String title = element.getElementsByTagName("Title").item(0).getTextContent();
-                    String originalTitle = element.getElementsByTagName("OriginalTitle").item(0).getTextContent();
+                    String globalTitle = element.getElementsByTagName("OriginalTitle").item(0).getTextContent();
                     String yearString = ((element.getElementsByTagName("dtLocalRelease").item(0).getTextContent()).toString()).substring(0,4);
                     int yearInt = Integer.parseInt(yearString);
                     System.out.println("-----");
                     System.out.println("Elokuva alla "+title);
                     System.out.println("---");
-                    String cast = element.getElementsByTagName("Cast").item(0).getTextContent();
+                    // NÄYTTELIJÄ LISTA LUONTI ja lisätään ohjaaja ensimmäiseksi listaan
+                    String director = element.getElementsByTagName("Directors").item(0).getTextContent();
+                    ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
+                    String[] directorLinesArr = director.split("\n");
+                    for (int j = 2; j < directorLinesArr.length; j++) {
+                        String directorFirstName = directorLinesArr[j].substring(8);
+                        String directorLastName = directorLinesArr[j+1].substring(8);
+                        System.out.println("Ohjaaja: " + directorFirstName + " " + directorLastName);
+                        CastMember dir = new CastMember(directorFirstName, directorLastName);
+                        castMemberArrayList.add(dir);
 
+                        j += 3;
+                    }
+                    String cast = element.getElementsByTagName("Cast").item(0).getTextContent();
                     String[] linesArr = cast.split("\n");
                     for (int j = 2 ; j < linesArr.length ; j++ ){
                         String firstName = linesArr[j].substring(8);
                         String lastName = linesArr[j+1].substring(8);
+                        CastMember actor = new CastMember(firstName, lastName);
                         System.out.println(firstName+" "+lastName);
+                        castMemberArrayList.add(actor);
                         j += 3;
                     }
+                    System.out.println("TESTI*******************");
+                    for(int indeksi = 0; indeksi < castMemberArrayList.size(); indeksi++){
+                        System.out.println(castMemberArrayList.get(indeksi).firstName + " " + castMemberArrayList.get(indeksi).lastName);
+
+                    }
+                    //ELOKUVAOLION LUONTI
                     //System.out.println(Arrays.toString(linesArr));
 
                     int counter = 0;
@@ -74,8 +94,8 @@ public class MovieManager {
                     }
                     if (counter == MOVIES.size()) {
                         /*float rating = searchRating(originalTitle,yearInt);*/ //<-elokuva info fragmentissa
-                        Movie m1 = new Movie(id, title, yearInt,cast);
-                        MOVIES.add(m1);
+                        Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList);
+                        MOVIES.add(m);
                     }
 
                 }

@@ -4,20 +4,20 @@ import java.util.ArrayList;
 
 public class Movie {
     int id;
-    int year;
+    String year;
     String title;
-    String cast;
+    String globalTitle;
     ArrayList<CastMember> CastList;
 
-    public Movie(int idValue, String movieName, int yearValue, String castString){
+    public Movie(int idValue, String movieName, String globalName, String yearValue, ArrayList<CastMember> castMemberList){
         id = idValue;
         year = yearValue;
         title = movieName;
-        cast = castString;
+        globalTitle = globalName;
+        CastList = castMemberList;
 
     }
     public int getId(){return id;}
-    public int getYear(){return year;}
+    public String getYear(){return year;}
     public String getTitle(){return title;}
-    public String getCast(){return cast;}
 }
