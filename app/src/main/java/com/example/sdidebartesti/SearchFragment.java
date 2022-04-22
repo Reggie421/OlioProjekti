@@ -76,7 +76,6 @@ public class SearchFragment extends Fragment {
                             moviesAdapter.notifyDataSetChanged();
 
                         }
-                        movieSearch.setText(null);
                     }
                     return true;
                 }

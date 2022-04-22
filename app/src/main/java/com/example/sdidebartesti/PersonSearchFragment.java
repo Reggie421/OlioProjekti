@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 public class PersonSearchFragment extends Fragment {
     ListView personSearchList;
     TextInputEditText searchBar;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_person_search, container, false);
@@ -65,14 +65,13 @@ public class PersonSearchFragment extends Fragment {
                     String searchBarText = searchBar.getText().toString();
                     MoviesByPersonsArrayList.clear();
                     for (int i = 0 ; i < mm.MOVIES.size(); i++){
-                        if (mm.MOVIES.get(i).getCast().contains(searchBarText)){
+                        if (mm.MOVIES.get(i).getCastMember(searchBarText)){
                             MoviesByPersonsArrayList.add(mm.MOVIES.get(i).getTitle());
                             String[] stringMoviesByPersonsArray = new String[MoviesByPersonsArrayList.size()];
                             MoviesByPersonsArrayList.toArray(stringMoviesByPersonsArray);
                             ArrayAdapter<String> moviesByPersonsAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, stringMoviesByPersonsArray);
                             personSearchList.setAdapter(moviesByPersonsAdapter);
                         }
-                        searchBar.setText(null);
                     }
 
                     return true;

@@ -15,9 +15,19 @@ public class Movie {
         title = movieName;
         globalTitle = globalName;
         CastList = castMemberList;
-
     }
     public int getId(){return id;}
     public String getYear(){return year;}
     public String getTitle(){return title;}
+
+    public Boolean getCastMember(String inputName){
+        Boolean value = false;
+        for(int i = 0; i < CastList.size(); i++){
+            String compareCastFullName = CastList.get(i).firstName + " " + CastList.get(i).lastName;
+            if(compareCastFullName.contains(inputName)) {
+                value = true;
+            }
+        }
+        return(value);
+    }
 }
