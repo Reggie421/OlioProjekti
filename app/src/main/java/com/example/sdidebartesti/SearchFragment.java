@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ public class SearchFragment extends Fragment {
     ListView movieSearchListView;
     TextInputEditText movieSearch;
     Button showAll;
+    TextView notification;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_search, container, false);
@@ -38,6 +40,8 @@ public class SearchFragment extends Fragment {
         movieSearchListView = view.findViewById(R.id.movieListView);
         movieSearch = view.findViewById(R.id.movieSearchBar);
         showAll = view.findViewById(R.id.buttonShowAll);
+        notification = view.findViewById(R.id.textViewNotification);
+        notification.setText("Näytetään kaikki elokuvat:");
         ArrayList<String> MoviesArrayList = new ArrayList<String>();
         String[] stringMovies = new String[MoviesArrayList.size()];
         ArrayAdapter<String> moviesAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, MoviesArrayList);
@@ -77,6 +81,7 @@ public class SearchFragment extends Fragment {
 
                         }
                     }
+                    notification.setText("Näytetään tulokset haulle: '"+ searchBarText +"'");
                     return true;
                 }
                 return false;
@@ -93,6 +98,7 @@ public class SearchFragment extends Fragment {
                     movieSearchListView.setAdapter(moviesAdapter);
                     moviesAdapter.notifyDataSetChanged();
                     movieSearch.setText(null);
+                    notification.setText("Näytetään kaikki elokuvat:");
                 }
             }
         });

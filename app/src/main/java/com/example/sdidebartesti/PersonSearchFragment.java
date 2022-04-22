@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class PersonSearchFragment extends Fragment {
     ListView personSearchList;
     TextInputEditText searchBar;
+    TextView personNotification;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_person_search, container, false);
@@ -37,6 +39,7 @@ public class PersonSearchFragment extends Fragment {
         ArrayList<String> MoviesByPersonsArrayList = new ArrayList<String>();
         personSearchList = view.findViewById(R.id.movieListView);
         searchBar = view.findViewById(R.id.moviePersonSearchBar);
+        personNotification = view.findViewById(R.id.textViewPersonNotification);
         String[] stringMoviesByPersonsArray = new String[MoviesByPersonsArrayList.size()];
         MoviesByPersonsArrayList.toArray(stringMoviesByPersonsArray);
         ArrayAdapter<String> moviesByPersonsAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, stringMoviesByPersonsArray);
@@ -45,8 +48,6 @@ public class PersonSearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String itemName = (String) personSearchList.getItemAtPosition(i);
-                System.out.println("******** HOMMA TOIMII *******");
-                System.out.println(itemName);
                 MovieInfoFragment movieInfoFragment = new MovieInfoFragment();
                 FragmentManager fragmentManager = getParentFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.flContent, movieInfoFragment).addToBackStack(null).commit();
@@ -83,6 +84,7 @@ public class PersonSearchFragment extends Fragment {
                             personSearchList.setAdapter(moviesByPersonsAdapter);
                         }
                     }
+                    personNotification.setText("Näytetään tulokset haulle: '"+ searchBarText +"'");
                     return true;
                 }
                 return false;
