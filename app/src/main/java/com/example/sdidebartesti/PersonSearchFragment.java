@@ -35,8 +35,6 @@ public class PersonSearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         MovieManager mm = MovieManager.getInstance();
         ArrayList<String> MoviesByPersonsArrayList = new ArrayList<String>();
-        MoviesByPersonsArrayList.add("Elokuva 1");
-        MoviesByPersonsArrayList.add("Elokuva 2");
         personSearchList = view.findViewById(R.id.movieListView);
         searchBar = view.findViewById(R.id.moviePersonSearchBar);
         String[] stringMoviesByPersonsArray = new String[MoviesByPersonsArrayList.size()];
@@ -49,6 +47,18 @@ public class PersonSearchFragment extends Fragment {
                 String itemName = (String) personSearchList.getItemAtPosition(i);
                 System.out.println("******** HOMMA TOIMII *******");
                 System.out.println(itemName);
+                MovieInfoFragment movieInfoFragment = new MovieInfoFragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, movieInfoFragment).addToBackStack(null).commit();
+                Bundle bundle = new Bundle();
+                bundle.putString("key", itemName);
+                movieInfoFragment.setArguments(bundle);
+            }
+        });
+        personSearchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String itemName = (String) personSearchList.getItemAtPosition(i);
                 MovieInfoFragment movieInfoFragment = new MovieInfoFragment();
                 FragmentManager fragmentManager = getParentFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.flContent, movieInfoFragment).addToBackStack(null).commit();
@@ -73,7 +83,6 @@ public class PersonSearchFragment extends Fragment {
                             personSearchList.setAdapter(moviesByPersonsAdapter);
                         }
                     }
-
                     return true;
                 }
                 return false;
