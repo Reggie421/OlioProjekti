@@ -3,23 +3,23 @@
         <item
             android:id="@+id/home"
             android:icon="@drawable/ic_baseline_home_24"
-            android:title="Koti" />
+            android:title="@string/header_home_name" />
         <item
             android:id="@+id/search"
             android:icon="@drawable/ic_baseline_search_24"
-            android:title="Elokuvahaku"/>
+            android:title="@string/header_movie_search_name" />
         <item
             android:id="@+id/personsearch"
             android:icon="@drawable/ic_baseline_person_search_24"
-            android:title="Henkilöhaku"/>
+            android:title="@string/header_movie_person_search_name" />
         <item
             android:id="@+id/favorites"
             android:icon="@drawable/ic_baseline_star_24"
-            android:title="Suosikit"/>
+            android:title="@string/header_favorite_name" />
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_baseline_settings_24"
-            android:title="Asetukset"/>
+            android:title="@string/header_settings_name" />
 
     </group>
 </menu>

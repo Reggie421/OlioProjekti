@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="app_name">Koti</string>
+    <!-- HOME-->
+    <string name="header_home_name">Koti</string>
+    <string name="home_welcome_user">Tervetuloa KÄYTTÄJÄNIMI</string>
+    <!-- MovieSearch-->
+    <string name="header_movie_search_name">Elokuvahaku</string>
+    <string name="movie_search_fragment_info">Tästä valikosta voit hakea eri elokuvien tietoja elokuvien nimillä. \n Hauskaa selailua!</string>
+    <string name="movie_search_show_all_button">Näytä kaikki</string>
+    <string name="movie_search_bar_text">Hae elokuvaa nimellä</string>
+    <!-- MoviePersonSearch-->
+    <string name="header_movie_person_search_name">Henkilöhaku</string>
+    <string name="movie_person_search_fragment_info">Tästä näkymästä voit hakea elokuvia näyttelijöiden tai ohjaajien nimien perusteella.\n Hauskaa selailua!</string>
+    <string name="movie_person_search_bar_text">Hae elokuvia henkilön avulla</string>
+    <!-- Favorites-->
+    <string name="header_favorite_name">Suosikit</string>
+    <string name="favorite_fragment_info">Tästä näkymästä löydät kaikki suosikkielokuvasi. Voit tarkastella elokuvia tarkemmin ja hallita suosikkielokuviasi näpäyttämällä niitä.</string>
+    <string name="favorite_search_bar_text">Hae suosikeistasi</string>
+    <!-- Settings-->
+    <string name="header_settings_name">Asetukset</string>
+    <string name="settings_fragment_info">Tästä näkymästä löydät sovelluksen asetukset.</string>
+
+
+
+    <!-- JOPPPE ONKS NÄÄ TARVITTAVIA-->
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -14,7 +14,7 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tästä näkymästä löydät kaikki suosikkielokuvasi. Voit tarkastella elokuvia tarkemmin ja hallita suosikkielokuviasi näpäyttämällä niitä."
+            android:text="@string/favorite_fragment_info"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
                 android:id="@+id/favoriteSearchBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Hae suosikeistasi" />
+                android:hint="@string/favorite_search_bar_text" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

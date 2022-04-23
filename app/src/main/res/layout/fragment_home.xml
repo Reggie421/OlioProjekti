@@ -14,7 +14,7 @@
             android:layout_width="248dp"
             android:layout_height="62dp"
             android:layout_gravity="center|top"
-            android:text="Tervetuloa KÄYTTÄJÄNIMI "
+            android:text="@string/home_welcome_user"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

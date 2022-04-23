@@ -24,8 +24,8 @@ public class MovieInfoFragment extends Fragment {
     }
 
     @Override
-    // ****************************************************************************************** Receiving information from the fragment, this fragment was opened from.
-    //******************************************************************************************* Then fetching rest movie information from MovieManager.
+    // ****************************************************************************************** Receiving movie name from the fragment, this fragment was opened from.
+    //******************************************************************************************* Then fetching rest movie information using this name.
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         movieNameTextView = view.findViewById(R.id.movieNameTextView);
@@ -35,6 +35,7 @@ public class MovieInfoFragment extends Fragment {
         }
         System.out.println(movieName);
         movieNameTextView.setText(movieName);
+        // *************************************************************************************** Activating "GOBACK" button to reopen the last fragment, this fragment was opened from.
         fragmentGoBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

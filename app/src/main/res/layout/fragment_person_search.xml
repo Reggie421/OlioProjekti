@@ -15,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
-            android:text="Tästä näkymästä voit hakea elokuvia näyttelijöiden tai ohjaajien nimien perusteella.\n Hauskaa selailua!"
+            android:text="@string/movie_person_search_fragment_info"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
                 android:id="@+id/moviePersonSearchBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Hae elokuvia henkilön avulla" />
+                android:hint="@string/movie_person_search_bar_text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
