@@ -45,25 +45,11 @@ public class SettingsFragment extends Fragment {
             public void onClick(View view) {
                 String selectedLanguage = languages.getSelectedItem().toString();
                 if (selectedLanguage == "Suomi"){
-                    Locale locale = new Locale("fi");
-                    Locale.setDefault(locale);
-                    Configuration config = new Configuration();
-                    config.locale = locale;
-                    getResources().updateConfiguration(config,getResources().getDisplayMetrics());
 
                 }
                 if (selectedLanguage == "English"){
-                    Locale locale = new Locale("en");
-                    Locale.setDefault(locale);
-                    Configuration config = new Configuration();
-                    config.locale = locale;
-                    getResources().updateConfiguration(config,getResources().getDisplayMetrics());
 
                 }
-
-                Intent i = getContext().getPackageManager().getLaunchIntentForPackage(getContext().getPackageName());
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
             }
         });
 
