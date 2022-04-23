@@ -24,6 +24,8 @@ public class MovieInfoFragment extends Fragment {
     }
 
     @Override
+    // ****************************************************************************************** Receiving information from the fragment, this fragment was opened from.
+    //******************************************************************************************* Then fetching rest movie information from MovieManager.
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         movieNameTextView = view.findViewById(R.id.movieNameTextView);

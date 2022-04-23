@@ -56,6 +56,7 @@ public class SearchFragment extends Fragment {
             movieSearch.setText(null);
         }
         movieSearchListView.setAdapter(moviesAdapter);
+        // ********************************************************************************************************************** Making list interaction possible on click.
         movieSearchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -70,6 +71,7 @@ public class SearchFragment extends Fragment {
         });
         movieSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
+            // ******************************************************************************************************************* Making search possible with ENTER key
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     String searchBarText = movieSearch.getText().toString();
@@ -90,7 +92,7 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
-
+        // ********************************************************************************************************************* Adding functionality to SHOWALL -button.
         showAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

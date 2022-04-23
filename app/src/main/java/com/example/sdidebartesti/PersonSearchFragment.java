@@ -46,6 +46,7 @@ public class PersonSearchFragment extends Fragment {
         MoviesByPersonsArrayList.toArray(stringMoviesByPersonsArray);
         ArrayAdapter<String> moviesByPersonsAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, stringMoviesByPersonsArray);
         personSearchList.setAdapter(moviesByPersonsAdapter);
+        // ********************************************************************************************************************** Making list interaction possible on click.
         personSearchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -58,18 +59,8 @@ public class PersonSearchFragment extends Fragment {
                 movieInfoFragment.setArguments(bundle);
             }
         });
-        personSearchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String itemName = (String) personSearchList.getItemAtPosition(i);
-                MovieInfoFragment movieInfoFragment = new MovieInfoFragment();
-                FragmentManager fragmentManager = getParentFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, movieInfoFragment).addToBackStack(null).commit();
-                Bundle bundle = new Bundle();
-                bundle.putString("key", itemName);
-                movieInfoFragment.setArguments(bundle);
-            }
-        });
+        // ******************************************************************************************************************* Making search possible with ENTER key
+
         searchBar.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
