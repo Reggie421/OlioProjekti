@@ -1,10 +1,12 @@
 package com.example.sdidebartesti;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -84,6 +86,8 @@ public class PersonSearchFragment extends Fragment {
                             personSearchList.setAdapter(moviesByPersonsAdapter);
                         }
                     }
+                    final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     personNotification.setText("Näytetään tulokset haulle: '"+ searchBarText +"'");
                     return true;
                 }
