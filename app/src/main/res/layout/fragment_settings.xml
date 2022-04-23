@@ -45,6 +45,41 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5"
             app:layout_constraintVertical_bias="0.13999999" />
 
+        <Button
+            android:id="@+id/button_enable_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ota asetukset käyttöön"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valitse kieli:"
+            app:layout_constraintBottom_toTopOf="@+id/button_enable_settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintVertical_bias="0.120000005" />
+
+        <Spinner
+            android:id="@+id/spinnerLanguage"
+            android:layout_width="159dp"
+            android:layout_height="55dp"
+            android:contentDescription="Language"
+            app:layout_constraintBottom_toTopOf="@+id/button_enable_settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.63"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/switch1"
+            app:layout_constraintVertical_bias="0.050000012" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
