@@ -1,6 +1,9 @@
 package com.example.sdidebartesti;
 
+import android.app.Activity;
 import android.os.StrictMode;
+
+import androidx.fragment.app.FragmentManager;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -10,12 +13,16 @@ import org.xml.sax.SAXException;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -32,6 +39,7 @@ public class MovieManager {
         String url_FINKINO = "https://www.finnkino.fi/xml/Events/";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        MainActivity.getmInstanceActivity().readFile();
 
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -59,7 +67,6 @@ public class MovieManager {
                     for (int j = 2; j < directorLinesArr.length; j++) {
                         String directorFirstName = directorLinesArr[j].substring(8);
                         String directorLastName = directorLinesArr[j+1].substring(8);
-                        System.out.println("Ohjaaja: " + directorFirstName + " " + directorLastName);
                         CastMember dir = new CastMember(directorFirstName, directorLastName);
                         castMemberArrayList.add(dir);
 
@@ -75,7 +82,6 @@ public class MovieManager {
                         castMemberArrayList.add(actor);
                         j += 3;
                     }
-                    System.out.println("TESTI*******************");
                     for(int indeksi = 0; indeksi < castMemberArrayList.size(); indeksi++){
                         System.out.println(castMemberArrayList.get(indeksi).firstName + " " + castMemberArrayList.get(indeksi).lastName);
 
@@ -94,8 +100,10 @@ public class MovieManager {
                     }
                     if (counter == MOVIES.size()) {
                         /*float rating = searchRating(originalTitle,yearInt);*/ //<-elokuva info fragmentissa
+
                         Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList);
                         MOVIES.add(m);
+                        MainActivity.getmInstanceActivity().writeFile(id, title, globalTitle, yearString,castMemberArrayList);
                     }
 
                 }
@@ -171,6 +179,7 @@ public class MovieManager {
         }
         return rating;
     }
+
     public static MovieManager getInstance(){
         return mm;
     }

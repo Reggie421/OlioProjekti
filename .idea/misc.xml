@@ -3,9 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/OlioProjekti/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.23560910307898258" />
-        <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/OlioProjekti/app/src/main/res/layout-w936dp/activity_login.xml" value="0.275" />
-        <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/OlioProjekti/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/OlioProjekti/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/OlioProjekti/app/src/main/res/layout/fragment_favorite.xml" value="0.33" />
         <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/OlioProjekti/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
@@ -13,9 +10,10 @@
         <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/OlioProjekti/app/src/main/res/layout/fragment_person_search.xml" value="0.33" />
         <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/OlioProjekti/app/src/main/res/layout/fragment_search.xml" value="0.36141304347826086" />
         <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/OlioProjekti/app/src/main/res/layout/fragment_settings.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/OlioProjekti/app/src/main/res/layout/toolbar.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/OlioProjekti/app/src/main/res/menu/drawer_view.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pelaa/AndroidStudioProjects/JavaProject/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/wihto/AndroidStudioProjects/OlioProjekti/app/src/main/res/layout/fragment_favorite.xml" value="0.2695035460992908" />
+        <entry key="..\:/Users/wihto/AndroidStudioProjects/OlioProjekti/app/src/main/res/layout/fragment_person_search.xml" value="0.2695035460992908" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1933876811594203" />
         <entry key="app/src/main/res/layout/activity_side_bar.xml" value="0.16530797101449277" />
         <entry key="app/src/main/res/layout/app_bar_side_bar.xml" value="0.15070921985815602" />
