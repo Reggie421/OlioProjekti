@@ -21,3 +21,4 @@ public class FavoriteFragment extends Fragment {
     }
     */
 }
+// TODO: yhdistä fragmentti käyttäjien tietoihin

@@ -42,5 +42,15 @@ public class MovieInfoFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+        MovieManager mm = MovieManager.getInstance();
+        for(int i = 0; i < mm.MOVIES.size(); i++){
+            if(movieName.equals(mm.MOVIES.get(i).getTitle())){
+                String movieGlobalTitle = mm.MOVIES.get(i).getGlobalTitle();
+                String movieYear = mm.MOVIES.get(i).getYear();
+                String movieGenre = mm.MOVIES.get(i).getMovieGenre();
+            }
+        }
+
     }
-}
+} // TODO: hae dataa elokuvan nimellä
+// TODO: iMDB arvosana

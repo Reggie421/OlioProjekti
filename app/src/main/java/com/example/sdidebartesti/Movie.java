@@ -22,6 +22,7 @@ public class Movie {
     public String getYear(){return year;}
     public String getTitle(){return title;}
     public String getMovieGenre(){return movieGenre;}
+    public String getGlobalTitle(){return globalTitle;}
 
     public Boolean getCastMember(String inputName){
         Boolean value = false;
