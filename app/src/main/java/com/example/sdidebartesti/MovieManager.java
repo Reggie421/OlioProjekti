@@ -56,10 +56,6 @@ public class MovieManager {
                     String globalTitle = element.getElementsByTagName("OriginalTitle").item(0).getTextContent();
                     String yearString = ((element.getElementsByTagName("dtLocalRelease").item(0).getTextContent()).toString()).substring(0,4);
                     int yearInt = Integer.parseInt(yearString);
-                    System.out.println("-----");
-                    System.out.println("Elokuva alla "+title);
-                    System.out.println("---");
-                    // NÄYTTELIJÄ LISTA LUONTI ja lisätään ohjaaja ensimmäiseksi listaan
                     String director = element.getElementsByTagName("Directors").item(0).getTextContent();
                     ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
                     String[] directorLinesArr = director.split("\n");
@@ -76,13 +72,8 @@ public class MovieManager {
                         String firstName = linesArr[j].substring(8);
                         String lastName = linesArr[j+1].substring(8);
                         CastMember actor = new CastMember(firstName, lastName, "actor");
-                        System.out.println(firstName+" "+lastName);
                         castMemberArrayList.add(actor);
                         j += 3;
-                    }
-                    for(int indeksi = 0; indeksi < castMemberArrayList.size(); indeksi++){
-                        System.out.println(castMemberArrayList.get(indeksi).firstName + " " + castMemberArrayList.get(indeksi).lastName);
-
                     }
                     //ELOKUVAOLION LUONTI
                     // IF MOVIES ARRAYLIST DOESNT INCLUDE ANY MOVIES WITH 'id', CREATING NEW OBJECT FOR THAT MOVIE == NEW MOVIE FROM INTERNET

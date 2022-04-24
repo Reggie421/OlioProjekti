@@ -132,18 +132,26 @@ public class MainActivity extends AppCompatActivity {
         String directors = "";
         String row = "";
         for (int i = 0 ; i < castMemberArrayList.size() ; i++){
-            actors += castMemberArrayList.get(i).getFirstName() + " " + castMemberArrayList.get(i).getLastName()+ ",";
+            if(castMemberArrayList.get(i).getRole() == "director"){
+                directors += castMemberArrayList.get(i).getFirstName() + " " + castMemberArrayList.get(i).getLastName()+ ",";
+            }
+            else {
+                actors += castMemberArrayList.get(i).getFirstName() + " " + castMemberArrayList.get(i).getLastName()+ ",";
+
+            }
         }
-        if (castMemberArrayList.size() == 0){
+        if (actors.equals("")){
             actors = "null";
+        }
+        if (directors.equals("")){
+            directors = "null";
         }
         row = id+";"+yearString+";"+title+";"+globalTitle+";"+actors+";"+directors +"\n";
 
         try {
-            FileOutputStream fileOutputStream = openFileOutput("MovieStorage.csv",MODE_APPEND);
+            FileOutputStream fileOutputStream = openFileOutput("Movies.csv",MODE_APPEND);
             fileOutputStream.write(row.getBytes());
             fileOutputStream.close();
-            System.out.println("tallennettu tekstitiedostoon----------------------");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -155,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
         ArrayList <Movie> temporaryMovieArrayList = new ArrayList<>();
         try {
-            FileInputStream fileInputStream = openFileInput("MovieStorage.csv");
+            FileInputStream fileInputStream = openFileInput("Movies.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             MovieManager mm = MovieManager.getInstance();
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -163,32 +171,35 @@ public class MainActivity extends AppCompatActivity {
 
             String lines;
             while ((lines = bufferedReader.readLine()) != null) {
-                System.out.println(lines);
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
                 int id = Integer.parseInt(data[0]);
-                System.out.println(id);
                 String yearString = data[1];
-                System.out.println(yearString);
                 String title = data[2];
-                System.out.println(title);
                 String globalTitle = data[3];
-                System.out.println(globalTitle);
-                System.out.println(data[4]);
                 if (!data[4].equals("null")){
                     String[] castData = data[4].split(",");
                     for (int i = 0 ; i < castData.length ; i++){
                         String[] castNameData = castData[i].split(" ");
-                        String castFirstName = castNameData[0];
-                        String castLastName = castNameData[1];
-                        CastMember actr = new CastMember(castFirstName, castLastName,"actor");
-                        castMemberArrayList.add(actr);
+                        String actorFirstName = castNameData[0];
+                        String actorLastName = castNameData[1];
+                        CastMember actor = new CastMember(actorFirstName, actorLastName,"actor");
+                        castMemberArrayList.add(actor);
+                    }
+                }
+                if (!data[5].equals("null")){
+                    String[] castData = data[5].split(",");
+                    for (int i = 0 ; i < castData.length ; i++){
+                        String[] castNameData = castData[i].split(" ");
+                        String directorFirstName = castNameData[0];
+                        String directorLastName = castNameData[1];
+                        CastMember director = new CastMember(directorFirstName, directorLastName,"actor");
+                        castMemberArrayList.add(director);
                     }
                 }
                 Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList);
                 temporaryMovieArrayList.add(m);
             }
-            System.out.println(stringBuffer.toString());
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
