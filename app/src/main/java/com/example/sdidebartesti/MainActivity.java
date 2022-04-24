@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         row = id+";"+yearString+";"+title+";"+globalTitle+";"+actors+";"+directors +"\n";
 
         try {
-            FileOutputStream fileOutputStream = openFileOutput("TestFile1.csv",MODE_APPEND);
+            FileOutputStream fileOutputStream = openFileOutput("MovieStorage.csv",MODE_APPEND);
             fileOutputStream.write(row.getBytes());
             fileOutputStream.close();
             System.out.println("tallennettu tekstitiedostoon----------------------");
@@ -151,10 +151,11 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    public void readFile() {
+    public ArrayList<Movie> readFile() {
         ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
+        ArrayList <Movie> temporaryMovieArrayList = new ArrayList<>();
         try {
-            FileInputStream fileInputStream = openFileInput("TestFile1.csv");
+            FileInputStream fileInputStream = openFileInput("MovieStorage.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             MovieManager mm = MovieManager.getInstance();
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -173,23 +174,19 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(title);
                 String globalTitle = data[3];
                 System.out.println(globalTitle);
-                System.out.println("testi");
-                if (data[4] != "null"){
-                    System.out.println("testi2");
+                System.out.println(data[4]);
+                if (!data[4].equals("null")){
                     String[] castData = data[4].split(",");
                     for (int i = 0 ; i < castData.length ; i++){
                         String[] castNameData = castData[i].split(" ");
-                        String directorFirstName = castNameData[0];
-                        String directorLastName = castNameData[1];
-                        CastMember dir = new CastMember(directorFirstName, directorLastName);
-                        castMemberArrayList.add(dir);
+                        String castFirstName = castNameData[0];
+                        String castLastName = castNameData[1];
+                        CastMember actr = new CastMember(castFirstName, castLastName,"actor");
+                        castMemberArrayList.add(actr);
                     }
                 }
-                System.out.println("testi3");
                 Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList);
-                System.out.println("testi4");
-                mm.MOVIES.add(m);
-                System.out.println("testi5");
+                temporaryMovieArrayList.add(m);
             }
             System.out.println(stringBuffer.toString());
 
@@ -198,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return(temporaryMovieArrayList);
     }
 
 }

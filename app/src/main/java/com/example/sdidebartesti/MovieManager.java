@@ -35,12 +35,11 @@ public class MovieManager {
     ArrayList<Movie> MOVIES;
 
     private MovieManager(){
-        MOVIES = new ArrayList<>();
+        MOVIES = new ArrayList<Movie>();
         String url_FINKINO = "https://www.finnkino.fi/xml/Events/";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        MainActivity.getmInstanceActivity().readFile();
-
+        MOVIES = MainActivity.getmInstanceActivity().readFile();
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = builder.parse(url_FINKINO);
@@ -67,9 +66,8 @@ public class MovieManager {
                     for (int j = 2; j < directorLinesArr.length; j++) {
                         String directorFirstName = directorLinesArr[j].substring(8);
                         String directorLastName = directorLinesArr[j+1].substring(8);
-                        CastMember dir = new CastMember(directorFirstName, directorLastName);
+                        CastMember dir = new CastMember(directorFirstName, directorLastName, "director");
                         castMemberArrayList.add(dir);
-
                         j += 3;
                     }
                     String cast = element.getElementsByTagName("Cast").item(0).getTextContent();
@@ -77,7 +75,7 @@ public class MovieManager {
                     for (int j = 2 ; j < linesArr.length ; j++ ){
                         String firstName = linesArr[j].substring(8);
                         String lastName = linesArr[j+1].substring(8);
-                        CastMember actor = new CastMember(firstName, lastName);
+                        CastMember actor = new CastMember(firstName, lastName, "actor");
                         System.out.println(firstName+" "+lastName);
                         castMemberArrayList.add(actor);
                         j += 3;
@@ -87,8 +85,7 @@ public class MovieManager {
 
                     }
                     //ELOKUVAOLION LUONTI
-                    //System.out.println(Arrays.toString(linesArr));
-
+                    // IF MOVIES ARRAYLIST DOESNT INCLUDE ANY MOVIES WITH 'id', CREATING NEW OBJECT FOR THAT MOVIE == NEW MOVIE FROM INTERNET
                     int counter = 0;
                     for (i = 0 ; i < MOVIES.size() ; i++){
                         if (id == MOVIES.get(i).getId()) {
@@ -99,7 +96,7 @@ public class MovieManager {
                         }
                     }
                     if (counter == MOVIES.size()) {
-                        /*float rating = searchRating(originalTitle,yearInt);*/ //<-elokuva info fragmentissa
+                        /*float rating = searchRating(originalTitle,yearInt);*/ //<-elokuvainfo fragmentissa
 
                         Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList);
                         MOVIES.add(m);
