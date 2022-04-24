@@ -112,6 +112,17 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7"
             app:layout_constraintVertical_bias="0.060000002" />
 
+        <TextView
+            android:id="@+id/textViewCast"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TÄHÄN TULEE KOKO CAST"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movieGenreTextView"
+            app:layout_constraintVertical_bias="0.060000002" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

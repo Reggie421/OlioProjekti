@@ -8,21 +8,24 @@ public class Movie {
     String title;
     String globalTitle;
     String movieGenre;
+    String ageRating;
     ArrayList<CastMember> CastList;
 
-    public Movie(int idValue, String movieName, String globalName, String yearValue, ArrayList<CastMember> castMemberList, String genre){
+    public Movie(int idValue, String movieName, String globalName, String yearValue, ArrayList<CastMember> castMemberList, String genre, String rating){
         id = idValue;
         year = yearValue;
         title = movieName;
         globalTitle = globalName;
         CastList = castMemberList;
         movieGenre = genre;
+        ageRating = rating;
     }
     public int getId(){return id;}
     public String getYear(){return year;}
     public String getTitle(){return title;}
     public String getMovieGenre(){return movieGenre;}
     public String getGlobalTitle(){return globalTitle;}
+    public String getAgeRating(){return ageRating;}
 
     public Boolean getCastMember(String inputName){
         Boolean value = false;

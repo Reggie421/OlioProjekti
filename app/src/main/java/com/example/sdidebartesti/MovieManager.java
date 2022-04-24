@@ -56,6 +56,7 @@ public class MovieManager {
                     String globalTitle = element.getElementsByTagName("OriginalTitle").item(0).getTextContent();
                     String genres = element.getElementsByTagName("Genres").item(0).getTextContent();
                     String yearString = ((element.getElementsByTagName("dtLocalRelease").item(0).getTextContent()).toString()).substring(0,4);
+                    String ageRating = element.getElementsByTagName("Rating").item(0).getTextContent();
                     int yearInt = Integer.parseInt(yearString);
                     String director = element.getElementsByTagName("Directors").item(0).getTextContent();
                     ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
@@ -90,9 +91,9 @@ public class MovieManager {
                     if (counter == MOVIES.size()) {
                         /*float rating = searchRating(originalTitle,yearInt);*/ //<-elokuvainfo fragmentissa
 
-                        Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList, genres);
+                        Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating);
                         MOVIES.add(m);
-                        MainActivity.getmInstanceActivity().writeFile(id, title, globalTitle, yearString,castMemberArrayList, genres);
+                        MainActivity.getmInstanceActivity().writeFile(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating);
                     }
 
                 }

@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void writeFile(int id, String title, String globalTitle, String yearString, ArrayList<CastMember> castMemberArrayList, String genres) throws IOException {
+    public void writeFile(int id, String title, String globalTitle, String yearString, ArrayList<CastMember> castMemberArrayList, String genres, String rating) throws IOException {
         String actors = "";
         String directors = "";
         String row = "";
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         row = id+";"+yearString+";"+title+";"+globalTitle+";"+genres+";"+actors+";"+directors +"\n";
 
         try {
-            FileOutputStream fileOutputStream = openFileOutput("Movies6.csv",MODE_APPEND);
+            FileOutputStream fileOutputStream = openFileOutput("Movies7.csv",MODE_APPEND);
             fileOutputStream.write(row.getBytes());
             fileOutputStream.close();
 
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
         ArrayList <Movie> temporaryMovieArrayList = new ArrayList<>();
         try {
-            FileInputStream fileInputStream = openFileInput("Movies6.csv");
+            FileInputStream fileInputStream = openFileInput("Movies7.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             MovieManager mm = MovieManager.getInstance();
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 String title = data[2];
                 String globalTitle = data[3];
                 String genres = data[4];
+                String ageRating = data[7];
                 if (!data[5].equals("null")){
                     String[] castData = data[5].split(",");
                     for (int i = 0 ; i < castData.length ; i++){
@@ -198,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                         castMemberArrayList.add(director);
                     }
                 }
-                Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList, genres);
+                Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating);
                 temporaryMovieArrayList.add(m);
             }
 

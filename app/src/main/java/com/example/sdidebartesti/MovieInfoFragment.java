@@ -10,14 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import java.util.Objects;
+import java.util.ArrayList;
 
 public class MovieInfoFragment extends Fragment {
     String movieName;
     TextView movieNameTextView;
     Button fragmentGoBackButton;
+    TextView directorsTextView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_movieinfo, container, false);
@@ -30,6 +30,7 @@ public class MovieInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         movieNameTextView = view.findViewById(R.id.movieNameTextView);
         fragmentGoBackButton = view.findViewById(R.id.buttonCloseFragment);
+        directorsTextView = view.findViewById(R.id.textViewCast);
         if(this.getArguments() != null) {
             movieName = this.getArguments().getString("key");
         }
@@ -43,14 +44,36 @@ public class MovieInfoFragment extends Fragment {
             }
         });
         MovieManager mm = MovieManager.getInstance();
+        String movieGlobalTitle = null;
+        String movieYear = null;
+        String movieGenre = null;
+        String ageRating = null;
+        ArrayList<CastMember> cast = new ArrayList<>();
+
         for(int i = 0; i < mm.MOVIES.size(); i++){
             if(movieName.equals(mm.MOVIES.get(i).getTitle())){
-                String movieGlobalTitle = mm.MOVIES.get(i).getGlobalTitle();
-                String movieYear = mm.MOVIES.get(i).getYear();
-                String movieGenre = mm.MOVIES.get(i).getMovieGenre();
+                movieGlobalTitle = mm.MOVIES.get(i).getGlobalTitle();
+                movieYear = mm.MOVIES.get(i).getYear();
+                movieGenre = mm.MOVIES.get(i).getMovieGenre();
+                ageRating = mm.MOVIES.get(i).getAgeRating();
+                cast = mm.MOVIES.get(i).CastList;
             }
         }
-
+        int index = 0;
+        for(int i = 0; i < cast.size(); i++){
+            if(cast.get(i).getRole() == "director") {
+                index += 1;
+            }
+        }
+        if (index == 0){
+            directorsTextView.setText(null);
+        }
+        else if(index == 1){
+            directorsTextView.setText("Ohjaaja:");
+        }
+        else {
+            directorsTextView.setText("Ohjaajat:");
+        }
     }
 } // TODO: hae dataa elokuvan nimellä
 // TODO: iMDB arvosana
