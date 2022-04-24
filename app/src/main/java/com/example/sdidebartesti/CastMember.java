@@ -1,7 +1,5 @@
 package com.example.sdidebartesti;
 
-import androidx.annotation.Nullable;
-
 public class CastMember {
     String firstName;
     String lastName;
