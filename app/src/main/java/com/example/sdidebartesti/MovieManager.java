@@ -57,6 +57,14 @@ public class MovieManager {
                     String genres = element.getElementsByTagName("Genres").item(0).getTextContent();
                     String yearString = ((element.getElementsByTagName("dtLocalRelease").item(0).getTextContent()).toString()).substring(0,4);
                     String ageRating = element.getElementsByTagName("Rating").item(0).getTextContent();
+                    String ratingDescript = element.getElementsByTagName("ContentDescriptors").item(0).getTextContent();
+                    ArrayList <String> ratingDescriptions = new ArrayList<>();
+                    String[] ratingDescriptionLinesArr = ratingDescript.split("\n");
+                    for (int j = 2; j < ratingDescriptionLinesArr.length; j++) {
+                        String ratingDescription = ratingDescriptionLinesArr[j].substring(8);
+                        ratingDescriptions.add(ratingDescription);
+                        j += 3;
+                    }
                     int yearInt = Integer.parseInt(yearString);
                     String director = element.getElementsByTagName("Directors").item(0).getTextContent();
                     ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
@@ -89,9 +97,9 @@ public class MovieManager {
                         }
                     }
                     if (counter == MOVIES.size()) {
-                        Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating);
+                        Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating, ratingDescriptions);
                         MOVIES.add(m);
-                        MainActivity.getmInstanceActivity().writeFile(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating);
+                        MainActivity.getmInstanceActivity().writeFile(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating, ratingDescriptions);
                     }
 
                 }

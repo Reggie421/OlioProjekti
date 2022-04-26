@@ -20,6 +20,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -127,10 +128,11 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void writeFile(int id, String title, String globalTitle, String yearString, ArrayList<CastMember> castMemberArrayList, String genres, String rating) throws IOException {
+    public void writeFile(int id, String title, String globalTitle, String yearString, ArrayList<CastMember> castMemberArrayList, String genres, String rating, ArrayList <String> ratingDescriptions) throws IOException {
         String actors = "";
         String directors = "";
         String row = "";
+        String ratingDescriptionsString = "";
         for (int i = 0 ; i < castMemberArrayList.size() ; i++){
             if(castMemberArrayList.get(i).getRole() == "director"){
                 directors += castMemberArrayList.get(i).getFirstName() + " " + castMemberArrayList.get(i).getLastName()+ ",";
@@ -146,10 +148,17 @@ public class MainActivity extends AppCompatActivity {
         if (directors.equals("")){
             directors = "null";
         }
-        row = id+";"+yearString+";"+title+";"+globalTitle+";"+genres+";"+rating+";"+actors+";"+directors +"\n";
+
+        for (int i = 0 ; i < ratingDescriptions.size() ; i++){
+                ratingDescriptionsString += ratingDescriptions.get(i) + "/";
+        }
+        if (ratingDescriptionsString.equals("")){
+            ratingDescriptionsString = "null";
+        }
+        row = id+";"+yearString+";"+title+";"+globalTitle+";"+genres+";"+rating+";"+ratingDescriptionsString+";"+actors+";"+directors +"\n";
 
         try {
-            FileOutputStream fileOutputStream = openFileOutput("Movies16.csv",MODE_APPEND);
+            FileOutputStream fileOutputStream = openFileOutput("Movies18.csv",MODE_APPEND);
             fileOutputStream.write(row.getBytes());
             fileOutputStream.close();
 
@@ -162,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Movie> readFile() {
         ArrayList <Movie> temporaryMovieArrayList = new ArrayList<>();
         try {
-            FileInputStream fileInputStream = openFileInput("Movies16.csv");
+            FileInputStream fileInputStream = openFileInput("Movies18.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             MovieManager mm = MovieManager.getInstance();
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -171,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             String lines;
             while ((lines = bufferedReader.readLine()) != null) {
                 ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
+                ArrayList<String> ratingDescriptionsArrayList = new ArrayList<>();
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
                 int id = Integer.parseInt(data[0]);
@@ -179,9 +189,19 @@ public class MainActivity extends AppCompatActivity {
                 String globalTitle = data[3];
                 String genres = data[4];
                 String ageRating = data[5];
+                if(!data[6].equals("null")) {
+                    String[] ratingsDescriptions = data[6].split("/");
+                    for(int i = 0; i < ratingsDescriptions.length; i++){
+                        String ratingsDescription = ratingsDescriptions[i];
+                        ratingDescriptionsArrayList.add(ratingsDescription);
+                    }
+                }
+                for(int i = 0; i < ratingDescriptionsArrayList.size(); i++){
+                    System.out.println("*************" + ratingDescriptionsArrayList.get(i));
+                }
                 // TODO EI LUE KOLMEA NIMEÄ
-                if (!data[6].equals("null")){
-                    String[] castData = data[6].split(",");
+                if (!data[7].equals("null")){
+                    String[] castData = data[7].split(",");
                     for (int i = 0 ; i < castData.length ; i++){
                         String[] castNameData = castData[i].split(" ");
                         String actorFirstName = castNameData[0];
@@ -190,8 +210,8 @@ public class MainActivity extends AppCompatActivity {
                         castMemberArrayList.add(actor);
                     }
                 }
-                if (!data[7].equals("null")){
-                    String[] castData = data[7].split(",");
+                if (!data[8].equals("null")){
+                    String[] castData = data[8].split(",");
                     for (int i = 0 ; i < castData.length ; i++) {
                         String[] castNameData = castData[i].split(" ");
                         String directorFirstName = castNameData[0];
@@ -201,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating);
+                Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating, ratingDescriptionsArrayList);
                 temporaryMovieArrayList.add(m);
             }
 

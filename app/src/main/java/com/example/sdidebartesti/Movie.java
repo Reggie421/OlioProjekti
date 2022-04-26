@@ -9,9 +9,10 @@ public class Movie {
     String globalTitle;
     String movieGenre;
     String ageRating;
+    ArrayList <String> ratingDescription;
     ArrayList<CastMember> CastList;
 
-    public Movie(int idValue, String movieName, String globalName, String yearValue, ArrayList<CastMember> castMemberList, String genre, String rating){
+    public Movie(int idValue, String movieName, String globalName, String yearValue, ArrayList<CastMember> castMemberList, String genre, String rating, ArrayList<String> ratingDescript){
         id = idValue;
         year = yearValue;
         title = movieName;
@@ -19,6 +20,7 @@ public class Movie {
         CastList = castMemberList;
         movieGenre = genre;
         ageRating = rating;
+        ratingDescription = ratingDescript;
     }
     public int getId(){return id;}
     public String getYear(){return year;}
@@ -26,6 +28,7 @@ public class Movie {
     public String getMovieGenre(){return movieGenre;}
     public String getGlobalTitle(){return globalTitle;}
     public String getAgeRating(){return ageRating;}
+    public ArrayList<String> getRatingDescription(){return ratingDescription;}
     public ArrayList<CastMember> getCastList() {
         return(CastList);
     }

@@ -65,6 +65,9 @@ public class MovieInfoFragment extends Fragment {
         }
         genreTextView.setText(movieGenre);
         ageRatingTextView.setText(ageRating);
+        if(ageRating.equals("(none)")){
+            ageRatingTextView.setText("Ei saatavilla");
+        }
         int directorIndex = 0;
         for(int i = 0; i < cast.size(); i++){
             if(cast.get(i).getRole() == "director") {
