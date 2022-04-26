@@ -35,6 +35,6 @@
     <string name="action_sign_in_short" translatable="false">Sign in</string>
     <string name="welcome">"Tervetuloa !"</string>
     <string name="invalid_username">Käyttäjänimi ei kelpaa</string>
-    <string name="invalid_password">Salasanan tulee olla vähintään 5 merkkiä pitkä</string>
+    <string name="invalid_password">Salasana ei kelpaa</string>
     <string name="login_failed">Kirjautuminen epäonnistui</string>
 </resources>
