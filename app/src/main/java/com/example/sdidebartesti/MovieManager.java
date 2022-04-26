@@ -89,8 +89,6 @@ public class MovieManager {
                         }
                     }
                     if (counter == MOVIES.size()) {
-                        /*float rating = searchRating(originalTitle,yearInt);*/ //<-elokuvainfo fragmentissa
-
                         Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating);
                         MOVIES.add(m);
                         MainActivity.getmInstanceActivity().writeFile(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating);

@@ -75,11 +75,18 @@ public class MovieInfoFragment extends Fragment {
             castTextView.setText(null);
         }
         else if(index == 1){
-           castTextView.setText("Ohjaaja:");
+           castTextView.setText("Ohjaaja: ");
         }
         else {
-            castTextView.setText("Ohjaajat:");
+            castTextView.setText("Ohjaajat: ");
         }
+        castTextView.setText("\n");
+        for(int i = 0; i < cast.size(); i++){
+            if(cast.get(i).getRole() == "director") {
+                castTextView.append(cast.get(i).getFirstName() + " " +cast.get(i).getLastName() + "\n");
+            }
+        }
+
 
     }
 } // TODO: hae dataa elokuvan nimellä

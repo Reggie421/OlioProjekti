@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         row = id+";"+yearString+";"+title+";"+globalTitle+";"+genres+";"+rating+";"+actors+";"+directors +"\n";
 
         try {
-            FileOutputStream fileOutputStream = openFileOutput("Movies12.csv",MODE_APPEND);
+            FileOutputStream fileOutputStream = openFileOutput("Movies15.csv",MODE_APPEND);
             fileOutputStream.write(row.getBytes());
             fileOutputStream.close();
 
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
         ArrayList <Movie> temporaryMovieArrayList = new ArrayList<>();
         try {
-            FileInputStream fileInputStream = openFileInput("Movies12.csv");
+            FileInputStream fileInputStream = openFileInput("Movies15.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             MovieManager mm = MovieManager.getInstance();
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
