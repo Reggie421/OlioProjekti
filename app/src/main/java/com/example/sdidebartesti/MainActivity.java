@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         row = id+";"+yearString+";"+title+";"+globalTitle+";"+genres+";"+rating+";"+actors+";"+directors +"\n";
 
         try {
-            FileOutputStream fileOutputStream = openFileOutput("Movies15.csv",MODE_APPEND);
+            FileOutputStream fileOutputStream = openFileOutput("Movies16.csv",MODE_APPEND);
             fileOutputStream.write(row.getBytes());
             fileOutputStream.close();
 
@@ -160,10 +160,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public ArrayList<Movie> readFile() {
-        ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
         ArrayList <Movie> temporaryMovieArrayList = new ArrayList<>();
         try {
-            FileInputStream fileInputStream = openFileInput("Movies15.csv");
+            FileInputStream fileInputStream = openFileInput("Movies16.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             MovieManager mm = MovieManager.getInstance();
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -171,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
             String lines;
             while ((lines = bufferedReader.readLine()) != null) {
+                ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
                 int id = Integer.parseInt(data[0]);
@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 String globalTitle = data[3];
                 String genres = data[4];
                 String ageRating = data[5];
+                // TODO EI LUE KOLMEA NIMEÄ
                 if (!data[6].equals("null")){
                     String[] castData = data[6].split(",");
                     for (int i = 0 ; i < castData.length ; i++){
@@ -191,14 +192,15 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (!data[7].equals("null")){
                     String[] castData = data[7].split(",");
-                    for (int i = 0 ; i < castData.length ; i++){
+                    for (int i = 0 ; i < castData.length ; i++) {
                         String[] castNameData = castData[i].split(" ");
                         String directorFirstName = castNameData[0];
                         String directorLastName = castNameData[1];
-                        CastMember director = new CastMember(directorFirstName, directorLastName,"actor");
+                        CastMember director = new CastMember(directorFirstName, directorLastName, "director");
                         castMemberArrayList.add(director);
                     }
                 }
+
                 Movie m = new Movie(id, title, globalTitle, yearString,castMemberArrayList, genres, ageRating);
                 temporaryMovieArrayList.add(m);
             }

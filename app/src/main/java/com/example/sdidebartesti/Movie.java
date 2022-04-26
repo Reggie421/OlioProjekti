@@ -26,6 +26,9 @@ public class Movie {
     public String getMovieGenre(){return movieGenre;}
     public String getGlobalTitle(){return globalTitle;}
     public String getAgeRating(){return ageRating;}
+    public ArrayList<CastMember> getCastList() {
+        return(CastList);
+    }
 
     public Boolean getCastMember(String inputName){
         Boolean value = false;

@@ -60,34 +60,58 @@ public class MovieInfoFragment extends Fragment {
                 movieYear = mm.MOVIES.get(i).getYear();
                 movieGenre = mm.MOVIES.get(i).getMovieGenre();
                 ageRating = mm.MOVIES.get(i).getAgeRating();
-                cast = mm.MOVIES.get(i).CastList;
+                cast = mm.MOVIES.get(i).getCastList();
             }
         }
         genreTextView.setText(movieGenre);
         ageRatingTextView.setText(ageRating);
-        int index = 0;
+        int directorIndex = 0;
         for(int i = 0; i < cast.size(); i++){
             if(cast.get(i).getRole() == "director") {
-                index += 1;
+                directorIndex += 1;
             }
         }
-        if (index == 0){
-            castTextView.setText(null);
+        if (directorIndex == 0){
+            castTextView.setText("Ei ohjaajia");
         }
-        else if(index == 1){
+        else if(directorIndex == 1){
            castTextView.setText("Ohjaaja: ");
         }
         else {
             castTextView.setText("Ohjaajat: ");
         }
-        castTextView.setText("\n");
-        for(int i = 0; i < cast.size(); i++){
-            if(cast.get(i).getRole() == "director") {
-                castTextView.append(cast.get(i).getFirstName() + " " +cast.get(i).getLastName() + "\n");
+        castTextView.append("\n");
+        if (directorIndex != 0) {
+            for (int i = 0; i < cast.size(); i++) {
+                if (cast.get(i).getRole() == "director") {
+                    castTextView.append(cast.get(i).getFirstName() + " " + cast.get(i).getLastName() + "\n");
+                }
             }
         }
-
-
+        int actorIndex = 0;
+        for(int i = 0; i < cast.size(); i++){
+            if(cast.get(i).getRole() == "actor") {
+                actorIndex += 1;
+            }
+        }
+        castTextView.append("\n");
+        if (actorIndex == 0){
+            castTextView.append("Ei näyttelijöitä");
+        }
+        else if(actorIndex == 1){
+            castTextView.append("Näyttelijä: ");
+        }
+        else {
+            castTextView.append("Näyttelijät: ");
+        }
+        castTextView.append("\n");
+        if (actorIndex != 0) {
+            for (int i = 0; i < cast.size(); i++) {
+                if (cast.get(i).getRole() == "actor") {
+                    castTextView.append(cast.get(i).getFirstName() + " " + cast.get(i).getLastName() + "\n");
+                }
+            }
+        }
     }
 } // TODO: hae dataa elokuvan nimellä
 // TODO: iMDB arvosana
