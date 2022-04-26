@@ -20,6 +20,7 @@ public class MovieInfoFragment extends Fragment {
     TextView castTextView;
     TextView genreTextView;
     TextView ageRatingTextView;
+    TextView ratingDescriptionTextView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_movieinfo, container, false);
@@ -35,6 +36,8 @@ public class MovieInfoFragment extends Fragment {
         castTextView = view.findViewById(R.id.textViewCast);
         genreTextView = view.findViewById(R.id.movieGenreTextView);
         ageRatingTextView = view.findViewById(R.id.textViewAgeRating);
+        ratingDescriptionTextView = view.findViewById(R.id.textViewRatingDescription);
+
         if(this.getArguments() != null) {
             movieName = this.getArguments().getString("key");
         }
@@ -52,6 +55,7 @@ public class MovieInfoFragment extends Fragment {
         String movieYear = null;
         String movieGenre = null;
         String ageRating = null;
+        ArrayList<String> ratingDescriptionArrayList = new ArrayList<>();
         ArrayList<CastMember> cast = new ArrayList<>();
 
         for(int i = 0; i < mm.MOVIES.size(); i++){
@@ -61,12 +65,23 @@ public class MovieInfoFragment extends Fragment {
                 movieGenre = mm.MOVIES.get(i).getMovieGenre();
                 ageRating = mm.MOVIES.get(i).getAgeRating();
                 cast = mm.MOVIES.get(i).getCastList();
+                ratingDescriptionArrayList = mm.MOVIES.get(i).getRatingDescription();
             }
         }
         genreTextView.setText(movieGenre);
         ageRatingTextView.setText(ageRating);
         if(ageRating.equals("(none)")){
             ageRatingTextView.setText("Ei saatavilla");
+        }
+        if(ratingDescriptionArrayList.size() == 0){
+            ratingDescriptionTextView.setText(null);
+        }
+        for(int i = 0; i < ratingDescriptionArrayList.size(); i++){
+            ratingDescriptionTextView.append(ratingDescriptionArrayList.get(i) + "\n");
+        }
+        System.out.println("ELOKUVA ALKKA ******" + movieName);
+        for(int i = 0; i < ratingDescriptionArrayList.size(); i++){
+            System.out.println("*************" + ratingDescriptionArrayList.get(i));
         }
         int directorIndex = 0;
         for(int i = 0; i < cast.size(); i++){

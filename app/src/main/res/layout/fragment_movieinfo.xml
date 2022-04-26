@@ -106,7 +106,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewAgeRating"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRatingDescription"
             app:layout_constraintVertical_bias="0.060000002" />
 
         <TextView
@@ -124,7 +124,18 @@
 
         <TextView
             android:id="@+id/textViewAgeRating"
-            android:layout_width="280dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewRatingDescription"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/movieGenreTextView"
+            app:layout_constraintVertical_bias="0.060000002" />
+
+        <TextView
+            android:id="@+id/textViewRatingDescription"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"

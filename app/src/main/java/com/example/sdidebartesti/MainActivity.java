@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         row = id+";"+yearString+";"+title+";"+globalTitle+";"+genres+";"+rating+";"+ratingDescriptionsString+";"+actors+";"+directors +"\n";
 
         try {
-            FileOutputStream fileOutputStream = openFileOutput("Movies18.csv",MODE_APPEND);
+            FileOutputStream fileOutputStream = openFileOutput("Movies.csv",MODE_APPEND);
             fileOutputStream.write(row.getBytes());
             fileOutputStream.close();
 
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Movie> readFile() {
         ArrayList <Movie> temporaryMovieArrayList = new ArrayList<>();
         try {
-            FileInputStream fileInputStream = openFileInput("Movies18.csv");
+            FileInputStream fileInputStream = openFileInput("Movies.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             MovieManager mm = MovieManager.getInstance();
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -195,9 +195,6 @@ public class MainActivity extends AppCompatActivity {
                         String ratingsDescription = ratingsDescriptions[i];
                         ratingDescriptionsArrayList.add(ratingsDescription);
                     }
-                }
-                for(int i = 0; i < ratingDescriptionsArrayList.size(); i++){
-                    System.out.println("*************" + ratingDescriptionsArrayList.get(i));
                 }
                 // TODO EI LUE KOLMEA NIMEÄ
                 if (!data[7].equals("null")){
