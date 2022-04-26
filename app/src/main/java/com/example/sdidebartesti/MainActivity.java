@@ -146,10 +146,10 @@ public class MainActivity extends AppCompatActivity {
         if (directors.equals("")){
             directors = "null";
         }
-        row = id+";"+yearString+";"+title+";"+globalTitle+";"+genres+";"+actors+";"+directors +"\n";
+        row = id+";"+yearString+";"+title+";"+globalTitle+";"+genres+";"+rating+";"+actors+";"+directors +"\n";
 
         try {
-            FileOutputStream fileOutputStream = openFileOutput("Movies7.csv",MODE_APPEND);
+            FileOutputStream fileOutputStream = openFileOutput("Movies12.csv",MODE_APPEND);
             fileOutputStream.write(row.getBytes());
             fileOutputStream.close();
 
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
         ArrayList <Movie> temporaryMovieArrayList = new ArrayList<>();
         try {
-            FileInputStream fileInputStream = openFileInput("Movies7.csv");
+            FileInputStream fileInputStream = openFileInput("Movies12.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             MovieManager mm = MovieManager.getInstance();
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -178,9 +178,9 @@ public class MainActivity extends AppCompatActivity {
                 String title = data[2];
                 String globalTitle = data[3];
                 String genres = data[4];
-                String ageRating = data[7];
-                if (!data[5].equals("null")){
-                    String[] castData = data[5].split(",");
+                String ageRating = data[5];
+                if (!data[6].equals("null")){
+                    String[] castData = data[6].split(",");
                     for (int i = 0 ; i < castData.length ; i++){
                         String[] castNameData = castData[i].split(" ");
                         String actorFirstName = castNameData[0];
@@ -189,8 +189,8 @@ public class MainActivity extends AppCompatActivity {
                         castMemberArrayList.add(actor);
                     }
                 }
-                if (!data[6].equals("null")){
-                    String[] castData = data[6].split(",");
+                if (!data[7].equals("null")){
+                    String[] castData = data[7].split(",");
                     for (int i = 0 ; i < castData.length ; i++){
                         String[] castNameData = castData[i].split(" ");
                         String directorFirstName = castNameData[0];

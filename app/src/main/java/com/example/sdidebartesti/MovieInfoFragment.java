@@ -17,7 +17,9 @@ public class MovieInfoFragment extends Fragment {
     String movieName;
     TextView movieNameTextView;
     Button fragmentGoBackButton;
-    TextView directorsTextView;
+    TextView castTextView;
+    TextView genreTextView;
+    TextView ageRatingTextView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_movieinfo, container, false);
@@ -30,7 +32,9 @@ public class MovieInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         movieNameTextView = view.findViewById(R.id.movieNameTextView);
         fragmentGoBackButton = view.findViewById(R.id.buttonCloseFragment);
-        directorsTextView = view.findViewById(R.id.textViewCast);
+        castTextView = view.findViewById(R.id.textViewCast);
+        genreTextView = view.findViewById(R.id.movieGenreTextView);
+        ageRatingTextView = view.findViewById(R.id.textViewAgeRating);
         if(this.getArguments() != null) {
             movieName = this.getArguments().getString("key");
         }
@@ -59,6 +63,8 @@ public class MovieInfoFragment extends Fragment {
                 cast = mm.MOVIES.get(i).CastList;
             }
         }
+        genreTextView.setText(movieGenre);
+        ageRatingTextView.setText(ageRating);
         int index = 0;
         for(int i = 0; i < cast.size(); i++){
             if(cast.get(i).getRole() == "director") {
@@ -66,14 +72,15 @@ public class MovieInfoFragment extends Fragment {
             }
         }
         if (index == 0){
-            directorsTextView.setText(null);
+            castTextView.setText(null);
         }
         else if(index == 1){
-            directorsTextView.setText("Ohjaaja:");
+           castTextView.setText("Ohjaaja:");
         }
         else {
-            directorsTextView.setText("Ohjaajat:");
+            castTextView.setText("Ohjaajat:");
         }
+
     }
 } // TODO: hae dataa elokuvan nimellä
 // TODO: iMDB arvosana
