@@ -21,6 +21,7 @@ public class MovieInfoFragment extends Fragment {
     TextView genreTextView;
     TextView ageRatingTextView;
     TextView ratingDescriptionTextView;
+    TextView yearTextView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_movieinfo, container, false);
@@ -37,6 +38,7 @@ public class MovieInfoFragment extends Fragment {
         genreTextView = view.findViewById(R.id.movieGenreTextView);
         ageRatingTextView = view.findViewById(R.id.textViewAgeRating);
         ratingDescriptionTextView = view.findViewById(R.id.textViewRatingDescription);
+        yearTextView = view.findViewById(R.id.textViewMovieYear);
 
         if(this.getArguments() != null) {
             movieName = this.getArguments().getString("key");
@@ -58,6 +60,8 @@ public class MovieInfoFragment extends Fragment {
         ArrayList<String> ratingDescriptionArrayList = new ArrayList<>();
         ArrayList<CastMember> cast = new ArrayList<>();
 
+
+
         for(int i = 0; i < mm.MOVIES.size(); i++){
             if(movieName.equals(mm.MOVIES.get(i).getTitle())){
                 movieGlobalTitle = mm.MOVIES.get(i).getGlobalTitle();
@@ -68,6 +72,7 @@ public class MovieInfoFragment extends Fragment {
                 ratingDescriptionArrayList = mm.MOVIES.get(i).getRatingDescription();
             }
         }
+        yearTextView.setText(movieYear);
         genreTextView.setText(movieGenre);
         ageRatingTextView.setText(ageRating);
         if(ageRating.equals("(none)")){
@@ -131,5 +136,5 @@ public class MovieInfoFragment extends Fragment {
             }
         }
     }
-} // TODO: hae dataa elokuvan nimellä
+}
 // TODO: iMDB arvosana
