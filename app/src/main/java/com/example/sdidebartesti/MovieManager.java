@@ -1,9 +1,7 @@
 package com.example.sdidebartesti;
 
-import android.app.Activity;
 import android.os.StrictMode;
 
-import androidx.fragment.app.FragmentManager;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,16 +11,12 @@ import org.xml.sax.SAXException;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
