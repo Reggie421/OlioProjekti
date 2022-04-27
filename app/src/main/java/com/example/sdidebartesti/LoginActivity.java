@@ -23,6 +23,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     String usernametext;
     String passwordtext;
     TextView text;
+    String salt;
+    String hashedPassword;
+
     // TODO KIRJAUTMISTUNNUS MINKÄ VOI KOPIOIDA: Testi - Aa#1aaaaaaaa
     //TODO KORJATAAN ONGELMA KUN KÄYTTÄJÄ KÄYNNISTÄÄ ENSIMMÄISEN KERRAN SOVELLUKSEN (LUETTAVAA TIEDOSTA EI LÖYTYNYT)
     @Override
@@ -49,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 
         login.setEnabled(false);
         signup.setEnabled(false);
+        salt = getSalt();
 
         password.addTextChangedListener(new TextWatcher() {
             @Override
@@ -106,7 +113,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (usernametext.isEmpty() || passwordtext.isEmpty()) {
                     System.out.println("jompikumpi on tyhjä");
                 } else {
-                    boolean bump = SearchAccountList(usernametext, passwordtext, 1);
+                    hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt);
+                    boolean bump = SearchAccountList(usernametext, hashedPassword, 1);
                     if (bump == true) {
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("username", usernametext);
@@ -130,7 +138,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (usernametext.isEmpty() || passwordtext.isEmpty()) {
                     System.out.println("jompikumpi on tyhjä");
                 } else {
-                    boolean bump = createAccount(usernametext, passwordtext);
+                    hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt);
+                    boolean bump = createAccount(usernametext, hashedPassword);
                     if (bump == true) {
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("username", usernametext);
@@ -145,12 +154,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private static String getSalt() {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+        return salt.toString();
+    }
+
     public boolean isValidPassword(final String password) {
         Pattern pattern;
         Matcher matcher;
-
         final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{12,}$";
-
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
 
@@ -159,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean SearchAccountList(String username, String password, int number){
         try {
-            FileInputStream fileInputStream = openFileInput("accounts1.csv");
+            FileInputStream fileInputStream = openFileInput("accounts2.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
@@ -205,6 +219,24 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
+    private static String get_SHA_512_SecurePassword(String unsecurePassword, String salt){
+        String securePassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(salt.getBytes());
+            byte[] bytes = md.digest(unsecurePassword.getBytes());
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                stringBuilder.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16)
+                        .substring(1));
+            }
+            securePassword = stringBuilder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return securePassword;
+    }
+
     public boolean createAccount(String username, String password){
         boolean value;
         String row = "";
@@ -212,7 +244,7 @@ public class LoginActivity extends AppCompatActivity {
         if (value == false) {
             row = username + ";" + password + ";null\n";
             try {
-                FileOutputStream fileOutputStream = openFileOutput("accounts1.csv",MODE_PRIVATE);
+                FileOutputStream fileOutputStream = openFileOutput("accounts2.csv",MODE_PRIVATE);
                 fileOutputStream.write(row.getBytes());
                 fileOutputStream.close();
             } catch (FileNotFoundException e) {
