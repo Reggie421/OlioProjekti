@@ -135,10 +135,10 @@ public class MainActivity extends AppCompatActivity {
         String ratingDescriptionsString = "";
         for (int i = 0 ; i < castMemberArrayList.size() ; i++){
             if(castMemberArrayList.get(i).getRole() == "director"){
-                directors += castMemberArrayList.get(i).getFirstName() + " " + castMemberArrayList.get(i).getLastName()+ ",";
+                directors += castMemberArrayList.get(i).getFirstName() + "/" + castMemberArrayList.get(i).getLastName()+ ",";
             }
             else {
-                actors += castMemberArrayList.get(i).getFirstName() + " " + castMemberArrayList.get(i).getLastName()+ ",";
+                actors += castMemberArrayList.get(i).getFirstName() + "/" + castMemberArrayList.get(i).getLastName()+ ",";
 
             }
         }
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         row = id+";"+yearString+";"+title+";"+globalTitle+";"+genres+";"+rating+";"+ratingDescriptionsString+";"+actors+";"+directors +"\n";
 
         try {
-            FileOutputStream fileOutputStream = openFileOutput("Movies.csv",MODE_APPEND);
+            FileOutputStream fileOutputStream = openFileOutput("Movies1.csv",MODE_APPEND);
             fileOutputStream.write(row.getBytes());
             fileOutputStream.close();
 
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Movie> readFile() {
         ArrayList <Movie> temporaryMovieArrayList = new ArrayList<>();
         try {
-            FileInputStream fileInputStream = openFileInput("Movies.csv");
+            FileInputStream fileInputStream = openFileInput("Movies1.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             MovieManager mm = MovieManager.getInstance();
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -196,11 +196,10 @@ public class MainActivity extends AppCompatActivity {
                         ratingDescriptionsArrayList.add(ratingsDescription);
                     }
                 }
-                // TODO EI LUE KOLMEA NIMEÄ
                 if (!data[7].equals("null")){
                     String[] castData = data[7].split(",");
                     for (int i = 0 ; i < castData.length ; i++){
-                        String[] castNameData = castData[i].split(" ");
+                        String[] castNameData = castData[i].split("/");
                         String actorFirstName = castNameData[0];
                         String actorLastName = castNameData[1];
                         CastMember actor = new CastMember(actorFirstName, actorLastName,"actor");
@@ -210,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!data[8].equals("null")){
                     String[] castData = data[8].split(",");
                     for (int i = 0 ; i < castData.length ; i++) {
-                        String[] castNameData = castData[i].split(" ");
+                        String[] castNameData = castData[i].split("/");
                         String directorFirstName = castNameData[0];
                         String directorLastName = castNameData[1];
                         CastMember director = new CastMember(directorFirstName, directorLastName, "director");
