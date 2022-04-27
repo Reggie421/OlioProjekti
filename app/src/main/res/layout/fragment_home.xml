@@ -12,9 +12,9 @@
 
         <TextView
             android:layout_width="248dp"
+            android:id="@+id/welcomeuser"
             android:layout_height="62dp"
             android:layout_gravity="center|top"
-            android:text="@string/home_welcome_user"
             android:textAlignment="center"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"

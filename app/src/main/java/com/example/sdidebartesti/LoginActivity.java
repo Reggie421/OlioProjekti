@@ -202,7 +202,7 @@ public class LoginActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
     public boolean createAccount(String username, String password){

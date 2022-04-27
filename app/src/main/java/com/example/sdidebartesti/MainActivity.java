@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         username = getIntent().getStringExtra("username");
-        password = getIntent().getStringExtra("password");
         weakActivity = new WeakReference<>(MainActivity.this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -59,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         HomeFragment homeFragment = new HomeFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, homeFragment).commit();
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+        homeFragment.setArguments(bundle);
         MovieManager mm = MovieManager.getInstance();
     }
 
@@ -119,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
         item.setChecked(true);
         setTitle(item.getTitle());
         mDrawer.closeDrawers();

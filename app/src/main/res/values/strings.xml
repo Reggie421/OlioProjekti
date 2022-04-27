@@ -3,7 +3,6 @@
     <string name="app_name">Koti</string>
     <!-- HOME-->
     <string name="header_home_name">Koti</string>
-    <string name="home_welcome_user">Tervetuloa KÄYTTÄJÄNIMI</string>
     <!-- MovieSearch-->
     <string name="header_movie_search_name">Elokuvahaku</string>
     <string name="movie_search_fragment_info">Tästä valikosta voit hakea eri elokuvien tietoja elokuvien nimillä.\n Voit tarkastella elokuvia tarkemmin näpäyttämällä niitä.\n Hauskaa selailua!</string>
