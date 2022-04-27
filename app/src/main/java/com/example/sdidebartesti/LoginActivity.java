@@ -210,9 +210,9 @@ public class LoginActivity extends AppCompatActivity {
         String row = "";
         value = SearchAccountList(username, password, 2);
         if (value == false) {
-            row = username + ";" + password + ";\n";
+            row = username + ";" + password + ";null\n";
             try {
-                FileOutputStream fileOutputStream = openFileOutput("accounts1.csv",MODE_APPEND);
+                FileOutputStream fileOutputStream = openFileOutput("accounts1.csv",MODE_PRIVATE);
                 fileOutputStream.write(row.getBytes());
                 fileOutputStream.close();
             } catch (FileNotFoundException e) {

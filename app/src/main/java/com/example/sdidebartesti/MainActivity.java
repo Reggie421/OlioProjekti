@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         username = getIntent().getStringExtra("username");
         System.out.println(username + "-------------------------------------------------------");
-        AccountManager am = AccountManager.getInstance();
         weakActivity = new WeakReference<>(MainActivity.this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        AccountManager am = AccountManager.getInstance();
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         //Creates animation for drawer icon
         drawerToggle = setupDrawerToggle();
@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
             String lines;
-
             while ((lines = bufferedReader.readLine()) != null) {
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
@@ -104,15 +103,13 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Path source1 = Paths.get("/home/mkyong/accounts1.csv");
-
+        Path source1 = Paths.get("/data/data/com.example.sdidebartesti/files/accounts1.csv");
         try{
             Files.move(source1, source1.resolveSibling("accountsold.csv"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Path source2 = Paths.get("/home/mkyong/accountsnew.csv");
-
+        Path source2 = Paths.get("/data/data/com.example.sdidebartesti/files/accountsnew.csv");
         try{
             Files.move(source2, source2.resolveSibling("accounts1.csv"));
         } catch (IOException e) {
@@ -123,11 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
         deleteFile("accountsold.csv");
 
-/*
-        File dir = getFilesDir();
-        File file = new File(dir, "accountsold.csv");
-        boolean deleted = file.delete();
-*/
+
 
     }
     public ArrayList getFavoriteMovies(String username){
@@ -138,10 +131,17 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
             String lines;
+            System.out.println("1");
             while ((lines = bufferedReader.readLine()) != null) {
+                System.out.println("2");
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
-                if (data[0].equals(username)) {
+                System.out.println("3");
+                System.out.println(lines);
+                if (data[0].equals(username) && !data[2].equals("null")) {
+                    System.out.println("4");
+                    System.out.println(data[0]);
+
                     String[] moviedata = data[2].split(",");
                     for (int i = 0 ; i < moviedata.length ; i++){
                         movies.add(moviedata[i]);
@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
+            System.out.println("Meni ohi");
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();

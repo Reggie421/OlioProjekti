@@ -15,12 +15,8 @@ public class AccountManager {
     private static AccountManager am = new AccountManager();
 
     private AccountManager(){
-        System.out.println("Testi1");
-
         username = MainActivity.getmInstanceActivity().getAccountName();
-        System.out.println("testi2");
         favorites = MainActivity.getmInstanceActivity().getFavoriteMovies(username);
-        System.out.println("testi3");
         Account a = new Account(username,favorites);
     }
 
