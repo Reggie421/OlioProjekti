@@ -70,7 +70,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textview"
+        android:id="@+id/Salasanatextview"
         android:layout_below="@id/signup"
         android:textSize="20dp"
         android:textColor="#700610"
