@@ -21,9 +21,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        hellouser = (TextView) view.findViewById(R.id.welcomeuser);
-        username = this.getArguments().getString("username");
-        hellouser.setText("Tervetuloa " + username + "!");
+        if(this.getArguments() != null) {
+            hellouser = (TextView) view.findViewById(R.id.welcomeuser);
+            username = this.getArguments().getString("username");
+            hellouser.setText("Tervetuloa " + username + "!");
+        }
     }
 
 }
