@@ -7,7 +7,7 @@
     <!-- MovieSearch-->
     <string name="header_movie_search_name">Elokuvahaku</string>
     <string name="movie_search_fragment_info">Tästä valikosta voit hakea eri elokuvien tietoja elokuvien nimillä.\n Voit tarkastella elokuvia tarkemmin näpäyttämällä niitä.\n Hauskaa selailua!</string>
-    <string name="movie_search_show_all_button">Näytä kaikkia</string>
+    <string name="movie_search_show_all_button">Näytä kaikki</string>
     <string name="movie_search_bar_text">Hae elokuvaa nimellä</string>
     <!-- MoviePersonSearch-->
     <string name="header_movie_person_search_name">Henkilöhaku</string>
