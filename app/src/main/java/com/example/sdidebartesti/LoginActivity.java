@@ -35,7 +35,8 @@ public class LoginActivity extends AppCompatActivity {
     String usernametext;
     String passwordtext;
     TextView text;
-
+    // TODO KIRJAUTMISTUNNUS MINKÄ VOI KOPIOIDA: Testi - Aa#1aaaaaaaa
+    //TODO KORJATAAN ONGELMA KUN KÄYTTÄJÄ KÄYNNISTÄÄ ENSIMMÄISEN KERRAN SOVELLUKSEN (LUETTAVAA TIEDOSTA EI LÖYTYNYT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
