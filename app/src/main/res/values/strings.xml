@@ -3,6 +3,16 @@
     <string name="app_name">Koti</string>
     <!-- HOME-->
     <string name="header_home_name">Koti</string>
+    <string name="home_introduction">Tervetuloa SOVELLUSNIMEEN!\n
+        Sovelluksessa navigointi tapahtuu vasemmassa yläkulmassa sijaitsevan animoidun kuvakkeen avulla.\n
+        Tämä sovellus hakee elokuvien tietoja Finnkinon XML-verkkosivulta ja tallentaa ne omaan tiedostoon.\n
+        Näin ollen kykenet tarkastelemaan elokuvia, jotka eivät edes pyöri enää Finnkinon teattereissa!\n
+        Sovelluksen eri näkymien toiminnallisuudet on kuvattu niiden yläreunassa.\n
+        Tämän soveluksen kehittäjinä toimivat Joel Leppänen, Werneri Punavaara sekä Wihtori Punavaara.
+
+
+
+    </string>
     <!-- MovieSearch-->
     <string name="header_movie_search_name">Elokuvahaku</string>
     <string name="movie_search_fragment_info">Tästä valikosta voit hakea eri elokuvien tietoja elokuvien nimillä.\n Voit tarkastella elokuvia tarkemmin näpäyttämällä niitä.\n Hauskaa selailua!</string>
