@@ -13,6 +13,15 @@
     <string name="header_movie_person_search_name">Henkilöhaku</string>
     <string name="movie_person_search_fragment_info">Tästä näkymästä voit hakea elokuvia näyttelijöiden tai ohjaajien nimien perusteella.\n Voit tarkastella elokuvia tarkemmin näpäyttämällä niitä.\n Hauskaa selailua!</string>
     <string name="movie_person_search_bar_text">Hae elokuvia henkilön avulla</string>
+    <!-- MovieInfo -->
+    <string name="movie_release_year">Julkaisuvuosi:</string>
+    <string name="movie_genre">Genre:</string>
+    <string name="movie_age_rating">Ikärajoitus:</string>
+    <string name="add_to_favorites_button">Lisää suosikkeihin:</string>
+    <string name="go_back_button">Takaisin</string>
+
+
+
     <!-- Favorites-->
     <string name="header_favorite_name">Suosikit</string>
     <string name="favorite_fragment_info">Tästä näkymästä löydät kaikki suosikkielokuvasi. Voit tarkastella elokuvia tarkemmin ja hallita suosikkielokuviasi näpäyttämällä niitä.</string>
