@@ -42,4 +42,6 @@
     <string name="invalid_username">Käyttäjänimi ei kelpaa</string>
     <string name="invalid_password">Salasanan tulee olla vähintään 5 merkkiä pitkä</string>
     <string name="login_failed">Kirjautuminen epäonnistui</string>
+    <string name="kirjaudu_ulos">Kirjaudu ulos</string>
+    <string name="poista_kayttaja">Poista käyttäjä</string>
 </resources>
