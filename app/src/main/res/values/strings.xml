@@ -23,8 +23,6 @@
 
 
 
-    <!-- JOPPPE ONKS NÄÄ TARVITTAVIA VAIHOIN PARI JO SUOMEKS JA KÄÄNNÖS TULOSSA-->
-
     <string name="drawer_open" translatable="false">Open navigation drawer</string>
     <string name="drawer_close" translatable="false">Close navigation drawer</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>

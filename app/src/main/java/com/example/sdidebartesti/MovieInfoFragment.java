@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,9 +21,12 @@ public class MovieInfoFragment extends Fragment {
     Button fragmentGoBackButton;
     TextView castTextView;
     TextView genreTextView;
-    TextView ageRatingTextView;
-    TextView ratingDescriptionTextView;
     TextView yearTextView;
+    TextView ageNotAvailableTextView;
+    ImageView ageRatingImageView;
+    ImageView ratingDescriptionImageView1;
+    ImageView ratingDescriptionImageView2;
+    ImageView ratingDescriptionImageView3;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_movieinfo, container, false);
@@ -36,8 +41,11 @@ public class MovieInfoFragment extends Fragment {
         fragmentGoBackButton = view.findViewById(R.id.buttonCloseFragment);
         castTextView = view.findViewById(R.id.textViewCast);
         genreTextView = view.findViewById(R.id.movieGenreTextView);
-        ageRatingTextView = view.findViewById(R.id.textViewAgeRating);
-        ratingDescriptionTextView = view.findViewById(R.id.textViewRatingDescription);
+        ageNotAvailableTextView = view.findViewById(R.id.textViewAgeNotAvailable);
+        ageRatingImageView = view.findViewById(R.id.imageViewAgeRating);
+        ratingDescriptionImageView1 = view.findViewById(R.id.imageViewRatingDescription1);
+        ratingDescriptionImageView2 = view.findViewById(R.id.imageViewRatingDescription2);
+        ratingDescriptionImageView3 = view.findViewById(R.id.imageViewRatingDescription3);
         yearTextView = view.findViewById(R.id.textViewMovieYear);
 
         if(this.getArguments() != null) {
@@ -74,20 +82,77 @@ public class MovieInfoFragment extends Fragment {
         }
         yearTextView.setText(movieYear);
         genreTextView.setText(movieGenre);
-        ageRatingTextView.setText(ageRating);
+
+        if(ageRating.equals("Tulossa")){
+            ageNotAvailableTextView.setText("Tulossa");
+        }
         if(ageRating.equals("(none)")){
-            ageRatingTextView.setText("Ei saatavilla");
+            ageNotAvailableTextView.setText("Ei saatavilla");
         }
-        if(ratingDescriptionArrayList.size() == 0){
-            ratingDescriptionTextView.setText(null);
+        else if(ageRating.equals("S")){
+            ageRatingImageView.setImageResource(R.drawable.ratings);
         }
+        else if(ageRating.equals("7")){
+            ageRatingImageView.setImageResource(R.drawable.rating7);
+        }
+        else if(ageRating.equals("T")){
+            ageRatingImageView.setImageResource(R.drawable.ratingt);
+        }
+        else if(ageRating.equals("12")){
+            ageRatingImageView.setImageResource(R.drawable.rating12);
+        }
+        else if(ageRating.equals("16")){
+            ageRatingImageView.setImageResource(R.drawable.rating16);
+        }
+        else if(ageRating.equals("18")){
+            ageRatingImageView.setImageResource(R.drawable.rating18);
+        }
+
         for(int i = 0; i < ratingDescriptionArrayList.size(); i++){
-            ratingDescriptionTextView.append(ratingDescriptionArrayList.get(i) + "\n");
+            if (i == 0) {
+                if (ratingDescriptionArrayList.get(i).equals("Violence")) {
+                    ratingDescriptionImageView1.setImageResource(R.drawable.ratingv);
+                }
+                else if (ratingDescriptionArrayList.get(i).equals("SexualContent")) {
+                    ratingDescriptionImageView1.setImageResource(R.drawable.ratingsex);
+                }
+                else if (ratingDescriptionArrayList.get(i).equals("Disturbing")) {
+                    ratingDescriptionImageView1.setImageResource(R.drawable.ratingspider);
+                }
+                else if (ratingDescriptionArrayList.get(i).equals("SubstanceAbuse")) {
+                    ratingDescriptionImageView1.setImageResource(R.drawable.ratingsubstance);
+                }
+            }
+            if (i == 1){
+                if (ratingDescriptionArrayList.get(i).equals("Violence")) {
+                    ratingDescriptionImageView2.setImageResource(R.drawable.ratingv);
+                }
+                else if (ratingDescriptionArrayList.get(i).equals("SexualContent")) {
+                    ratingDescriptionImageView2.setImageResource(R.drawable.ratingsex);
+                }
+                else if (ratingDescriptionArrayList.get(i).equals("Disturbing")) {
+                    ratingDescriptionImageView2.setImageResource(R.drawable.ratingspider);
+                }
+                else if (ratingDescriptionArrayList.get(i).equals("SubstanceAbuse")) {
+                    ratingDescriptionImageView2.setImageResource(R.drawable.ratingsubstance);
+                }
+            }
+            if (i == 2){
+                if (ratingDescriptionArrayList.get(i).equals("Violence")) {
+                    ratingDescriptionImageView3.setImageResource(R.drawable.ratingv);
+                }
+                else if (ratingDescriptionArrayList.get(i).equals("SexualContent")) {
+                    ratingDescriptionImageView3.setImageResource(R.drawable.ratingsex);
+                }
+                else if (ratingDescriptionArrayList.get(i).equals("Disturbing")) {
+                    ratingDescriptionImageView3.setImageResource(R.drawable.ratingspider);
+                }
+                else if (ratingDescriptionArrayList.get(i).equals("SubstanceAbuse")) {
+                    ratingDescriptionImageView3.setImageResource(R.drawable.ratingsubstance);
+                }
+            }
         }
-        System.out.println("ELOKUVA ALKKA ******" + movieName);
-        for(int i = 0; i < ratingDescriptionArrayList.size(); i++){
-            System.out.println("*************" + ratingDescriptionArrayList.get(i));
-        }
+
         int directorIndex = 0;
         for(int i = 0; i < cast.size(); i++){
             if(cast.get(i).getRole() == "director") {
@@ -137,4 +202,3 @@ public class MovieInfoFragment extends Fragment {
         }
     }
 }
-// TODO: iMDB arvosana
