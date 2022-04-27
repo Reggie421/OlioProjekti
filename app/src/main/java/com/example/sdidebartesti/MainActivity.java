@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
     String username;
-    String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         username = getIntent().getStringExtra("username");
+        AccountManager am = AccountManager.getInstance();
         weakActivity = new WeakReference<>(MainActivity.this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,7 +63,39 @@ public class MainActivity extends AppCompatActivity {
         homeFragment.setArguments(bundle);
         MovieManager mm = MovieManager.getInstance();
     }
+    public ArrayList getFavoriteMovies(String username){
+        ArrayList<String> movies = new ArrayList<>();
+        String user = username;
+        try {
+            FileInputStream fileInputStream = openFileInput("accounts1.csv");
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            String lines;
+            while ((lines = bufferedReader.readLine()) != null) {
+                stringBuffer.append((lines + "\n"));
+                String[] data = lines.split(";");
+                if (data[0].equals(user)) {
+                    String[] moviedata = data[2].split(",");
+                    for (int i = 0 ; i < moviedata.length ; i++){
+                        movies.add(moviedata[i]);
+                    }
 
+                }
+            }
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return movies;
+    }
+    public String getAccountName(){
+        String user = username;
+        return user;
+    }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         return new ActionBarDrawerToggle(this,mDrawer,toolbar,R.string.drawer_open, R.string.drawer_close);
