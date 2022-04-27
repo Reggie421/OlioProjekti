@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,6 +24,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Array;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
@@ -42,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         username = getIntent().getStringExtra("username");
+        System.out.println(username + "-------------------------------------------------------");
         AccountManager am = AccountManager.getInstance();
         weakActivity = new WeakReference<>(MainActivity.this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,9 +70,68 @@ public class MainActivity extends AppCompatActivity {
         homeFragment.setArguments(bundle);
         MovieManager mm = MovieManager.getInstance();
     }
+    public void deleteAccount(String username){
+        ArrayList<String> rowList = new ArrayList<>();
+        //AccountManager am = AccountManager.getInstance(); tarkistakaaonko olio ohjelmointii :((((((
+        try {
+            FileInputStream fileInputStream = openFileInput("accounts1.csv");
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            String lines;
+
+            while ((lines = bufferedReader.readLine()) != null) {
+                stringBuffer.append((lines + "\n"));
+                String[] data = lines.split(";");
+                if (!data[0].equals(username)) {
+                    rowList.add(lines);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            FileOutputStream fileOutputStream = openFileOutput("accountsnew.csv",MODE_APPEND);
+        for (int i = 0 ; i < rowList.size() ; i++ ){
+            String row = rowList.get(i);
+            fileOutputStream.write(row.getBytes());
+        }
+        fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Path source1 = Paths.get("/home/mkyong/accounts1.csv");
+
+        try{
+            Files.move(source1, source1.resolveSibling("accountsold.csv"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Path source2 = Paths.get("/home/mkyong/accountsnew.csv");
+
+        try{
+            Files.move(source2, source2.resolveSibling("accounts1.csv"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        deleteFile("accountsold.csv");
+
+/*
+        File dir = getFilesDir();
+        File file = new File(dir, "accountsold.csv");
+        boolean deleted = file.delete();
+*/
+
+    }
     public ArrayList getFavoriteMovies(String username){
         ArrayList<String> movies = new ArrayList<>();
-        String user = username;
         try {
             FileInputStream fileInputStream = openFileInput("accounts1.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -75,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             while ((lines = bufferedReader.readLine()) != null) {
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
-                if (data[0].equals(user)) {
+                if (data[0].equals(username)) {
                     String[] moviedata = data[2].split(",");
                     for (int i = 0 ; i < moviedata.length ; i++){
                         movies.add(moviedata[i]);
@@ -93,7 +159,9 @@ public class MainActivity extends AppCompatActivity {
         return movies;
     }
     public String getAccountName(){
+        System.out.println("EDes tätä?");
         String user = username;
+        System.out.println(user+"ssdasdas");
         return user;
     }
 
