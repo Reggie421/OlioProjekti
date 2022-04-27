@@ -19,6 +19,7 @@ public class MovieInfoFragment extends Fragment {
     String movieName;
     TextView movieNameTextView;
     Button fragmentGoBackButton;
+    Button addToFavoritesButton;
     TextView castTextView;
     TextView genreTextView;
     TextView yearTextView;
@@ -39,6 +40,7 @@ public class MovieInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         movieNameTextView = view.findViewById(R.id.movieNameTextView);
         fragmentGoBackButton = view.findViewById(R.id.buttonCloseFragment);
+        addToFavoritesButton = view.findViewById(R.id.buttonAddToFavorites);
         castTextView = view.findViewById(R.id.textViewCast);
         genreTextView = view.findViewById(R.id.movieGenreTextView);
         ageNotAvailableTextView = view.findViewById(R.id.textViewAgeNotAvailable);
@@ -68,7 +70,12 @@ public class MovieInfoFragment extends Fragment {
         ArrayList<String> ratingDescriptionArrayList = new ArrayList<>();
         ArrayList<CastMember> cast = new ArrayList<>();
 
-
+        addToFavoritesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO TÄHÄN SUOSIKKITOIMINTAA
+            }
+        });
 
         for(int i = 0; i < mm.MOVIES.size(); i++){
             if(movieName.equals(mm.MOVIES.get(i).getTitle())){
