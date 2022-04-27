@@ -35,11 +35,15 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
+    String username;
+    String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        username = getIntent().getStringExtra("username");
+        password = getIntent().getStringExtra("password");
         weakActivity = new WeakReference<>(MainActivity.this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -173,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             FileInputStream fileInputStream = openFileInput("Movies.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            MovieManager mm = MovieManager.getInstance();
+            MovieManager mm = MovieManager.getInstance(); //TODO Poista?
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
 
