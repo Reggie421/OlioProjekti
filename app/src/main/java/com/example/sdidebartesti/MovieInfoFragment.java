@@ -73,6 +73,13 @@ public class MovieInfoFragment extends Fragment {
         addToFavoritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                for(int i = 0; i < mm.MOVIES.size(); i++){
+                    if(movieName.equals(mm.MOVIES.get(i).getTitle())){
+                        int movieId = mm.MOVIES.get(i).getId();
+                        AccountManager am = AccountManager.getInstance();
+                        am.addMovieToFavorites(movieId);
+                    }
+                }
                 //TODO TÄHÄN SUOSIKKITOIMINTAA
             }
         });
