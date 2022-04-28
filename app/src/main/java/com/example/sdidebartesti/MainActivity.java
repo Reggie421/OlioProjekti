@@ -70,6 +70,61 @@ public class MainActivity extends AppCompatActivity {
         homeFragment.setArguments(bundle);
         MovieManager mm = MovieManager.getInstance();
     }
+    public boolean deleteFavoriteMovies(int movieId){
+        ArrayList<String> rowList = new ArrayList<>();
+        //AccountManager am = AccountManager.getInstance(); tarkistakaaonko olio ohjelmointii :((((((
+        try {
+            FileInputStream fileInputStream = openFileInput("accounts.csv");
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            String lines;
+            while ((lines = bufferedReader.readLine()) != null) {
+                stringBuffer.append((lines + "\n"));
+                String[] data = lines.split(";");
+                if (!data[0].equals(username)) {
+                    rowList.add(lines);
+                }
+                else if(data[0].equals(username)) {
+                    ArrayList<String> usersFavoriteMovies = new ArrayList<>();
+                    String[] movieData = data[2].split(",");
+                    for (int i = 0 ; i < movieData.length ; i++){
+                        if (!movieData[i].equals(movieId)){
+                            usersFavoriteMovies.add(movieData[i]);
+                        }
+                    }
+                    lines = data[0]+";"+data[1]+";";
+                    for(int i = 0 ; i < usersFavoriteMovies.size() ; i++){
+                        if(i == usersFavoriteMovies.size()-1){
+                            lines += usersFavoriteMovies.get(i);
+                        }
+                        else{
+                            lines += usersFavoriteMovies.get(i)+",";
+                        }
+                    }
+                    rowList.add(lines);
+
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            FileOutputStream fileOutputStream = openFileOutput("accounts.csv",MODE_PRIVATE);
+            for (int i = 0 ; i < rowList.size() ; i++ ){
+                String row = rowList.get(i);
+                fileOutputStream.write(row.getBytes());
+            }
+            fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
     public boolean saveFavoriteMovies(int movieId){
         ArrayList<String> rowList = new ArrayList<>();
         //AccountManager am = AccountManager.getInstance(); tarkistakaaonko olio ohjelmointii :((((((
