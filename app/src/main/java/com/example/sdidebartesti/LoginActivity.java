@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public int SearchAccountList(String username, String password, int number){
         try {
-            FileInputStream fileInputStream = openFileInput("accounts2.csv");
+            FileInputStream fileInputStream = openFileInput("accounts.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
@@ -215,7 +215,7 @@ public class LoginActivity extends AppCompatActivity {
         if (value == 1) {
             row = username + ";" + password + ";null\n";
             try {
-                FileOutputStream fileOutputStream = openFileOutput("accounts2.csv",MODE_PRIVATE);
+                FileOutputStream fileOutputStream = openFileOutput("accounts.csv",MODE_PRIVATE);
                 fileOutputStream.write(row.getBytes());
                 fileOutputStream.close();
             } catch (FileNotFoundException e) {
