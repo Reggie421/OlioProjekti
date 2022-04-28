@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 
-import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -52,9 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         login = (MaterialButton) findViewById(R.id.login);
         signup = (MaterialButton) findViewById(R.id.signup);
         text = (TextView) findViewById(R.id.Salasanatextview);
-
-        login.setEnabled(false);
-        signup.setEnabled(false);
         salt = getSalt();
 
         password.addTextChangedListener(new TextWatcher() {
@@ -108,21 +103,24 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 usernametext = user.getText().toString();
                 passwordtext = password.getText().toString();
-                user.getText().clear();
-                password.getText().clear();
-                if (usernametext.isEmpty() || passwordtext.isEmpty()) {
-                    System.out.println("jompikumpi on tyhjä");
+                if (usernametext.isEmpty()) {
+                    System.out.println("Et antanut käyttäjätunnusta.");
                 } else {
                     hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt);
-                    boolean bump = SearchAccountList(usernametext, hashedPassword, 1);
-                    if (bump == true) {
+                    int bump = SearchAccountList(usernametext, hashedPassword, 1);
+                    if (bump == 0) {
+                        user.getText().clear();
+                        password.getText().clear();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("username", usernametext);
                         startActivity(intent);
-                    } else {
-                        text.setText("Jotain tais mennä pieleen xd");
-                        login.setEnabled(false);
-                        signup.setEnabled(false);
+                    } else if (bump == 1) {
+                        password.getText().clear();
+                        text.setText("Väärä salasana");
+                    } else if (bump == 2) {
+                        user.getText().clear();
+                        password.getText().clear();
+                        text.setText("Käyttäjää ei olemassa.");
                     }
                 }
             }
@@ -154,24 +152,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private static String getSalt() {
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-        return salt.toString();
-    }
 
-    public boolean isValidPassword(final String password) {
-        Pattern pattern;
-        Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{12,}$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-
-        return matcher.matches();
-    }
-
-    public boolean SearchAccountList(String username, String password, int number){
+    public int SearchAccountList(String username, String password, int number){
         try {
             FileInputStream fileInputStream = openFileInput("accounts2.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -189,26 +171,33 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (i == 0) {
                     System.out.println("ei samaa usernamea");
-                    return false;
+                    return 1;
                 } else {
-                    System.out.println("sama username löytyi");
-                    return true;
+                    System.out.println("Käyttäjätunnus varattu");
+                    return 2;
                 }
             } else {
-                int i = 0;
+                int credentialsCorrect = 0;
+                int usernameCorrect = 0;
                 while ((lines = bufferedReader.readLine()) != null) {
                     stringBuffer.append((lines + "\n"));
                     String[] data = lines.split(";");
                     if (data[0].equals(username) && data[1].equals(password)) {
-                        i++;
+                        credentialsCorrect++;
+                    } else if (data[0].equals(username) && !data[1].equals(password)) {
+                        usernameCorrect++;
+                    } else {
                     }
                 }
-                if (i == 0) {
-                    System.out.println("Jompikumpi feilas");
-                    return false;
+                if (credentialsCorrect == 1) {
+                    System.out.println("Käyttäjätiedot oikein ja olemassa");
+                    return 0;
+                } else if (usernameCorrect == 1){
+                    System.out.println("Salasana väärin");
+                    return 1;
                 } else {
-                    System.out.println("Pääset sisään");
-                    return true;
+                    System.out.println("Tämän nimistä käyttäjää ei olemassa");
+                    return 2;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -216,7 +205,44 @@ public class LoginActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return 1;
+    }
+
+    public boolean createAccount(String username, String password){
+        String row = "";
+        int value = SearchAccountList(username, password, 2);
+        if (value == 1) {
+            row = username + ";" + password + ";null\n";
+            try {
+                FileOutputStream fileOutputStream = openFileOutput("accounts2.csv",MODE_PRIVATE);
+                fileOutputStream.write(row.getBytes());
+                fileOutputStream.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return true;
+        } else {
+            System.out.println("username varattu");
+            return false;
+        }
+    }
+
+    public boolean isValidPassword(final String password) {
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{12,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
+    private static String getSalt() {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+        return salt.toString();
     }
 
     private static String get_SHA_512_SecurePassword(String unsecurePassword, String salt){
@@ -235,27 +261,5 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return securePassword;
-    }
-
-    public boolean createAccount(String username, String password){
-        boolean value;
-        String row = "";
-        value = SearchAccountList(username, password, 2);
-        if (value == false) {
-            row = username + ";" + password + ";null\n";
-            try {
-                FileOutputStream fileOutputStream = openFileOutput("accounts2.csv",MODE_PRIVATE);
-                fileOutputStream.write(row.getBytes());
-                fileOutputStream.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return true;
-        } else {
-            System.out.println("username varattu");
-            return false;
-        }
     }
 }
