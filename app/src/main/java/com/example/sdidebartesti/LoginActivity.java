@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         login = (MaterialButton) findViewById(R.id.login);
         signup = (MaterialButton) findViewById(R.id.signup);
         text = (TextView) findViewById(R.id.Salasanatextview);
+        System.out.println("penis");
         salt = getSalt();
 
         password.addTextChangedListener(new TextWatcher() {
