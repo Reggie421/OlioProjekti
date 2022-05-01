@@ -1,5 +1,7 @@
 package com.example.sdidebartesti;
 
+import static android.icu.lang.UCharacter.toLowerCase;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -74,10 +76,11 @@ public class SearchFragment extends Fragment {
             // ******************************************************************************************************************* Making search possible with ENTER key
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    String searchBarText = movieSearch.getText().toString();
+                    String searchBarText = toLowerCase(movieSearch.getText().toString());
                     MoviesArrayList.clear();
                     for (int i = 0; i < mm.MOVIES.size(); i++) {
-                        if (mm.MOVIES.get(i).getTitle().contains(searchBarText)) {
+                        String comparison = toLowerCase(mm.MOVIES.get(i).getTitle());
+                        if (comparison.contains(searchBarText)) {
                             MoviesArrayList.add(mm.MOVIES.get(i).getTitle());
                             MoviesArrayList.toArray(stringMovies);
                             movieSearchListView.setAdapter(moviesAdapter);

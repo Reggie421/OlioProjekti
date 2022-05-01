@@ -1,5 +1,7 @@
 package com.example.sdidebartesti;
 
+import static android.icu.lang.UCharacter.toLowerCase;
+
 import java.util.ArrayList;
 
 public class Movie {
@@ -36,8 +38,8 @@ public class Movie {
     public Boolean getCastMember(String inputName){
         Boolean value = false;
         for(int i = 0; i < CastList.size(); i++){
-            String compareCastFullName = CastList.get(i).firstName + " " + CastList.get(i).lastName;
-            if(compareCastFullName.contains(inputName)) {
+            String compareCastFullName = toLowerCase(CastList.get(i).firstName + " " + CastList.get(i).lastName);
+            if(compareCastFullName.contains(toLowerCase(inputName))) {
                 value = true;
             }
         }
