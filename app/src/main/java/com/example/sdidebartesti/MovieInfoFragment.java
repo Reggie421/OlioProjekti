@@ -1,10 +1,12 @@
 package com.example.sdidebartesti;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ public class MovieInfoFragment extends Fragment {
     TextView movieNameTextView;
     Button fragmentGoBackButton;
     Button addToFavoritesButton;
+    ImageButton addToFavoritesStar;
     TextView castTextView;
     TextView genreTextView;
     TextView yearTextView;
@@ -28,6 +31,7 @@ public class MovieInfoFragment extends Fragment {
     ImageView ratingDescriptionImageView1;
     ImageView ratingDescriptionImageView2;
     ImageView ratingDescriptionImageView3;
+    Boolean isClicked = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_movieinfo, container, false);
@@ -41,6 +45,7 @@ public class MovieInfoFragment extends Fragment {
         movieNameTextView = view.findViewById(R.id.movieNameTextView);
         fragmentGoBackButton = view.findViewById(R.id.buttonCloseFragment);
         addToFavoritesButton = view.findViewById(R.id.buttonAddToFavorites);
+        addToFavoritesStar = (ImageButton) view.findViewById(R.id.buttonAddToFavoritesStar);
         castTextView = view.findViewById(R.id.textViewCast);
         genreTextView = view.findViewById(R.id.movieGenreTextView);
         ageNotAvailableTextView = view.findViewById(R.id.textViewAgeNotAvailable);
@@ -81,6 +86,18 @@ public class MovieInfoFragment extends Fragment {
                     }
                 }
                 //TODO TÄHÄN SUOSIKKITOIMINTAA
+            }
+        });
+
+        addToFavoritesStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isClicked = !isClicked;
+                if (isClicked == true) {
+                    view.setBackgroundResource(R.drawable.ic_baseline_star_24);
+                } else {
+                    view.setBackgroundResource(R.drawable.ic_baseline_star_outline_24);
+                }
             }
         });
 
@@ -215,4 +232,5 @@ public class MovieInfoFragment extends Fragment {
             }
         }
     }
+
 }
