@@ -26,18 +26,31 @@ public class AccountManager {
     private void changePassword() {
 
     }
-    public void addMovieToFavorites(int movieId){
-        boolean booleanChecker = MainActivity.getmInstanceActivity().saveFavoriteMovies(movieId);
-        if (booleanChecker == true){
-            favorites.add(Integer.toString(movieId));
+    public boolean favoriteSeeker(int movieId,int pathInt){
+        boolean booleanChecker = MainActivity.getmInstanceActivity().saveFavoriteMovies(movieId,pathInt);
+        if (pathInt == 1) {
+            if (booleanChecker == true){
+                return true;
+            }
+            return false;
         }
+        else{
+            if (booleanChecker == true){
+                favorites.add(Integer.toString(movieId));
+            }
+        }
+        return false;
     }
     public void deleteFromFavorites(int movieId){
-        boolean booleanChecker = MainActivity.getmInstanceActivity().deleteFavoriteMovies(movieId);
-        if (booleanChecker == true){
-            favorites.add(Integer.toString(movieId));
+        MainActivity.getmInstanceActivity().deleteFavoriteMovies(movieId);
+        System.out.println("poistettuxd3");
+        String movieIdString = Integer.valueOf(movieId).toString();
+        for(int i = 0; i< favorites.size();i++){
+            if(favorites.get(i).equals(movieIdString) ){
+                favorites.remove(i);
+                System.out.println("poistettuxdFinal");
+            }
         }
-
     }
     public static AccountManager getInstance(){return am;}
 }

@@ -54,7 +54,20 @@ public class MovieInfoFragment extends Fragment {
         ratingDescriptionImageView2 = view.findViewById(R.id.imageViewRatingDescription2);
         ratingDescriptionImageView3 = view.findViewById(R.id.imageViewRatingDescription3);
         yearTextView = view.findViewById(R.id.textViewMovieYear);
-
+        MovieManager mm = MovieManager.getInstance();
+        AccountManager am = AccountManager.getInstance();
+        int movieId = 0;
+        for (int i = 0 ; i < mm.MOVIES.size() ; i++){
+            movieId = mm.MOVIES.get(i).getId();
+        }
+        boolean favoriteChecker = am.favoriteSeeker(movieId,1);
+        System.out.println("fcheckker = "+favoriteChecker);
+        if (favoriteChecker == true){
+            addToFavoritesStar.setBackgroundResource(R.drawable.ic_baseline_star_24);
+        }
+        else{
+            addToFavoritesStar.setBackgroundResource(R.drawable.ic_baseline_star_outline_24);
+        }
         if(this.getArguments() != null) {
             movieName = this.getArguments().getString("key");
         }
@@ -67,7 +80,7 @@ public class MovieInfoFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
-        MovieManager mm = MovieManager.getInstance();
+
         String movieGlobalTitle = null;
         String movieYear = null;
         String movieGenre = null;
@@ -81,8 +94,7 @@ public class MovieInfoFragment extends Fragment {
                 for(int i = 0; i < mm.MOVIES.size(); i++){
                     if(movieName.equals(mm.MOVIES.get(i).getTitle())){
                         int movieId = mm.MOVIES.get(i).getId();
-                        AccountManager am = AccountManager.getInstance();
-                        am.addMovieToFavorites(movieId);
+                        am.favoriteSeeker(movieId,2);
                     }
                 }
                 //TODO TÄHÄN SUOSIKKITOIMINTAA
@@ -94,8 +106,24 @@ public class MovieInfoFragment extends Fragment {
             public void onClick(View view) {
                 isClicked = !isClicked;
                 if (isClicked == true) {
+                    for(int i = 0; i < mm.MOVIES.size(); i++) {
+                        if (movieName.equals(mm.MOVIES.get(i).getTitle())) {
+                            int movieId = mm.MOVIES.get(i).getId();
+                            am.favoriteSeeker(movieId, 2);
+                        }
+                    }
                     view.setBackgroundResource(R.drawable.ic_baseline_star_24);
                 } else {
+                    for(int i = 0; i < mm.MOVIES.size(); i++) {
+                        System.out.println("poistettuxd");
+                        if (movieName.equals(mm.MOVIES.get(i).getTitle())) {
+                            int movieId = mm.MOVIES.get(i).getId();
+                            am.deleteFromFavorites(movieId);
+                            System.out.println("poistettuxd2");
+
+                        }
+                    }
+
                     view.setBackgroundResource(R.drawable.ic_baseline_star_outline_24);
                 }
             }

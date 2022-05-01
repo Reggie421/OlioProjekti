@@ -118,14 +118,15 @@ public class MainActivity extends AppCompatActivity {
                 fileOutputStream.write(row.getBytes());
             }
             fileOutputStream.close();
+            return true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
-    public boolean saveFavoriteMovies(int movieId){
+    public boolean saveFavoriteMovies(int movieId,int pathInt){
         ArrayList<String> rowList = new ArrayList<>();
         //AccountManager am = AccountManager.getInstance(); tarkistakaaonko olio ohjelmointii :((((((
         try {
@@ -142,13 +143,26 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(data[0].equals(username)) {
                     if(data[2].contains(Integer.toString(movieId))){
-                        return false;
+                        if (pathInt == 2){
+                            System.out.println("False palautettu1");
+                            return false;
+                        }
+                        else{
+                            System.out.println("True palautettu1");
+                            return true;
+
+                        }
+
                     }
                     else if (data[2].equals("null")){
                         lines = data[0]+";"+data[1]+";"+movieId;
                         rowList.add(lines);
                     }
                     else{
+                        if (pathInt == 1){
+                            System.out.println("False palautettu2");
+                            return false;
+                        }
                         ArrayList<String> usersFavoriteMovies = new ArrayList<>();
                         String[] movieData = data[2].split(",");
                         for (int i = 0 ; i < movieData.length ; i++){
@@ -179,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("True palautettu2");
         return true;
     }
     public void deleteAccount(String username){
