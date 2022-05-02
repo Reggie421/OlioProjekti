@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,12 +37,12 @@ public class LoginActivity extends AppCompatActivity {
     MaterialButton signup;
     String usernametext;
     String passwordtext;
-    TextView text;
+    TextView passwordRequirement;
+    TextView errorMessage;
     String salt;
     String hashedPassword;
 
     // TODO KIRJAUTMISTUNNUS MINKÄ VOI KOPIOIDA: Testi - Aa#1aaaaaaaa
-    //TODO KORJATAAN ONGELMA KUN KÄYTTÄJÄ KÄYNNISTÄÄ ENSIMMÄISEN KERRAN SOVELLUKSEN (LUETTAVAA TIEDOSTA EI LÖYTYNYT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         login = (MaterialButton) findViewById(R.id.login);
         signup = (MaterialButton) findViewById(R.id.signup);
-        text = (TextView) findViewById(R.id.Salasanatextview);
-        System.out.println("penis");
+        passwordRequirement = (TextView) findViewById(R.id.passwordRequirement);
+        errorMessage = (TextView) findViewById(R.id.ErrorMessages);
         salt = getSalt();
 
         password.addTextChangedListener(new TextWatcher() {
@@ -69,9 +71,11 @@ public class LoginActivity extends AppCompatActivity {
                 if (isValidPassword(editable.toString().trim())) {
                     login.setEnabled(true);
                     signup.setEnabled(true);
+                    passwordRequirement.setVisibility(View.INVISIBLE);
                 } else {
                     login.setEnabled(false);
                     signup.setEnabled(false);
+                    passwordRequirement.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -105,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                 usernametext = user.getText().toString();
                 passwordtext = password.getText().toString();
                 if (usernametext.isEmpty()) {
-                    System.out.println("Et antanut käyttäjätunnusta.");
+                    errorMessage.setText("Et antanut käyttäjätunnusta");
                 } else {
                     hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt);
                     int bump = SearchAccountList(usernametext, hashedPassword, 1);
@@ -117,11 +121,11 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else if (bump == 1) {
                         password.getText().clear();
-                        text.setText("Väärä salasana");
+                        errorMessage.setText("Väärä salasana");
                     } else if (bump == 2) {
                         user.getText().clear();
                         password.getText().clear();
-                        text.setText("Käyttäjää ei olemassa.");
+                        errorMessage.setText("Käyttäjää ei olemassa.");
                     }
                 }
             }
@@ -135,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                 user.getText().clear();
                 password.getText().clear();
                 if (usernametext.isEmpty() || passwordtext.isEmpty()) {
-                    System.out.println("jompikumpi on tyhjä");
+                    errorMessage.setText("Et antanut vaadittavia tietoja.");
                 } else {
                     hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt);
                     boolean bump = createAccount(usernametext, hashedPassword);
@@ -144,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("username", usernametext);
                         startActivity(intent);
                     } else {
-                        text.setText("Käyttäjätunnus varattu");
+                        errorMessage.setText("Käyttäjätunnus varattu.");
                         login.setEnabled(false);
                         signup.setEnabled(false);
                     }

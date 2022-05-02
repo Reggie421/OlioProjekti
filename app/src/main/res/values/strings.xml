@@ -44,14 +44,15 @@
     <string name="drawer_close" translatable="false">Close navigation drawer</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="title_activity_login" translatable="false">LoginActivity</string>
-    <string name="prompt_email">Sähköposti</string>
-    <string name="prompt_password">Salasana</string>
-    <string name="action_sign_in">Kirjaudu sisään tai rekisteröidy</string>
-    <string name="action_sign_in_short" translatable="false">Sign in</string>
     <string name="welcome">"Tervetuloa !"</string>
-    <string name="invalid_username">Käyttäjänimi ei kelpaa</string>
-    <string name="invalid_password">Salasanan tulee olla vähintään 5 merkkiä pitkä</string>
-    <string name="login_failed">Kirjautuminen epäonnistui</string>
+
     <string name="kirjaudu_ulos">Kirjaudu ulos</string>
     <string name="poista_kayttaja">Poista käyttäjä</string>
+
+    <!-- LoginActivity-->
+    <string name="usernameString">Käyttäjätunnus</string>
+    <string name="passwordString">Salasana</string>
+    <string name="passwordRequirementString">HUOM! Salasanan täytyy olla vähintään 12 merkkiä ja sisältää vähintään yksi numero, erikoismerkki sekä iso ja pieni kirjain</string>
+    <string name="logInString">Kirjaudu sisään</string>
+    <string name="signUpString">Rekisteröidy</string>
 </resources>
