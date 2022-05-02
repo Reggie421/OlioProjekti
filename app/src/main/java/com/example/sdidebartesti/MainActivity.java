@@ -7,7 +7,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,15 +14,12 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,8 +28,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     public static WeakReference<MainActivity> weakActivity;
-    // etc..
-        public static MainActivity getmInstanceActivity() {
+    public static MainActivity getmInstanceActivity() {
             return weakActivity.get();
         }
 
