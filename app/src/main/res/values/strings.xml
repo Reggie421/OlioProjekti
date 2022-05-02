@@ -3,7 +3,7 @@
     <string name="app_name">Koti</string>
     <!-- HOME-->
     <string name="header_home_name">Koti</string>
-    <string name="home_introduction">Tervetuloa SOVELLUSNIMEEN!\n
+    <string name="home_introduction">Tervetuloa MoViewiin!\n
         Sovelluksessa navigointi tapahtuu vasemmassa yläkulmassa sijaitsevan animoidun kuvakkeen avulla.\n
         Tämä sovellus hakee elokuvien tietoja Finnkinon XML-verkkosivulta ja tallentaa ne omaan tiedostoon.\n
         Näin ollen kykenet tarkastelemaan elokuvia, jotka eivät edes pyöri enää Finnkinon teattereissa!\n
