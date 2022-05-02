@@ -107,69 +107,6 @@ public class MovieManager {
         }
     }
 
-    private float searchRating(String name, int yearInt){
-        float rating = 0;
-        String response = null;
-        String id_IMDB = null;
-        String url_IMDB_searchID = "https://imdb-api.com/en/API/SearchMovie/k_lcn8k0fb/"+name+" "+yearInt;
-        try{
-            URL url = new URL(url_IMDB_searchID);
-            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            InputStream in =new BufferedInputStream(conn.getInputStream());
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-            while((line = br.readLine())!= null){
-                sb.append(line).append("\n");
-            }
-            response = sb.toString();
-            if (response.substring(response.indexOf("[")+17,response.indexOf("[")+18).equals("'")){
-                id_IMDB = response.substring(response.indexOf("[")+8,response.indexOf("[")+17);
-            }
-            else{
-                id_IMDB = response.substring(response.indexOf("[")+8,response.indexOf("[")+18);
-            }
-            in.close();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String url_IMDB_searchRating = "https://imdb-api.com/en/API/Ratings/k_lcn8k0fb/"+id_IMDB;
-        try{
-            URL url = new URL(url_IMDB_searchRating);
-            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            InputStream in =new BufferedInputStream(conn.getInputStream());
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-            while((line = br.readLine())!= null){
-                sb.append(line).append("\n");
-            }
-            response = sb.toString();
-            in.close();
-            String character = response.substring(response.indexOf("metacritic")-6,response.indexOf("metacritic")-5);
-            if (character.equals("0") || character.equals("1") || character.equals("2") || character.equals("3") || character.equals("4") || character.equals("5") || character.equals("6") || character.equals("7") || character.equals("8") || character.equals("9")){
-                rating = Float.valueOf(response.substring(response.indexOf("metacritic")-6,response.indexOf("metacritic")-3));
-
-            }
-            else{
-                rating = 0;
-            }
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return rating;
-    }
-
     public static MovieManager getInstance(){
         return mm;
     }
