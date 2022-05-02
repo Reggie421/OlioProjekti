@@ -58,7 +58,7 @@ public class PersonSearchFragment extends Fragment {
                 movieInfoFragment.setArguments(bundle);
             }
         });
-        // ******************************************************************************************************************* Making search possible with ENTER key
+        // ******************************************************************************************************************* Making search possible with ENTER key with hiding the software keyboard with ENTER Key
 
         searchBar.setOnKeyListener(new View.OnKeyListener() {
             @Override

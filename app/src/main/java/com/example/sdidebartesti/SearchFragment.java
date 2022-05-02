@@ -73,7 +73,7 @@ public class SearchFragment extends Fragment {
         });
         movieSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            // ******************************************************************************************************************* Making search possible with ENTER key
+            // ******************************************************************************************************************* Making search possible with ENTER key with hiding the software keyboard with ENTER Key
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     String searchBarText = toLowerCase(movieSearch.getText().toString());
