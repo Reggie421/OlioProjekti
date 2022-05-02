@@ -33,8 +33,8 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText user;
     EditText password;
-    MaterialButton login;
-    MaterialButton signup;
+    MaterialButton loginButton;
+    MaterialButton signupButton;
     String usernametext;
     String passwordtext;
     TextView passwordRequirement;
@@ -42,20 +42,18 @@ public class LoginActivity extends AppCompatActivity {
     String salt;
     String hashedPassword;
 
-    // TODO KIRJAUTMISTUNNUS MINKÄ VOI KOPIOIDA: Testi - Aa#1aaaaaaaa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         user = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
-        login = (MaterialButton) findViewById(R.id.login);
-        signup = (MaterialButton) findViewById(R.id.signup);
+        loginButton = (MaterialButton) findViewById(R.id.login);
+        signupButton = (MaterialButton) findViewById(R.id.signup);
         passwordRequirement = (TextView) findViewById(R.id.passwordRequirement);
         errorMessage = (TextView) findViewById(R.id.ErrorMessages);
-        salt = getSalt();
-
-        password.addTextChangedListener(new TextWatcher() {
+        salt = getSalt(); //calling salt-method
+        password.addTextChangedListener(new TextWatcher() {//listener for password textview, so when password meets requirements, you can login/signup
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -69,60 +67,60 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (isValidPassword(editable.toString().trim())) {
-                    login.setEnabled(true);
-                    signup.setEnabled(true);
+                    loginButton.setEnabled(true);
+                    signupButton.setEnabled(true);
                     passwordRequirement.setVisibility(View.INVISIBLE);
                 } else {
-                    login.setEnabled(false);
-                    signup.setEnabled(false);
+                    loginButton.setEnabled(false);
+                    signupButton.setEnabled(false);
                     passwordRequirement.setVisibility(View.VISIBLE);
                 }
             }
         });
 
-        user.setOnKeyListener(new View.OnKeyListener() {
+        user.setOnKeyListener(new View.OnKeyListener() { //hides integrated keyboard when pressed enter while on edittext
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
                     final InputMethodManager imm = (InputMethodManager) LoginActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    return true;
+                    return false;
                 }
                 return false;
             }
         });
-        password.setOnKeyListener(new View.OnKeyListener() {
+        password.setOnKeyListener(new View.OnKeyListener() { //hides integrated keyboard when pressed enter while on edittext
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
                     final InputMethodManager imm = (InputMethodManager) LoginActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    return true;
+                    return false;
                 }
                 return false;
             }
         });
 
-        login.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() { //listener for what happens when loginButton is pressed
             @Override
             public void onClick(View v) {
-                usernametext = user.getText().toString();
-                passwordtext = password.getText().toString();
+                usernametext = user.getText().toString(); //gets the text from username field
+                passwordtext = password.getText().toString(); //gets the text from password field
                 if (usernametext.isEmpty()) {
-                    errorMessage.setText("Et antanut käyttäjätunnusta");
+                    errorMessage.setText("Et antanut käyttäjätunnusta"); //if username field is empty, manual error message and nothing happens
                 } else {
-                    hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt);
-                    int bump = SearchAccountList(usernametext, hashedPassword, 1);
-                    if (bump == 0) {
+                    hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt); //calls method for converting password string to hashed password
+                    int bump = SearchAccountList(usernametext, hashedPassword, 1); //calls method for searching the accountlist for any account of the same name
+                    if (bump == 0) {//if account exists and password is correct
                         user.getText().clear();
                         password.getText().clear();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("username", usernametext);
                         startActivity(intent);
-                    } else if (bump == 1) {
+                    } else if (bump == 1) {//if account exists but password is incorrect
                         password.getText().clear();
                         errorMessage.setText("Väärä salasana");
-                    } else if (bump == 2) {
+                    } else if (bump == 2) {//if account doesn't exist
                         user.getText().clear();
                         password.getText().clear();
                         errorMessage.setText("Käyttäjää ei olemassa.");
@@ -131,26 +129,26 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        signup.setOnClickListener(new View.OnClickListener() {
+        signupButton.setOnClickListener(new View.OnClickListener() {//listener for what happens when signupButton is pressed
             @Override
             public void onClick(View view) {
-                usernametext = user.getText().toString();
-                passwordtext = password.getText().toString();
+                usernametext = user.getText().toString(); //gets the text from username field
+                passwordtext = password.getText().toString(); //gets the text from password field
                 user.getText().clear();
                 password.getText().clear();
-                if (usernametext.isEmpty() || passwordtext.isEmpty()) {
+                if (usernametext.isEmpty() || passwordtext.isEmpty()) {//if either field is empty, manual error message and you can retry
                     errorMessage.setText("Et antanut vaadittavia tietoja.");
                 } else {
-                    hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt);
-                    boolean bump = createAccount(usernametext, hashedPassword);
-                    if (bump == true) {
+                    hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt);//calls method for converting password string to hashed password
+                    boolean bump = createAccount(usernametext, hashedPassword);//method for creating new account
+                    if (bump == true) {//if there is no account of that name yet, creating succeeds and you get in
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("username", usernametext);
                         startActivity(intent);
-                    } else {
+                    } else {// an account with the same name already exists, manual error message
                         errorMessage.setText("Käyttäjätunnus varattu.");
-                        login.setEnabled(false);
-                        signup.setEnabled(false);
+                        loginButton.setEnabled(false);
+                        signupButton.setEnabled(false);
                     }
                 }
             }
@@ -158,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public int SearchAccountList(String username, String password, int number){
+    public int SearchAccountList(String username, String password, int number){//the method for searching for accounts with the same name
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -175,10 +173,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
                 if (i == 0) {
-                    System.out.println("ei samaa usernamea");
+                    System.out.println("No such username exists");
                     return 1;
                 } else {
-                    System.out.println("Käyttäjätunnus varattu");
+                    System.out.println("Username taken");
                     return 2;
                 }
             } else {
@@ -195,13 +193,13 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
                 if (credentialsCorrect == 1) {
-                    System.out.println("Käyttäjätiedot oikein ja olemassa");
+                    System.out.println("Credentials correct and they exist");
                     return 0;
                 } else if (usernameCorrect == 1){
-                    System.out.println("Salasana väärin");
+                    System.out.println("Incorrect password");
                     return 1;
                 } else {
-                    System.out.println("Tämän nimistä käyttäjää ei olemassa");
+                    System.out.println("No such user exists");
                     return 2;
                 }
             }
@@ -234,23 +232,23 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public boolean isValidPassword(final String password) {
+    public boolean isValidPassword(final String password) {//method for checking if password is valid
         Pattern pattern;
         Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{12,}$";
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{12,}$";//contains at least 1 number, upper- and lowercase letter, special character, at least 12 characters, no whitespace
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
         return matcher.matches();
     }
 
-    private static String getSalt() {
+    private static String getSalt() {//method for creating salt
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
         return salt.toString();
     }
 
-    private static String get_SHA_512_SecurePassword(String unsecurePassword, String salt){
+    private static String get_SHA_512_SecurePassword(String unsecurePassword, String salt){//method for creating the secure/hashed password
         String securePassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
