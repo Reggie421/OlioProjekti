@@ -1,12 +1,6 @@
 package com.example.sdidebartesti;
 
-import android.content.Intent;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class AccountManager {
@@ -15,18 +9,24 @@ public class AccountManager {
     private static AccountManager am = new AccountManager();
 
     private AccountManager(){
-        username = MainActivity.getmInstanceActivity().getAccountName();
-        favorites = MainActivity.getmInstanceActivity().getFavoriteMovies(username);
-        Account a = new Account(username,favorites);
+        Account a = new Account();
+        username = a.getUsername();
+        favorites = a.getFavoritemovies();
     }
 
     public void deleteAccount() {
         MainActivity.getmInstanceActivity().deleteAccount(username);
     }
-    private void changePassword() {
 
+    private void changePassword() {
+        // !TODO JOS KERETÄÄ/JAKSETAA
     }
-    public boolean favoriteSeeker(int movieId,int pathInt){
+
+    public ArrayList<String> getFavorites() {
+        return favorites;
+    }
+
+    public boolean favoriteSeeker(int movieId, int pathInt){
         boolean booleanChecker = MainActivity.getmInstanceActivity().saveFavoriteMovies(movieId,pathInt);
         if (pathInt == 1) {
             if (booleanChecker == true){

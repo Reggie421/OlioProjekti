@@ -7,11 +7,11 @@ public class Account {
     ArrayList <String> favoritemovies;
 
 
-    public Account(String user, ArrayList <String> favmovies) {
-        username = user;
-        favoritemovies = favmovies;
+    public Account() {
+        username = MainActivity.getmInstanceActivity().getAccountName();
+        favoritemovies = MainActivity.getmInstanceActivity().getFavoriteMovies(username);
     }
 
-    public String getUsername(){return username;}
+    public String getUsername(){ return username;}
     public ArrayList <String> getFavoritemovies(){return favoritemovies;}
 }

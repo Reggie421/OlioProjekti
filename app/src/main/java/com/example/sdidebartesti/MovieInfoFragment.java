@@ -54,10 +54,24 @@ public class MovieInfoFragment extends Fragment {
         yearTextView = view.findViewById(R.id.textViewMovieYear);
         MovieManager mm = MovieManager.getInstance();
         AccountManager am = AccountManager.getInstance();
-        int movieId = 0;
-        for (int i = 0 ; i < mm.MOVIES.size() ; i++){
-            movieId = mm.MOVIES.get(i).getId();
+        if(this.getArguments() != null) {
+            movieName = this.getArguments().getString("key");
         }
+        int movieId = 0;
+        for(int i = 0; i < mm.MOVIES.size(); i++){
+            if(movieName.equals(mm.MOVIES.get(i).getTitle())){
+                movieId = mm.MOVIES.get(i).getId();
+            }
+        }
+        String movieIdString = Integer.valueOf(movieId).toString();
+        ArrayList<String> FavoriteMoviesArrayList = am.getFavorites();
+        for(int i = 0; i < FavoriteMoviesArrayList.size(); i++){
+            if(Integer.valueOf(movieIdString).toString().equals(FavoriteMoviesArrayList.get(i))){
+                movieIdString = Integer.valueOf(mm.MOVIES.get(i).getId()).toString();
+            }
+        }
+        System.out.println("WERNERI`?????????????????" + movieIdString);
+        movieId = Integer.parseInt(movieIdString);
         boolean favoriteChecker = am.favoriteSeeker(movieId,1);
         System.out.println("fcheckker = "+favoriteChecker);
         if (favoriteChecker == true){
@@ -66,9 +80,7 @@ public class MovieInfoFragment extends Fragment {
         else{
             addToFavoritesStar.setBackgroundResource(R.drawable.ic_baseline_star_outline_24);
         }
-        if(this.getArguments() != null) {
-            movieName = this.getArguments().getString("key");
-        }
+
         System.out.println(movieName);
         movieNameTextView.setText(movieName);
         // *************************************************************************************** Activating "GOBACK" button to reopen the last fragment, this fragment was opened from.

@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean saveFavoriteMovies(int movieId,int pathInt){
         ArrayList<String> rowList = new ArrayList<>();
-        //AccountManager am = AccountManager.getInstance(); tarkistakaaonko olio ohjelmointii :((((((
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     else if (data[2].equals("null")){
-                        lines = data[0]+";"+data[1]+";"+movieId;
+                        lines = data[0] + ";" + data[1] + ";" + movieId;
                         rowList.add(lines);
                     }
                     else{
@@ -236,13 +235,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
         deleteFile("accountsold.csv");
-
-
-
     }
     public ArrayList getFavoriteMovies(String username){
         ArrayList<String> movies = new ArrayList<>();
@@ -259,12 +252,14 @@ public class MainActivity extends AppCompatActivity {
                 String[] data = lines.split(";");
                 System.out.println("3");
                 System.out.println(lines);
+                System.out.println("WERNERI HERE AGAIN" + data[0]);
                 if (data[0].equals(username) && !data[2].equals("null")) {
                     System.out.println("4");
                     System.out.println(data[0]);
 
                     String[] moviedata = data[2].split(",");
                     for (int i = 0 ; i < moviedata.length ; i++){
+                        System.out.println("WERNERI TAAS ***********" + moviedata[i]);
                         movies.add(moviedata[i]);
                     }
 

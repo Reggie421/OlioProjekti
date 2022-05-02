@@ -216,10 +216,12 @@ public class LoginActivity extends AppCompatActivity {
         int value = SearchAccountList(username, password, 2);
         if (value == 1) {
             row = username + ";" + password + ";null\n";
+
             try {
                 FileOutputStream fileOutputStream = openFileOutput("accounts.csv",MODE_PRIVATE);
                 fileOutputStream.write(row.getBytes());
                 fileOutputStream.close();
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
