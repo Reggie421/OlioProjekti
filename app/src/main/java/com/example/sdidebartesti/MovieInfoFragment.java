@@ -56,7 +56,7 @@ public class MovieInfoFragment extends Fragment {
             movieName = this.getArguments().getString("key");
         }
         int movieId = 0;
-        for(int i = 0; i < mm.MOVIES.size(); i++){
+        for(int i = 0; i < mm.MOVIES.size(); i++){  //Finding movieId of the movie shown
             if(movieName.equals(mm.MOVIES.get(i).getTitle())){
                 movieId = mm.MOVIES.get(i).getId();
             }
@@ -70,10 +70,10 @@ public class MovieInfoFragment extends Fragment {
                 favoriteChecker = am.Accounts.get(i).favoriteSeeker(movieId, 1);
             }
         }
-        if (favoriteChecker == true){
+        if (favoriteChecker == true){   //If movie is already checked as a favorite
             addToFavoritesStar.setBackgroundResource(R.drawable.ic_baseline_star_24);
         }
-        else{
+        else{   //If movie is not in favorites
             addToFavoritesStar.setBackgroundResource(R.drawable.ic_baseline_star_outline_24);
         }
         movieNameTextView.setText(movieName);
@@ -109,7 +109,7 @@ public class MovieInfoFragment extends Fragment {
                         }
                     }
                     view.setBackgroundResource(R.drawable.ic_baseline_star_24);
-                } else {
+                } else {    //When favoriteButton is toggled off:
                     for(int i = 0; i < mm.MOVIES.size(); i++) {
                         if (movieName.equals(mm.MOVIES.get(i).getTitle())) {
                             int movieId = mm.MOVIES.get(i).getId();
@@ -118,10 +118,8 @@ public class MovieInfoFragment extends Fragment {
                                     am.Accounts.get(j).deleteFromFavorites(movieId);
                                 }
                             }
-
                         }
                     }
-
                     view.setBackgroundResource(R.drawable.ic_baseline_star_outline_24);
                 }
             }
