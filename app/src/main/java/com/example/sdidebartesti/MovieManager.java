@@ -33,7 +33,6 @@ public class MovieManager {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = builder.parse(url_FINKINO);
             doc.getDocumentElement().normalize();
-            System.out.println("Root element: "+doc.getDocumentElement().getNodeName());
             NodeList nList1 = doc.getElementsByTagName("Event");
             int x = 0;
             for (int i = 0; i < nList1.getLength(); i++ ){
