@@ -199,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     public void deleteAccount(String username){
+        System.out.println(username+" <-username");
         ArrayList<String> rowList = new ArrayList<>();
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
@@ -210,7 +211,8 @@ public class MainActivity extends AppCompatActivity {
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
                 if (!data[0].equals(username)) {
-                    rowList.add(lines); // !TODO JOS ONGELMAA NIIN TÄHÄN "+ \n"
+                    rowList.add(lines+"\n");
+                    System.out.println(lines);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -230,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Path source1 = Paths.get("/data/data/com.example.sdidebartesti/files/accounts1.csv");
+        Path source1 = Paths.get("/data/data/com.example.sdidebartesti/files/accounts.csv");
         try{
             Files.move(source1, source1.resolveSibling("accountsold.csv"));
         } catch (IOException e) {
