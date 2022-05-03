@@ -189,6 +189,8 @@ public class LoginActivity extends AppCompatActivity {
                         credentialsCorrect++;
                     } else if (data[0].equals(username) && !data[1].equals(password)) {
                         usernameCorrect++;
+                        System.out.println(password + " TIEDOSTOSSA ON " + data[1]);
+
                     } else {
                     }
                 }
