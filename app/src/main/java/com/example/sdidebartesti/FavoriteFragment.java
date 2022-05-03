@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
 
 public class FavoriteFragment extends Fragment {
 
@@ -29,7 +32,23 @@ public class FavoriteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         favoriteMoviesListView = view.findViewById(R.id.favoriteListView);
         favoriteSearchBar = view.findViewById(R.id.favoriteSearchBar);
+        MovieManager mm = MovieManager.getInstance();
+        // ****************************************************************************************************************************Making the listview working
+        ArrayList<String> FavoriteMoviesIDArrayList = new ArrayList<String>();
+        // TODO! WIHTORI TOHON ARRAYLISTIIN ^^^ käyttäjän favoritemovie ID:T!!!!
 
+        for(int i = 0; i < FavoriteMoviesIDArrayList.size(); i++){        // Changes Movie ID's to Movie Names
+
+        }
+        ArrayList<String> FavoriteMoviesNameArrayList = new ArrayList<>();
+        String[] stringFavoriteMovies = new String[FavoriteMoviesNameArrayList.size()];
+        FavoriteMoviesNameArrayList.toArray(stringFavoriteMovies);
+        ArrayAdapter<String> moviesAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, stringFavoriteMovies);
+        favoriteMoviesListView.setAdapter(moviesAdapter);
+
+
+
+        //*****************************************************************************************************************************Search from the listView
         favoriteSearchBar.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -57,4 +76,3 @@ public class FavoriteFragment extends Fragment {
         });
     }
 }
-// TODO: yhdistä fragmentti käyttäjien tietoihin

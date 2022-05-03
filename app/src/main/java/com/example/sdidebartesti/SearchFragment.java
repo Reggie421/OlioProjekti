@@ -47,12 +47,10 @@ public class SearchFragment extends Fragment {
         notification = view.findViewById(R.id.textViewNotification);
         notification.setText("Näytetään kaikki elokuvat:");
         ArrayList<String> MoviesArrayList = new ArrayList<String>();
-        String[] stringMovies = new String[MoviesArrayList.size()];
         ArrayAdapter<String> moviesAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, MoviesArrayList);
 
         for (int i = 0; i < mm.MOVIES.size(); i++) {
             MoviesArrayList.add(mm.MOVIES.get(i).getTitle());
-            MoviesArrayList.toArray(stringMovies);
             movieSearchListView.setAdapter(moviesAdapter);
             moviesAdapter.notifyDataSetChanged();
             movieSearch.setText(null);
@@ -82,7 +80,6 @@ public class SearchFragment extends Fragment {
                         String comparison = toLowerCase(mm.MOVIES.get(i).getTitle());
                         if (comparison.contains(searchBarText)) {
                             MoviesArrayList.add(mm.MOVIES.get(i).getTitle());
-                            MoviesArrayList.toArray(stringMovies);
                             movieSearchListView.setAdapter(moviesAdapter);
                             moviesAdapter.notifyDataSetChanged();
                             final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -102,7 +99,7 @@ public class SearchFragment extends Fragment {
                 MoviesArrayList.clear();
                 for (int i = 0; i < mm.MOVIES.size(); i++) {
                     MoviesArrayList.add(mm.MOVIES.get(i).getTitle());
-                    MoviesArrayList.toArray(stringMovies);
+                    //MoviesArrayList.toArray(stringMovies);
                     movieSearchListView.setAdapter(moviesAdapter);
                     moviesAdapter.notifyDataSetChanged();
                     movieSearch.setText(null);
