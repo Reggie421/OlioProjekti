@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("username", username);
         homeFragment.setArguments(bundle);
         MovieManager mm = MovieManager.getInstance();
+        am.addAccount();
     }
     public boolean deleteFavoriteMovies(int movieId){
         ArrayList<String> rowList = new ArrayList<>();
