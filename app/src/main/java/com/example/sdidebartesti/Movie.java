@@ -35,7 +35,7 @@ public class Movie {
         return(CastList);
     }
 
-    public Boolean getCastMember(String inputName){
+    public Boolean getCastMember(String inputName){ // ************** checks does the movie-object have the inputted cast member. If so, then it returns True, otherwise False.
         Boolean value = false;
         for(int i = 0; i < CastList.size(); i++){
             String compareCastFullName = toLowerCase(CastList.get(i).firstName + " " + CastList.get(i).lastName);

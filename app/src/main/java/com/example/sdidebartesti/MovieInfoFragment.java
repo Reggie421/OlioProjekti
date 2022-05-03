@@ -70,15 +70,12 @@ public class MovieInfoFragment extends Fragment {
                 favoriteChecker = am.Accounts.get(i).favoriteSeeker(movieId, 1);
             }
         }
-        System.out.println("fcheckker = "+favoriteChecker);
         if (favoriteChecker == true){
             addToFavoritesStar.setBackgroundResource(R.drawable.ic_baseline_star_24);
         }
         else{
             addToFavoritesStar.setBackgroundResource(R.drawable.ic_baseline_star_outline_24);
         }
-
-        System.out.println(movieName);
         movieNameTextView.setText(movieName);
         // *************************************************************************************** Activating "GOBACK" button to reopen the last fragment, this fragment was opened from.
         fragmentGoBackButton.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +111,6 @@ public class MovieInfoFragment extends Fragment {
                     view.setBackgroundResource(R.drawable.ic_baseline_star_24);
                 } else {
                     for(int i = 0; i < mm.MOVIES.size(); i++) {
-                        System.out.println("poistettuxd");
                         if (movieName.equals(mm.MOVIES.get(i).getTitle())) {
                             int movieId = mm.MOVIES.get(i).getId();
                             for(int j = 0; j < am.Accounts.size(); j++){
@@ -143,7 +139,7 @@ public class MovieInfoFragment extends Fragment {
         }
         yearTextView.setText(movieYear);
         genreTextView.setText(movieGenre);
-
+// ***************************************************************************************************** Selects proper age rating and contet description images for the movie inspected.
         if(ageRating.equals("Tulossa")){
             ageNotAvailableTextView.setText("Tulossa");
         }
@@ -213,7 +209,7 @@ public class MovieInfoFragment extends Fragment {
                 }
             }
         }
-
+//********************************************************************************************************* Shows movie cast members in their shared textview
         int directorIndex = 0;
         for(int i = 0; i < cast.size(); i++){
             if(cast.get(i).getRole() == "director") {

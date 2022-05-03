@@ -22,7 +22,8 @@ public class MovieManager {
     private static MovieManager mm = new MovieManager();
     ArrayList<Movie> MOVIES;
 
-    private MovieManager(){
+    private MovieManager(){ // *********************** Movie Manager Searches movie data from Finnkino XML and writes it to CSV-file. After that every time the software is run, Movie Manager compares
+        // the receivable data from xml to csv, ensuring that no duplicate data is retrieved. Movie manager also creates Movie -objects for every movie in the handled data.
         MOVIES = new ArrayList<Movie>();
         String url_FINKINO = "https://www.finnkino.fi/xml/Events/";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -32,7 +33,6 @@ public class MovieManager {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = builder.parse(url_FINKINO);
             doc.getDocumentElement().normalize();
-            System.out.println("Root element: "+doc.getDocumentElement().getNodeName());
             NodeList nList1 = doc.getElementsByTagName("Event");
             int x = 0;
             for (int i = 0; i < nList1.getLength(); i++ ){
