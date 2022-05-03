@@ -30,6 +30,26 @@
             app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonShowAllFavorites" />
+
+        <Button
+            android:id="@+id/buttonShowAllFavorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movie_search_show_all_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textViewNotificationFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/favoriteListView"
+            app:layout_constraintEnd_toStartOf="@+id/buttonShowAllFavorites"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <com.google.android.material.textfield.TextInputLayout

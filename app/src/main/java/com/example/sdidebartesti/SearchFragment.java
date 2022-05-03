@@ -43,8 +43,8 @@ public class SearchFragment extends Fragment {
         MovieManager mm = MovieManager.getInstance();
         movieSearchListView = view.findViewById(R.id.movieListView);
         movieSearch = view.findViewById(R.id.movieSearchBar);
-        showAll = view.findViewById(R.id.buttonShowAll);
-        notification = view.findViewById(R.id.textViewNotification);
+        showAll = view.findViewById(R.id.buttonShowAllFavorites);
+        notification = view.findViewById(R.id.textViewNotificationFavorite);
         notification.setText("Näytetään kaikki elokuvat:");
         ArrayList<String> MoviesArrayList = new ArrayList<String>();
         ArrayAdapter<String> moviesAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, MoviesArrayList);
@@ -74,11 +74,11 @@ public class SearchFragment extends Fragment {
             // ******************************************************************************************************************* Making search possible with ENTER key with hiding the software keyboard with ENTER Key
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    String searchBarText = toLowerCase(movieSearch.getText().toString());
+                    String searchBarText = movieSearch.getText().toString();
                     MoviesArrayList.clear();
                     for (int i = 0; i < mm.MOVIES.size(); i++) {
                         String comparison = toLowerCase(mm.MOVIES.get(i).getTitle());
-                        if (comparison.contains(searchBarText)) {
+                        if (comparison.contains(toLowerCase(searchBarText))) {
                             MoviesArrayList.add(mm.MOVIES.get(i).getTitle());
                             movieSearchListView.setAdapter(moviesAdapter);
                             moviesAdapter.notifyDataSetChanged();
@@ -99,7 +99,6 @@ public class SearchFragment extends Fragment {
                 MoviesArrayList.clear();
                 for (int i = 0; i < mm.MOVIES.size(); i++) {
                     MoviesArrayList.add(mm.MOVIES.get(i).getTitle());
-                    //MoviesArrayList.toArray(stringMovies);
                     movieSearchListView.setAdapter(moviesAdapter);
                     moviesAdapter.notifyDataSetChanged();
                     movieSearch.setText(null);
