@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         signupButton = (MaterialButton) findViewById(R.id.signupButton);
         passwordRequirement = (TextView) findViewById(R.id.passwordRequirement);
         errorMessage = (TextView) findViewById(R.id.ErrorMessages);
-        salt = getSalt(); //calling salt-method
         loginButton.setEnabled(false);
         signupButton.setEnabled(false);
         password.addTextChangedListener(new TextWatcher() {//listener for password textview, so when password meets requirements, you can login/signup
@@ -111,8 +110,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (usernametext.isEmpty()) {
                     errorMessage.setText("Et antanut käyttäjätunnusta"); //if username field is empty, manual error message and nothing happens
                 } else {
-                    hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt); //calls method for converting password string to hashed password
-                    int bump = SearchAccountList(usernametext, hashedPassword, 1); //calls method for searching the accountlist for any account of the same name
+                    //hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt); //calls method for converting password string to hashed password
+                    int bump = SearchAccountList(usernametext, passwordtext, 1); //calls method for searching the accountlist for any account of the same name
                     if (bump == 0) {//if account exists and password is correct
                         user.getText().clear();
                         password.getText().clear();
@@ -138,10 +137,14 @@ public class LoginActivity extends AppCompatActivity {
                 passwordtext = password.getText().toString(); //gets the text from password field
                 user.getText().clear();
                 password.getText().clear();
+                salt = getSalt(); //calling salt-method
                 if (usernametext.isEmpty() || passwordtext.isEmpty()) {//if either field is empty, manual error message and you can retry
                     errorMessage.setText("Et antanut vaadittavia tietoja.");
                 } else {
                     hashedPassword = get_SHA_512_SecurePassword(passwordtext, salt);//calls method for converting password string to hashed password
+                    System.out.println(hashedPassword);
+                    hashedPassword = hashedPassword + "/" + salt;
+                    System.out.println(hashedPassword);
                     boolean bump = createAccount(usernametext, hashedPassword);//method for creating new account
                     if (bump == true) {//if there is no account of that name yet, creating succeeds and you get in
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -152,6 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                         loginButton.setEnabled(false);
                         signupButton.setEnabled(false);
                     }
+
                 }
             }
         });
@@ -187,13 +191,15 @@ public class LoginActivity extends AppCompatActivity {
                 while ((lines = bufferedReader.readLine()) != null) {
                     stringBuffer.append((lines + "\n"));
                     String[] data = lines.split(";");
-                    if (data[0].equals(username) && data[1].equals(password)) {
-                        credentialsCorrect++;
-                    } else if (data[0].equals(username) && !data[1].equals(password)) {
-                        usernameCorrect++;
-                        System.out.println(password + " TIEDOSTOSSA ON " + data[1]);
-
-                    } else {
+                    if (data[0].equals(username)) {
+                        String[] passwordAndSalt = data[1].split("/");
+                        String hashedPassword = passwordAndSalt[0];
+                        String salt = passwordAndSalt[1];
+                        if (hashedPassword.equals(get_SHA_512_SecurePassword(password, salt))) {
+                            credentialsCorrect++;
+                        } else {
+                            usernameCorrect++;
+                        }
                     }
                 }
                 if (credentialsCorrect == 1) {
