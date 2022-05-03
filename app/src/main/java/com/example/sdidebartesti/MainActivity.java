@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
                 if (!data[0].equals(username)) {
-                    rowList.add(lines); // !TODO JOS ONGELMAA NIIN TÄHÄN "+ \n"
+                    rowList.add(lines+"\n");
                     System.out.println(lines);
                 }
             }
