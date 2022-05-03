@@ -13,7 +13,6 @@ public class Account {
     public String getUsername(){ return username;}
 
     public ArrayList <String> getFavoritemovies(){
-        System.out.println(username+"olio username-<");
         favoritemovies = MainActivity.getmInstanceActivity().getFavoriteMovies(username);
         return favoritemovies;}
 
