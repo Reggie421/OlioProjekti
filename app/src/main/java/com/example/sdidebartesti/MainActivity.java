@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         username = getIntent().getStringExtra("username");
-        System.out.println(username + "-------------------------------------------------------");
         weakActivity = new WeakReference<>(MainActivity.this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,9 +65,8 @@ public class MainActivity extends AppCompatActivity {
         MovieManager mm = MovieManager.getInstance();
         am.addAccount();
     }
-    public boolean deleteFavoriteMovies(int movieId){
+    public boolean deleteFavoriteMovies(int movieId){   //Deletes favorite movieid from users data in accounts.csv file
         ArrayList<String> rowList = new ArrayList<>();
-        //AccountManager am = AccountManager.getInstance(); tarkistakaaonko olio ohjelmointii :((((((
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -86,8 +84,6 @@ public class MainActivity extends AppCompatActivity {
                     String[] movieData = data[2].split(",");
                     for (int i = 0 ; i < movieData.length ; i++){
                         if (!movieData[i].equals(Integer.valueOf(movieId).toString())){
-                            System.out.println(movieData[i]+"/"+movieId);
-                            System.out.println(movieData[i]+" <- id joka menee jatkoon tiedostossa");
                             usersFavoriteMovies.add(movieData[i]);
                         }
                     }
@@ -127,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-    public boolean saveFavoriteMovies(int movieId,int pathInt){
+    public boolean saveFavoriteMovies(int movieId,int pathInt){     //Writes favoritemovies that are being added to user data in accounts.csv file
         ArrayList<String> rowList = new ArrayList<>();
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
@@ -144,11 +140,9 @@ public class MainActivity extends AppCompatActivity {
                 else if(data[0].equals(username)) {
                     if(data[2].contains(Integer.toString(movieId))){
                         if (pathInt == 2){
-                            System.out.println("False palautettu1");
                             return false;
                         }
                         else{
-                            System.out.println("True palautettu1");
                             return true;
 
                         }
@@ -163,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else{
                         if (pathInt == 1){
-                            System.out.println("False palautettu2");
                             return false;
                         }
                         ArrayList<String> usersFavoriteMovies = new ArrayList<>();
@@ -196,11 +189,9 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("True palautettu2");
         return true;
     }
-    public void deleteAccount(String username){
-        System.out.println(username+" <-username");
+    public void deleteAccount(String username){     //Deletes account row from Accounts.csv file
         ArrayList<String> rowList = new ArrayList<>();
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
@@ -213,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
                 String[] data = lines.split(";");
                 if (!data[0].equals(username)) {
                     rowList.add(lines+"\n");
-                    System.out.println(lines);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -221,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
+        try {   //Writes to a csv-file all the other account data than the one is being deleted
             FileOutputStream fileOutputStream = openFileOutput("accountsnew.csv",MODE_APPEND);
         for (int i = 0 ; i < rowList.size() ; i++ ){
             String row = rowList.get(i);
@@ -247,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         }
         deleteFile("accountsold.csv");
     }
-    public ArrayList getFavoriteMovies(String username){
+    public ArrayList getFavoriteMovies(String username){    //Reads users favorite movies from account.csv file and returns them in an ArrayList
         ArrayList<String> movies = new ArrayList<>();
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
@@ -255,27 +245,18 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
             String lines;
-            System.out.println("1");
             while ((lines = bufferedReader.readLine()) != null) {
-                System.out.println("2");
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
-                System.out.println("3");
-                System.out.println(lines);
-                System.out.println("WERNERI HERE AGAIN" + data[0]);
                 if (data[0].equals(username) && !data[2].equals("null")) {
-                    System.out.println("4");
-                    System.out.println(data[0]);
 
                     String[] moviedata = data[2].split(",");
                     for (int i = 0 ; i < moviedata.length ; i++){
-                        System.out.println("WERNERI TAAS ***********" + moviedata[i]);
                         movies.add(moviedata[i]);
                     }
 
                 }
             }
-            System.out.println("Meni ohi");
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -285,10 +266,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return movies;
     }
-    public String getAccountName(){
-        System.out.println("EDes tätä?");
+    public String getAccountName(){     //returns active users username
         String user = username;
-        System.out.println(user+"ssdasdas");
         return user;
     }
 
@@ -389,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
         }
         row = id+";"+yearString+";"+title+";"+globalTitle+";"+genres+";"+rating+";"+ratingDescriptionsString+";"+actors+";"+directors +"\n";
 
-        try {
+        try {   //Writes movie data to movies.csv file
             FileOutputStream fileOutputStream = openFileOutput("Movies.csv",MODE_APPEND);
             fileOutputStream.write(row.getBytes());
             fileOutputStream.close();
