@@ -85,6 +85,11 @@ public class SearchFragment extends Fragment {
                             final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         }
+                        else{
+                            if (i == mm.MOVIES.size()-1 && MoviesArrayList.size() == 0){
+                                movieSearchListView.setAdapter(null);
+                            }
+                        }
                     }
                     notification.setText("Näytetään tulokset haulle: '"+ searchBarText +"'");
                     return true;
