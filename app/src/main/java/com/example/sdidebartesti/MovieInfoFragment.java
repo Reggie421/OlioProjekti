@@ -143,7 +143,7 @@ public class MovieInfoFragment extends Fragment {
         }
         yearTextView.setText(movieYear);
         genreTextView.setText(movieGenre);
-
+// ***************************************************************************************************** Selects proper age rating and contet description images for the movie inspected.
         if(ageRating.equals("Tulossa")){
             ageNotAvailableTextView.setText("Tulossa");
         }
@@ -213,7 +213,7 @@ public class MovieInfoFragment extends Fragment {
                 }
             }
         }
-
+//********************************************************************************************************* Shows movie cast members in their shared textview
         int directorIndex = 0;
         for(int i = 0; i < cast.size(); i++){
             if(cast.get(i).getRole() == "director") {
