@@ -53,7 +53,7 @@ public class MovieInfoFragment extends Fragment {
         ratingDescriptionImageView3 = view.findViewById(R.id.imageViewRatingDescription3);
         yearTextView = view.findViewById(R.id.textViewMovieYear);
         MovieManager mm = MovieManager.getInstance();
-        AccountManager am = new AccountManager();
+        AccountManager am = AccountManager.getInstance();
         if(this.getArguments() != null) {
             movieName = this.getArguments().getString("key");
         }
@@ -66,7 +66,7 @@ public class MovieInfoFragment extends Fragment {
         String movieIdString = Integer.valueOf(movieId).toString();
         movieId = Integer.parseInt(movieIdString);
 
-        boolean favoriteChecker = am.favoriteSeeker(movieId,1);
+        boolean favoriteChecker = am.a.favoriteSeeker(movieId,1);
         System.out.println("fcheckker = "+favoriteChecker);
         if (favoriteChecker == true){
             addToFavoritesStar.setBackgroundResource(R.drawable.ic_baseline_star_24);
@@ -98,7 +98,7 @@ public class MovieInfoFragment extends Fragment {
                 for(int i = 0; i < mm.MOVIES.size(); i++){
                     if(movieName.equals(mm.MOVIES.get(i).getTitle())){
                         int movieId = mm.MOVIES.get(i).getId();
-                        am.favoriteSeeker(movieId,2);
+                        am.a.favoriteSeeker(movieId,2);
                     }
                 }
                 //TODO TÄHÄN SUOSIKKITOIMINTAA
@@ -113,7 +113,7 @@ public class MovieInfoFragment extends Fragment {
                     for(int i = 0; i < mm.MOVIES.size(); i++) {
                         if (movieName.equals(mm.MOVIES.get(i).getTitle())) {
                             int movieId = mm.MOVIES.get(i).getId();
-                            am.favoriteSeeker(movieId, 2);
+                            am.a.favoriteSeeker(movieId, 2);
                         }
                     }
                     view.setBackgroundResource(R.drawable.ic_baseline_star_24);
@@ -122,7 +122,7 @@ public class MovieInfoFragment extends Fragment {
                         System.out.println("poistettuxd");
                         if (movieName.equals(mm.MOVIES.get(i).getTitle())) {
                             int movieId = mm.MOVIES.get(i).getId();
-                            am.deleteFromFavorites(movieId);
+                            am.a.deleteFromFavorites(movieId);
                             System.out.println("poistettuxd2");
 
                         }
