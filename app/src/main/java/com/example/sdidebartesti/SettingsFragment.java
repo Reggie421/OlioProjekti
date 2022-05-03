@@ -21,7 +21,6 @@ public class SettingsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -31,9 +30,8 @@ public class SettingsFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Kirjaudutaan ulos");
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(getActivity(), LoginActivity.class); //launches loginActivity
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);//clears backspace history so you can't go back into settings after logging out
                 startActivity(intent);
             }
         });
@@ -41,11 +39,10 @@ public class SettingsFragment extends Fragment {
         deleteAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Poistetaan käyttäjä");
                 AccountManager am = AccountManager.getInstance();
                 am.deleteAccount(MainActivity.getmInstanceActivity().getAccountName());
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(getActivity(), LoginActivity.class);//launches loginActivity
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);//clears backspace history so you can't go back into settings after deleting account
                 startActivity(intent);
             }
         });
