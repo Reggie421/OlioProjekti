@@ -6,13 +6,18 @@ public class Account {
     String username;
     ArrayList <String> favoritemovies;
 
-    public Account(String Username, ArrayList<String> Favoritemovies) {
-        username = Username;
-        favoritemovies = Favoritemovies;
+    public Account(String newUsername, ArrayList<String> newfavoriteMovies) {
+        username = newUsername;
+        favoritemovies = newfavoriteMovies;
     }
-
+    public void setUsername(String newUsername){
+        username = newUsername;
+    }
     public String getUsername(){ return username;}
-    public ArrayList <String> getFavoritemovies(){return favoritemovies;}
+
+    public ArrayList <String> getFavoritemovies(){
+        favoritemovies = MainActivity.getmInstanceActivity().getFavoriteMovies(username);
+        return favoritemovies;}
 
     public void deleteAccount() {
         MainActivity.getmInstanceActivity().deleteAccount(username);

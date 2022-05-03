@@ -30,22 +30,21 @@ public class FavoriteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         favoriteMoviesListView = view.findViewById(R.id.favoriteListView);
         MovieManager mm = MovieManager.getInstance();
+        AccountManager am = AccountManager.getInstance();
         // ****************************************************************************************************************************Making the listview working
-        ArrayList<String> FavoriteMoviesIDArrayList = new ArrayList<String>();
-        FavoriteMoviesIDArrayList.add("303322");
-        FavoriteMoviesIDArrayList.add("303583");
-        FavoriteMoviesIDArrayList.add("303884");
-        FavoriteMoviesIDArrayList.add("303777");
-        // TODO! WIHTORI TOHON ARRAYLISTIIN ^^^ käyttäjän favoritemovie ID:T!!!!
+        ArrayList<String> FavoriteMoviesIDArrayList = am.a.getFavoritemovies();
         ArrayList<String> FavoriteMoviesNameArrayList = new ArrayList<>();
+        ArrayAdapter<String> moviesAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, FavoriteMoviesNameArrayList);
+
+
         for(int i = 0; i < FavoriteMoviesIDArrayList.size(); i++){        // Changes Movie ID's to Movie Names
-            if(String.valueOf(mm.MOVIES.get(i).getId()).toString().equals(FavoriteMoviesIDArrayList.get(i))){
-                FavoriteMoviesNameArrayList.add(mm.MOVIES.get(i).getTitle());
+            for(int j = 0; j < mm.MOVIES.size(); j++){
+                if(Integer.valueOf(mm.MOVIES.get(j).getId()).toString().equals(FavoriteMoviesIDArrayList.get(i))){
+                    FavoriteMoviesNameArrayList.add(mm.MOVIES.get(j).getTitle());
+                }
             }
         }
-        String[] stringFavoriteMovies = new String[FavoriteMoviesNameArrayList.size()];
-        FavoriteMoviesNameArrayList.toArray(stringFavoriteMovies);
-        ArrayAdapter<String> moviesAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, stringFavoriteMovies);
+
         favoriteMoviesListView.setAdapter(moviesAdapter);
         //*********************************************************************************************************************************Open MovieInfoFragnment on ListView item click
         favoriteMoviesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

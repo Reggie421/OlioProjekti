@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
                 if (!data[0].equals(username)) {
-                    rowList.add(lines);
+                    rowList.add(lines + "\n");
                 }
                 else if(data[0].equals(username)) {
                     ArrayList<String> usersFavoriteMovies = new ArrayList<>();
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                             lines += usersFavoriteMovies.get(i)+",";
                         }
                     }
-                    rowList.add(lines);
+                    rowList.add(lines + "\n");
 
                 }
             }
