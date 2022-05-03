@@ -214,11 +214,12 @@ public class LoginActivity extends AppCompatActivity {
     public boolean createAccount(String username, String password){
         String row = "";
         int value = SearchAccountList(username, password, 2);
+        System.out.println(value+" <- value");
         if (value == 1) {
             row = username + ";" + password + ";null\n";
-
             try {
-                FileOutputStream fileOutputStream = openFileOutput("accounts.csv",MODE_PRIVATE);
+                FileOutputStream fileOutputStream = openFileOutput("accounts.csv",MODE_APPEND);
+                System.out.println(row+" <- krijoitettu rivi");
                 fileOutputStream.write(row.getBytes());
                 fileOutputStream.close();
 

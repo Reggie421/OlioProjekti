@@ -84,9 +84,14 @@ public class MainActivity extends AppCompatActivity {
                     ArrayList<String> usersFavoriteMovies = new ArrayList<>();
                     String[] movieData = data[2].split(",");
                     for (int i = 0 ; i < movieData.length ; i++){
-                        if (!movieData[i].equals(movieId)){
+                        if (!movieData[i].equals(Integer.valueOf(movieId).toString())){
+                            System.out.println(movieData[i]+"/"+movieId);
+                            System.out.println(movieData[i]+" <- id joka menee jatkoon tiedostossa");
                             usersFavoriteMovies.add(movieData[i]);
                         }
+                    }
+                    if (usersFavoriteMovies.size() == 0){
+                        usersFavoriteMovies.add("null");
                     }
                     lines = data[0]+";"+data[1]+";";
                     for(int i = 0 ; i < usersFavoriteMovies.size() ; i++){
@@ -149,6 +154,9 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     else if (data[2].equals("null")){
+                        if (pathInt == 1){
+                            return false;
+                        }
                         lines = data[0] + ";" + data[1] + ";" + movieId;
                         rowList.add(lines);
                     }

@@ -57,21 +57,24 @@ public class MovieInfoFragment extends Fragment {
         if(this.getArguments() != null) {
             movieName = this.getArguments().getString("key");
         }
+        System.out.println(movieName+" KOiras");
         int movieId = 0;
         for(int i = 0; i < mm.MOVIES.size(); i++){
             if(movieName.equals(mm.MOVIES.get(i).getTitle())){
                 movieId = mm.MOVIES.get(i).getId();
             }
         }
+        System.out.println(movieId+" <-movied eid mif:ssä");
         String movieIdString = Integer.valueOf(movieId).toString();
         ArrayList<String> FavoriteMoviesArrayList = am.getFavorites();
-        for(int i = 0; i < FavoriteMoviesArrayList.size(); i++){
+        /*for(int i = 0; i < FavoriteMoviesArrayList.size(); i++){
             if(Integer.valueOf(movieIdString).toString().equals(FavoriteMoviesArrayList.get(i))){
                 movieIdString = Integer.valueOf(mm.MOVIES.get(i).getId()).toString();
             }
-        }
+        }*/
         System.out.println("WERNERI`?????????????????" + movieIdString);
         movieId = Integer.parseInt(movieIdString);
+
         boolean favoriteChecker = am.favoriteSeeker(movieId,1);
         System.out.println("fcheckker = "+favoriteChecker);
         if (favoriteChecker == true){

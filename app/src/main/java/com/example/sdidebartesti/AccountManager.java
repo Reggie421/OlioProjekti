@@ -48,7 +48,7 @@ public class AccountManager {
         for(int i = 0; i< favorites.size();i++){
             if(favorites.get(i).equals(movieIdString) ){
                 favorites.remove(i);
-                System.out.println("poistettuxdFinal");
+                System.out.println("poistettuxdFinal "+ movieIdString);
             }
         }
     }
