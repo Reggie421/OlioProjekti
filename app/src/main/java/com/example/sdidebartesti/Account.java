@@ -10,17 +10,19 @@ public class Account {
         username = newUsername;
         favoritemovies = newfavoriteMovies;
     }
-    public void setUsername(String newUsername){
-        username = newUsername;
-    }
     public String getUsername(){ return username;}
 
     public ArrayList <String> getFavoritemovies(){
         favoritemovies = MainActivity.getmInstanceActivity().getFavoriteMovies(username);
         return favoritemovies;}
 
-    public void deleteAccount() {
-        MainActivity.getmInstanceActivity().deleteAccount(username);
+    public void deleteFromFavorites(int removeID){
+        MainActivity.getmInstanceActivity().deleteFavoriteMovies(removeID);
+        for(int i = 0; i < favoritemovies.size(); i++){
+            if(favoritemovies.get(i).equals(Integer.valueOf(removeID).toString())){
+                favoritemovies.remove(i);
+            }
+        }
     }
 
     public boolean favoriteSeeker(int movieId, int pathInt){
@@ -37,17 +39,5 @@ public class Account {
             }
         }
         return false;
-    }
-
-    public void deleteFromFavorites(int movieId){
-        MainActivity.getmInstanceActivity().deleteFavoriteMovies(movieId);
-        System.out.println("poistettuxd3");
-        String movieIdString = Integer.valueOf(movieId).toString();
-        for(int i = 0; i< favoritemovies.size();i++){
-            if(favoritemovies.get(i).equals(movieIdString) ){
-                favoritemovies.remove(i);
-                System.out.println("poistettuxdFinal "+ movieIdString);
-            }
-        }
     }
 }

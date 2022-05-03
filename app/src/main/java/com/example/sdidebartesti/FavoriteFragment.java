@@ -17,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
 
+import kotlinx.coroutines.MainCoroutineDispatcher;
+
 public class FavoriteFragment extends Fragment {
 
     ListView favoriteMoviesListView;
@@ -32,10 +34,14 @@ public class FavoriteFragment extends Fragment {
         MovieManager mm = MovieManager.getInstance();
         AccountManager am = AccountManager.getInstance();
         // ****************************************************************************************************************************Making the listview working
-        ArrayList<String> FavoriteMoviesIDArrayList = am.a.getFavoritemovies();
+        ArrayList<String> FavoriteMoviesIDArrayList = am.getFavoriteMoviesByUsername(MainActivity.getmInstanceActivity().getAccountName());
         ArrayList<String> FavoriteMoviesNameArrayList = new ArrayList<>();
         ArrayAdapter<String> moviesAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, FavoriteMoviesNameArrayList);
 
+        for(int i = 0; i < am.Accounts.size(); i++){
+            System.out.println("Käyttäjänimet listassa");
+            System.out.println(am.Accounts.get(i).getUsername());
+        }
 
         for(int i = 0; i < FavoriteMoviesIDArrayList.size(); i++){        // Changes Movie ID's to Movie Names
             for(int j = 0; j < mm.MOVIES.size(); j++){

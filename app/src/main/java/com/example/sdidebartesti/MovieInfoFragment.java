@@ -64,7 +64,12 @@ public class MovieInfoFragment extends Fragment {
         String movieIdString = Integer.valueOf(movieId).toString();
         movieId = Integer.parseInt(movieIdString);
 
-        boolean favoriteChecker = am.a.favoriteSeeker(movieId,1);
+        boolean favoriteChecker = false;
+        for(int i = 0; i < am.Accounts.size(); i++){
+            if(am.Accounts.get(i).getUsername().equals(MainActivity.getmInstanceActivity().getAccountName())){
+                favoriteChecker = am.Accounts.get(i).favoriteSeeker(movieId, 1);
+            }
+        }
         System.out.println("fcheckker = "+favoriteChecker);
         if (favoriteChecker == true){
             addToFavoritesStar.setBackgroundResource(R.drawable.ic_baseline_star_24);
@@ -99,7 +104,11 @@ public class MovieInfoFragment extends Fragment {
                     for(int i = 0; i < mm.MOVIES.size(); i++) {
                         if (movieName.equals(mm.MOVIES.get(i).getTitle())) {
                             int movieId = mm.MOVIES.get(i).getId();
-                            am.a.favoriteSeeker(movieId, 2);
+                            for(int j = 0; j < am.Accounts.size(); j++){
+                                if(am.Accounts.get(j).getUsername().equals(MainActivity.getmInstanceActivity().getAccountName())){
+                                    am.Accounts.get(j).favoriteSeeker(movieId, 2);
+                                }
+                            }
                         }
                     }
                     view.setBackgroundResource(R.drawable.ic_baseline_star_24);
@@ -108,8 +117,11 @@ public class MovieInfoFragment extends Fragment {
                         System.out.println("poistettuxd");
                         if (movieName.equals(mm.MOVIES.get(i).getTitle())) {
                             int movieId = mm.MOVIES.get(i).getId();
-                            am.a.deleteFromFavorites(movieId);
-                            System.out.println("poistettuxd2");
+                            for(int j = 0; j < am.Accounts.size(); j++){
+                                if(am.Accounts.get(j).getUsername().equals(MainActivity.getmInstanceActivity().getAccountName())){
+                                    am.Accounts.get(j).deleteFromFavorites(movieId);
+                                }
+                            }
 
                         }
                     }
