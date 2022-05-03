@@ -48,11 +48,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         user = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
-        loginButton = (MaterialButton) findViewById(R.id.login);
-        signupButton = (MaterialButton) findViewById(R.id.signup);
+        loginButton = (MaterialButton) findViewById(R.id.loginButton);
+        signupButton = (MaterialButton) findViewById(R.id.signupButton);
         passwordRequirement = (TextView) findViewById(R.id.passwordRequirement);
         errorMessage = (TextView) findViewById(R.id.ErrorMessages);
         salt = getSalt(); //calling salt-method
+        loginButton.setEnabled(false);
+        signupButton.setEnabled(false);
         password.addTextChangedListener(new TextWatcher() {//listener for password textview, so when password meets requirements, you can login/signup
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

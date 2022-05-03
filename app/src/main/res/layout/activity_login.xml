@@ -48,39 +48,30 @@
         android:drawablePadding="20dp"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/login"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_margin="20dp"
         android:backgroundTint="#7F12CF"
-        android:text="@string/logInString"
-        android:textColor="#1DE9B6"
-        tools:ignore="TextContrastCheck" />
+        android:text="@string/logInString" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/signup"
+        android:id="@+id/signupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/login"
+        android:layout_below="@id/loginButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
         android:backgroundTint="#7F12CF"
         android:text="@string/signUpString"
-        android:textColor="#1DE9B6" />
+        android:layout_margin="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/passwordRequirement"
-        android:layout_below="@id/signup"
+        android:layout_below="@id/signupButton"
         android:textSize="20dp"
         android:textColor="#700610"
         android:textStyle="italic"
