@@ -8,11 +8,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import java.util.ArrayList;
 
 public class MovieInfoFragment extends Fragment {
@@ -85,7 +83,6 @@ public class MovieInfoFragment extends Fragment {
             }
         });
 
-        String movieGlobalTitle = null;
         String movieYear = null;
         String movieGenre = null;
         String ageRating = null;
@@ -127,7 +124,6 @@ public class MovieInfoFragment extends Fragment {
 
         for(int i = 0; i < mm.MOVIES.size(); i++){
             if(movieName.equals(mm.MOVIES.get(i).getTitle())){
-                movieGlobalTitle = mm.MOVIES.get(i).getGlobalTitle();
                 movieYear = mm.MOVIES.get(i).getYear();
                 movieGenre = mm.MOVIES.get(i).getMovieGenre();
                 ageRating = mm.MOVIES.get(i).getAgeRating();

@@ -1,19 +1,13 @@
 package com.example.sdidebartesti;
 
 import android.os.StrictMode;
-
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-
 import java.io.IOException;
-
 import java.util.ArrayList;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,7 +28,6 @@ public class MovieManager {
             Document doc = builder.parse(url_FINKINO);
             doc.getDocumentElement().normalize();
             NodeList nList1 = doc.getElementsByTagName("Event");
-            int x = 0;
             for (int i = 0; i < nList1.getLength(); i++ ){
                 Node node = nList1.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE){
@@ -53,7 +46,6 @@ public class MovieManager {
                         ratingDescriptions.add(ratingDescription);
                         j += 3;
                     }
-                    int yearInt = Integer.parseInt(yearString);
                     String director = element.getElementsByTagName("Directors").item(0).getTextContent();
                     ArrayList <CastMember> castMemberArrayList = new ArrayList<CastMember>();
                     String[] directorLinesArr = director.split("\n");

@@ -6,13 +6,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import com.google.android.material.navigation.NavigationView;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
