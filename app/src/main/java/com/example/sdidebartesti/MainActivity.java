@@ -65,9 +65,8 @@ public class MainActivity extends AppCompatActivity {
         MovieManager mm = MovieManager.getInstance();
         am.addAccount();
     }
-    public boolean deleteFavoriteMovies(int movieId){
+    public boolean deleteFavoriteMovies(int movieId){   //Deletes favorite movieid from users data in accounts.csv file
         ArrayList<String> rowList = new ArrayList<>();
-        //AccountManager am = AccountManager.getInstance(); tarkistakaaonko olio ohjelmointii :((((((
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-    public boolean saveFavoriteMovies(int movieId,int pathInt){
+    public boolean saveFavoriteMovies(int movieId,int pathInt){     //Writes favoritemovies that are being added to user data in accounts.csv file
         ArrayList<String> rowList = new ArrayList<>();
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
@@ -192,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-    public void deleteAccount(String username){
+    public void deleteAccount(String username){     //Deletes account row from Accounts.csv file
         ArrayList<String> rowList = new ArrayList<>();
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
@@ -212,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
+        try {   //Writes to a csv-file all the other account data than the one is being deleted
             FileOutputStream fileOutputStream = openFileOutput("accountsnew.csv",MODE_APPEND);
         for (int i = 0 ; i < rowList.size() ; i++ ){
             String row = rowList.get(i);
@@ -238,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         }
         deleteFile("accountsold.csv");
     }
-    public ArrayList getFavoriteMovies(String username){
+    public ArrayList getFavoriteMovies(String username){    //Reads users favorite movies from account.csv file and returns them in an ArrayList
         ArrayList<String> movies = new ArrayList<>();
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
@@ -250,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
                 if (data[0].equals(username) && !data[2].equals("null")) {
+
                     String[] moviedata = data[2].split(",");
                     for (int i = 0 ; i < moviedata.length ; i++){
                         movies.add(moviedata[i]);
@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return movies;
     }
-    public String getAccountName(){
+    public String getAccountName(){     //returns active users username
         String user = username;
         return user;
     }
@@ -368,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
         }
         row = id+";"+yearString+";"+title+";"+globalTitle+";"+genres+";"+rating+";"+ratingDescriptionsString+";"+actors+";"+directors +"\n";
 
-        try {
+        try {   //Writes movie data to movies.csv file
             FileOutputStream fileOutputStream = openFileOutput("Movies.csv",MODE_APPEND);
             fileOutputStream.write(row.getBytes());
             fileOutputStream.close();

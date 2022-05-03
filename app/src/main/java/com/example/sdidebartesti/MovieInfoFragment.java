@@ -97,13 +97,13 @@ public class MovieInfoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 isClicked = !isClicked;
-                if (isClicked == true) {
+                if (isClicked == true) {    //When favoriteButton is clicked:
                     for(int i = 0; i < mm.MOVIES.size(); i++) {
                         if (movieName.equals(mm.MOVIES.get(i).getTitle())) {
                             int movieId = mm.MOVIES.get(i).getId();
                             for(int j = 0; j < am.Accounts.size(); j++){
                                 if(am.Accounts.get(j).getUsername().equals(MainActivity.getmInstanceActivity().getAccountName())){
-                                    am.Accounts.get(j).favoriteSeeker(movieId, 2);
+                                    am.Accounts.get(j).favoriteSeeker(movieId, 2); //Calls "save to favorites" method
                                 }
                             }
                         }
