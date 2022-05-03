@@ -19,7 +19,6 @@ public class MovieInfoFragment extends Fragment {
     String movieName;
     TextView movieNameTextView;
     Button fragmentGoBackButton;
-    Button addToFavoritesButton;
     ImageButton addToFavoritesStar;
     TextView castTextView;
     TextView genreTextView;
@@ -42,7 +41,6 @@ public class MovieInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         movieNameTextView = view.findViewById(R.id.movieNameTextView);
         fragmentGoBackButton = view.findViewById(R.id.buttonCloseFragment);
-        addToFavoritesButton = view.findViewById(R.id.buttonAddToFavorites);
         addToFavoritesStar = (ImageButton) view.findViewById(R.id.buttonAddToFavoritesStar);
         castTextView = view.findViewById(R.id.textViewCast);
         genreTextView = view.findViewById(R.id.movieGenreTextView);
@@ -92,18 +90,6 @@ public class MovieInfoFragment extends Fragment {
         ArrayList<String> ratingDescriptionArrayList = new ArrayList<>();
         ArrayList<CastMember> cast = new ArrayList<>();
 
-        addToFavoritesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                for(int i = 0; i < mm.MOVIES.size(); i++){
-                    if(movieName.equals(mm.MOVIES.get(i).getTitle())){
-                        int movieId = mm.MOVIES.get(i).getId();
-                        am.a.favoriteSeeker(movieId,2);
-                    }
-                }
-                //TODO TÄHÄN SUOSIKKITOIMINTAA
-            }
-        });
 
         addToFavoritesStar.setOnClickListener(new View.OnClickListener() {
             @Override
