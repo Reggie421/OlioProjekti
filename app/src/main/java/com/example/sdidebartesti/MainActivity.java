@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
                 if (!data[0].equals(username)) {
-                    rowList.add(lines);
+                    rowList.add(lines + "\n");
                 }
                 else if(data[0].equals(username)) {
                     if(data[2].contains(Integer.toString(movieId))){
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                             return false;
                         }
                         lines = data[0] + ";" + data[1] + ";" + movieId;
-                        rowList.add(lines);
+                        rowList.add(lines + "\n");
                     }
                     else{
                         if (pathInt == 1){
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                         for(int i = 0 ; i < usersFavoriteMovies.size() ; i++){
                             lines += ","+usersFavoriteMovies.get(i);
                         }
-                        rowList.add(lines);
+                        rowList.add(lines + "\n");
                     }
                 }
             }
@@ -200,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void deleteAccount(String username){
         ArrayList<String> rowList = new ArrayList<>();
-        //AccountManager am = AccountManager.getInstance(); tarkistakaaonko olio ohjelmointii :((((((
         try {
             FileInputStream fileInputStream = openFileInput("accounts.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -211,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
                 stringBuffer.append((lines + "\n"));
                 String[] data = lines.split(";");
                 if (!data[0].equals(username)) {
-                    rowList.add(lines);
+                    rowList.add(lines); // !TODO JOS ONGELMAA NIIN TÄHÄN "+ \n"
                 }
             }
         } catch (FileNotFoundException e) {
