@@ -42,7 +42,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 System.out.println("Poistetaan käyttäjä");
-                AccountManager am = AccountManager.getInstance();
+                AccountManager am = new AccountManager();
                 am.deleteAccount();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

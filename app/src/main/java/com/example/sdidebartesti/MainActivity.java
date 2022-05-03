@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        AccountManager am = AccountManager.getInstance();
+        AccountManager am = new AccountManager();
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         //Creates animation for drawer icon
         drawerToggle = setupDrawerToggle();

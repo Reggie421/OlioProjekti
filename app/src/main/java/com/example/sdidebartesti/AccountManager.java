@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class AccountManager {
     String username;
     ArrayList <String> favorites;
-    private static AccountManager am = new AccountManager();
+    //private static AccountManager am = new AccountManager();
 
-    private AccountManager(){
+    public AccountManager(){
         Account a = new Account();
         username = a.getUsername();
         favorites = a.getFavoritemovies();
@@ -16,14 +16,6 @@ public class AccountManager {
 
     public void deleteAccount() {
         MainActivity.getmInstanceActivity().deleteAccount(username);
-    }
-
-    private void changePassword() {
-        // !TODO JOS KERETÄÄ/JAKSETAA
-    }
-
-    public ArrayList<String> getFavorites() {
-        return favorites;
     }
 
     public boolean favoriteSeeker(int movieId, int pathInt){
@@ -52,5 +44,5 @@ public class AccountManager {
             }
         }
     }
-    public static AccountManager getInstance(){return am;}
+    //public static AccountManager getInstance(){return am;}
 }

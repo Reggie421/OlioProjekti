@@ -53,7 +53,7 @@ public class MovieInfoFragment extends Fragment {
         ratingDescriptionImageView3 = view.findViewById(R.id.imageViewRatingDescription3);
         yearTextView = view.findViewById(R.id.textViewMovieYear);
         MovieManager mm = MovieManager.getInstance();
-        AccountManager am = AccountManager.getInstance();
+        AccountManager am = new AccountManager();
         if(this.getArguments() != null) {
             movieName = this.getArguments().getString("key");
         }
